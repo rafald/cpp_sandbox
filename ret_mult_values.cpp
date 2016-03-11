@@ -34,6 +34,6 @@ std::tuple<int, std::string, float> create_a_tuple() {
 
 int main()
 {
-return create_a_struct().inumber + create_a_struct_named().inumber + std::get<0>(create_a_tuple());
+return create_a_struct().inumber + create_a_struct_named().inumber + std::get<0>(create_a_tuple()), 0;
 }
 
