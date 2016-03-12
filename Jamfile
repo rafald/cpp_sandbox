@@ -1,33 +1,36 @@
-
-
+import python ;
+if ! [ python.configured ]
+{
+    ECHO "notice: no Python configured in user-config.jam" ;
+    ECHO "notice: will use default configuration" ;
+    using python ;
+}
+#use-project boost : ./boost ;
+  
+  
+  
+path-constant MYPROJECT_ROOT : . ;
+path-constant TOP : . ;
 
 project 
         : usage-requirements 
                 <include>.
+                <implicit-dependency>/boost//headers
                 <cxxflags>"-std=c++1z "
         : requirements 
 				<library>/boost//unit_test_framework
-				<dependency>/boost//headers
+			    #        <dependency>/boost//headers # <= THIS _ALWAYS_ REBUILDS TARGETS even if up to date
+				<implicit-dependency>/boost//headers
                 <cxxflags>"-std=c++1z "
                 <include>EIGEN # /home/raf12/develop/c++/eigen
                 #<linkflags>"-lcholmod -lmetis -lamd -lcamd -lccolamd -lcolamd -llapack -lgfortran -lblas "
 ;
 
-unit-test test_dispatcher : test_dispatcher.cpp /site-config//zlib /site-config//librt /site-config//crypto /site-config//ssl ; 
+
+Echo [ SHELL "date +'%D %T'" ] ;
 
 run test_Eigen_QR.cpp ;
-
 run ret_mult_values.cpp ;
-
-rule explicit-unit-test ( target : source : properties * )
-{
-    unit-test $(target) : $(source) : $(properties) ;
-    explicit $(target) ;
-}
-explicit-unit-test test_bind : test_bind.cpp 
-	: <testing.launcher>"valgrind --leak-check=full --show-leak-kinds=all " # -v 
-;
-
 run tmpl_inst.cpp 
 	: #args * 
 	: #input-files * 
@@ -39,18 +42,30 @@ run tmpl_inst.cpp
 ;
 explicit tmpl_inst ;
 
+unit-test test_dispatcher : test_dispatcher.cpp /site-config//zlib /site-config//librt /site-config//crypto /site-config//ssl ; 
 
-explicit explicit_suite ;
-test-suite explicit_suite
+rule explicit-unit-test ( target : source : properties * )
+{
+    unit-test $(target) : $(source) : $(properties) ;
+    explicit $(target) ;
+}
+explicit-unit-test test_bind : test_bind.cpp 
+	: <testing.launcher>"valgrind --leak-check=full --show-leak-kinds=all " # -v 
+;
+
+test-suite my_suite
 :
       [ run test_ct_hash.cpp ]
       [ run test_Eigen.cpp ]
 ;
+explicit my_suite ; # ! explicit can be used without declaration - introduced first !
 
 
 
 
 
+
+# The six rules ALWAYS, LEAVES, NOCARE, NOTFILE, NOUPDATE, and TEMPORARY modify the dependency graph so that bjam treats the targets differently during its target binding phase.
 
 
 
@@ -58,27 +73,33 @@ test-suite explicit_suite
 # This Jamfile requires boost-build v2 to build.
 # The version shipped with boost 1.34.0
 
-import modules ;
-import os ;
-import errors ;
-import feature : feature ;
-import package ;
-import virtual-target ;
+#import modules ;
+#import os ;
+#import errors ;
+#import feature : feature ;
+#import package ;
+#import virtual-target ;
 
-if ! $(BOOST_ROOT)
+#if ! $(BOOST_ROOT)
+#{
+#    BOOST_ROOT = [ modules.peek : BOOST_ROOT ] ;
+#}
+#BOOST_ROOT = [ modules.peek : BOOST_ROOT ] ;
+
+
+#CXXFLAGS = [ modules.peek : CXXFLAGS ] ;
+#LDFLAGS = [ modules.peek : LDFLAGS ] ;
+
+#ECHO "BOOST_ROOT =" $(BOOST_ROOT) ;
+#ECHO "OS =" [ os.name ] ;
+
+#if $(BOOST_ROOT)
+#{
+#	use-project /boost : $(BOOST_ROOT) ;
+#}
+
+rule run-test ( test-name : sources + : requirements * )
 {
-    BOOST_ROOT = [ modules.peek : BOOST_ROOT ] ;
-}
-BOOST_ROOT = [ modules.peek : BOOST_ROOT ] ;
-
-
-CXXFLAGS = [ modules.peek : CXXFLAGS ] ;
-LDFLAGS = [ modules.peek : LDFLAGS ] ;
-
-ECHO "BOOST_ROOT =" $(BOOST_ROOT) ;
-ECHO "OS =" [ os.name ] ;
-
-if $(BOOST_ROOT)
-{
-	use-project /boost : $(BOOST_ROOT) ;
+    import testing ;
+    testing.make-test run-pyd : $(sources) : $(requirements) : $(test-name) ;
 }

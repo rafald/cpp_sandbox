@@ -17,3 +17,7 @@ cat .gitmodules
 git submodule init
 git submodule update
 echo "The submodule repositories added by “git submodule update” are “headless”. This means that they aren’t on a current branch.To fix this, we simply need to switch to a branch. In this example, that would be the master branch. We switch with the following command: “git checkout master“."
+
+
+# repos on our local server
+# git submodule add –b master ../<newRepoName> <newRepoName>
