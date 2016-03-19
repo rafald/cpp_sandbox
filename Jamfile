@@ -1,3 +1,8 @@
+# Echo [ SHELL "./write_version.sh" ] ; # runs the script from Jamfile dir /not Jamroot dir/
+# ^ in Jamroot /must be run before loading of this file/
+
+import notfile ;
+
 import python ;
 if ! [ python.configured ]
 {
@@ -11,6 +16,7 @@ if ! [ python.configured ]
   
 path-constant MYPROJECT_ROOT : . ;
 path-constant TOP : . ;
+
 
 project 
         : usage-requirements 
@@ -28,6 +34,9 @@ project
 
 
 Echo [ SHELL "date +'%D %T'" ] ;
+
+run strict_aliasing.c : <optimization>speed ;
+# optimization speed space off
 
 run test_Eigen_QR.cpp ;
 run ret_mult_values.cpp ;
@@ -102,4 +111,40 @@ rule run-test ( test-name : sources + : requirements * )
 {
     import testing ;
     testing.make-test run-pyd : $(sources) : $(requirements) : $(test-name) ;
+}
+
+
+
+
+# http://www.boost.org/build/doc/html/bbv2/builtins/raw.html
+
+install install-app : test_dispatcher : <location>install_dir ;
+
+notfile . : @unconditional-post-install : install-app ;
+actions unconditional-post-install
+{
+    echo Unconditional post install run. Install is now done. 
+    echo "$(<) $(>) "
+}
+
+#make file.out : file.in : @in2out ;
+# Jamfile</home/raf12/develop/cpp_sandbox>.in2out bin/clang-linux-3.6.2/debug/file.out
+make file.out : test_dispatcher : @in2out ;
+actions in2out
+{
+    echo in2out $(<) $(>) 
+    # in2out bin/clang-linux-3.6.2/debug/file.out bin/clang-linux-3.6.2/debug/test_dispatcher.passed
+    # test_dispatcher 
+    #    is replaced with
+    # bin/clang-linux-3.6.2/debug/test_dispatcher.passed
+    touch $(<)
+}
+
+
+notfile unconditional_action : @unconditional_action ;
+actions unconditional_action
+{
+    echo "running unconditional_action"
+    #./write_version.sh
+    #touch "wrote"
 }
