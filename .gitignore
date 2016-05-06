@@ -1,3 +1,6 @@
 *~
 bin/
 nohup.out
+version_file
+install_dir/
+

@@ -38,6 +38,10 @@ Echo [ SHELL "date +'%D %T'" ] ;
 run strict_aliasing.c : <optimization>speed ;
 # optimization speed space off
 
+# different alternatives/rules for different toolsets
+run tmpl_alias_overload.cpp : <toolset>clang ;
+alias tmpl_alias_overload : : <toolset>gcc ;
+
 run test_Eigen_QR.cpp ;
 run ret_mult_values.cpp ;
 run tmpl_inst.cpp 
@@ -148,3 +152,6 @@ actions unconditional_action
     #./write_version.sh
     #touch "wrote"
 }
+
+run quiz_aliasing.cpp ; 
+run test_enum_bit_op.cpp ;
