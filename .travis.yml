@@ -34,7 +34,7 @@ script:
   - ./bootstrap.sh --with-toolset=gcc
   - popd 
   - touch Jamroot
-  - BOOST_ROOT=./boost ./boost/bjam -d2 toolset=${CC}
+  - ( sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.9 20 ; sudo update-alternatives --config gcc ; BOOST_ROOT=./boost ./boost/bjam -d2 toolset=${CC} ; )
 #  - cd build
 #  - cmake -DCMAKE_BUILD_TYPE=Debug ..
 #  - cmake --build . --target $PROJECT-test
