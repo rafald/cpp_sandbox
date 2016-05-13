@@ -17,13 +17,15 @@ before_install:
 #  - sudo apt-get install libboost-tools-dev 
 #  - mkdir build
   - ./shallow-clone master https://github.com/boostorg/boost.git boost
-  - sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
-  - sudo apt-get update -q
-  - sudo apt-get install gcc-4.9 -y
+#  - sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
+#  - sudo apt-get update -q
+#  - sudo apt-get install gcc-4.9 -y
   - sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.9 20
   - sudo update-alternatives --config gcc
 
 script:
+  - sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.9 20
+  - sudo update-alternatives --config gcc
   - ${CC} --version
   - pushd boost
   - ./bootstrap.sh
@@ -39,5 +41,5 @@ addons:
     sources:
     - ubuntu-toolchain-r-test
     packages:
-    - gcc
+    - gcc-4.9
 
