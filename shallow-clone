@@ -13,8 +13,9 @@ done
 
 git clone --depth 1 --branch $1 https://github.com/boostorg/config.git libs/config
 git clone --depth 1 --branch $1 https://github.com/boostorg/test.git libs/test
+git clone --depth 1 --branch $1 https://github.com/boostorg/timer.git libs/timer
+
 git clone --depth 1 --branch $1 https://github.com/boostorg/build.git tools/build
 git clone --depth 1 --branch $1 https://github.com/boostorg/inspect.git tools/inspect
-git clone --depth 1 --branch $1 https://github.com/boostorg/timer.git tools/timer
 
 #git submodule update
