@@ -28,10 +28,10 @@ script:
   - sudo update-alternatives --config gcc
   - ${CC} --version
   - pushd boost
-  - ./bootstrap.sh
+  - ./bootstrap.sh --with-toolset=gcc-4.9
   - popd 
   - touch Jamroot
-  - BOOST_ROOT=./boost ./boost/bjam -d2 toolset=${CC}
+  - BOOST_ROOT=./boost ./boost/bjam -d2 toolset=${CC}-4.9
 #  - cd build
 #  - cmake -DCMAKE_BUILD_TYPE=Debug ..
 #  - cmake --build . --target $PROJECT-test
