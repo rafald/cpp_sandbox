@@ -17,6 +17,10 @@ if ! [ python.configured ]
 path-constant MYPROJECT_ROOT : . ;
 path-constant TOP : . ;
 
+# required by .travis.yml but normally in user_config.jam
+import boost ;
+boost.use-project ; 
+
 
 project 
         : usage-requirements 
