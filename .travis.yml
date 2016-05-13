@@ -11,12 +11,15 @@ env:
     - PROJECT=BoostArray
 
 before_install:
-#  - sudo add-apt-repository -y ppa:purplekarrot/cmake
+  - sudo add-apt-repository -y ppa:purplekarrot/cmake
 #  - sudo apt-get update
 #  - sudo apt-get install cmake cmake-data libopenmpi-dev
 #  - sudo apt-get install libboost-tools-dev 
 #  - mkdir build
   - ./shallow-clone master https://github.com/boostorg/boost.git boost
+  - sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
+  - sudo apt-get update -q
+  - sudo apt-get install gcc-4.8 -y
 
 script:
   - pushd boost
