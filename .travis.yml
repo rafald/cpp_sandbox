@@ -23,7 +23,6 @@ script:
   - ./bootstrap.sh
   - popd
   - touch Jamroot
-  - set # dump env variables
   - BOOST_ROOT=./boost ./boost/bjam -d2 toolset=${CC}
 #  - cd build
 #  - cmake -DCMAKE_BUILD_TYPE=Debug ..
