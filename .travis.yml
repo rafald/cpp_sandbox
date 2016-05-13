@@ -1,7 +1,7 @@
 language: cpp
 
 compiler:
-  - clang
+#  - clang
   - gcc
 
 env:
@@ -21,7 +21,8 @@ before_install:
 script:
   - pushd boost
   - ./bootstrap.sh
-  - popd
+  - popd 
+  - clang --version
   - touch Jamroot
   - BOOST_ROOT=./boost ./boost/bjam -d2 toolset=${CC}
 #  - cd build
