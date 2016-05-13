@@ -22,7 +22,8 @@ script:
   - pushd boost
   - ./bootstrap.sh
   - popd
+  - touch Jamroot
   - BOOST_ROOT=./boost ./boost/bjam
-  - cd build
-  - cmake -DCMAKE_BUILD_TYPE=Debug ..
-  - cmake --build . --target $PROJECT-test
+#  - cd build
+#  - cmake -DCMAKE_BUILD_TYPE=Debug ..
+#  - cmake --build . --target $PROJECT-test

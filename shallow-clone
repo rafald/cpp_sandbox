@@ -2,9 +2,14 @@
 git clone --depth 1 --branch $1 $2 $3
 cd $3
 git submodule init
+
+function clone_all_modules() {
 for i in $(sed -n 's/\[submodule "\(.*\)"\]/\1/p' .gitmodules | sort); do
     spath=$(git config -f .gitmodules --get submodule.$i.path)
     surl=$(git config -f .gitmodules --get submodule.$i.url)
     git clone --depth 1 --branch $1 $surl $spath
 done
+}
+git clone --depth 1 --branch $1 https://github.com/boostorg/test.git libs/test
+
 git submodule update
