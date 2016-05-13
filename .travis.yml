@@ -1,0 +1,27 @@
+language: cpp
+
+compiler:
+  - clang
+  - gcc
+
+env:
+  global:
+    - CTEST_OUTPUT_ON_FAILURE=1
+  matrix:
+    - PROJECT=BoostAccumulators
+    - PROJECT=BoostAny
+    - PROJECT=BoostArray
+    - PROJECT=BoostAssign
+    - PROJECT=BoostBind
+
+before_install:
+  - sudo add-apt-repository -y ppa:purplekarrot/cmake
+  - sudo apt-get update
+  - sudo apt-get install cmake cmake-data libopenmpi-dev
+  - mkdir build
+  - ./shallow-clone develop https://github.com/boostorg/boost.git build/boost
+
+script:
+  - cd build
+  - cmake -DCMAKE_BUILD_TYPE=Debug ..
+  - cmake --build . --target $PROJECT-test

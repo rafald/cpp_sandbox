@@ -1,2 +1,5 @@
-#BOOST_ROOT=/home/raf12/develop/c++/boost_1_60_0 bjam -d2 -j4 --dump-tests $@
+echo
+echo ./build.sh --boost-root=/home/raf12/develop/c++/boost
+echo BOOST_ROOT=~/develop/c++/boost ./build.sh
+echo 
 bjam -d2 -j4 --dump-tests $@
