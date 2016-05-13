@@ -33,3 +33,11 @@ script:
 #  - cd build
 #  - cmake -DCMAKE_BUILD_TYPE=Debug ..
 #  - cmake --build . --target $PROJECT-test
+
+addons:
+  apt:
+    sources:
+    - ubuntu-toolchain-r-test
+    packages:
+    - gcc
+
