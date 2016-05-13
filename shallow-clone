@@ -11,5 +11,6 @@ for i in $(sed -n 's/\[submodule "\(.*\)"\]/\1/p' .gitmodules | sort); do
 done
 }
 git clone --depth 1 --branch $1 https://github.com/boostorg/test.git libs/test
+git clone --depth 1 --branch $1 https://github.com/boostorg/build.git tools/build
 
 #git submodule update
