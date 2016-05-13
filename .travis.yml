@@ -12,7 +12,7 @@ env:
 
 before_install:
 #  - sudo add-apt-repository -y ppa:purplekarrot/cmake
-  - sudo apt-get update
+#  - sudo apt-get update
 #  - sudo apt-get install cmake cmake-data libopenmpi-dev
 #  - sudo apt-get install libboost-tools-dev 
 #  - mkdir build
@@ -24,7 +24,7 @@ script:
   - popd
   - touch Jamroot
   - set # dump env variables
-  - BOOST_ROOT=./boost ./boost/bjam toolset=$CC
+  - BOOST_ROOT=./boost ./boost/bjam -d2 toolset=${CC}
 #  - cd build
 #  - cmake -DCMAKE_BUILD_TYPE=Debug ..
 #  - cmake --build . --target $PROJECT-test

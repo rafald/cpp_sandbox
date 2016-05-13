@@ -10,6 +10,8 @@ for i in $(sed -n 's/\[submodule "\(.*\)"\]/\1/p' .gitmodules | sort); do
     git clone --depth 1 --branch $1 $surl $spath
 done
 }
+
+git clone --depth 1 --branch $1 https://github.com/boostorg/config.git libs/config
 git clone --depth 1 --branch $1 https://github.com/boostorg/test.git libs/test
 git clone --depth 1 --branch $1 https://github.com/boostorg/build.git tools/build
 
