@@ -63,7 +63,9 @@ run tmpl_inst.cpp
 ;
 explicit tmpl_inst ;
 
-unit-test test_dispatcher : test_dispatcher.cpp /site-config//zlib /site-config//librt /site-config//crypto /site-config//ssl ; 
+unit-test test_dispatcher : test_dispatcher.cpp 
+  # /site-config//zlib /site-config//librt /site-config//crypto /site-config//ssl 
+  ; 
 
 rule explicit-unit-test ( target : source : properties * )
 {
