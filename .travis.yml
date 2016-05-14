@@ -24,6 +24,7 @@ addons:
     sources:
     - ubuntu-toolchain-r-test
     packages:
+    - gcc-5
     - g++-5
 #    - clang-3.8
     - cmake
@@ -32,6 +33,9 @@ addons:
 
 before_install:
   - ./shallow-clone master https://github.com/boostorg/boost.git boost
+  - bash -c "echo -n 'using gcc :' >> boost/tools/build/src/user-config.jam"
+  - bash -c "echo -n ' :' >> boost/tools/build/src/user-config.jam"
+  - bash -c "echo ' /usr/bin/g++-5 ;' >> boost/tools/build/src/user-config.jam"
 #
 #  - echo "using gcc : 4.9 ; " >> ~/build/rafald/cpp_sandbox/boost/tools/build/src/user-config.jam
 #$ {:"echo \"using gcc"=>"4.9 ; \" >> ./boost/tools/build/src/user-config.jam"}
@@ -45,9 +49,6 @@ install:
 before_script:
   - ${CC} --version
   - pushd boost ; ./bootstrap.sh --with-toolset=gcc ; ./b2 headers ; ls -lrt ; popd
-  - bash -c "echo -n 'using gcc :' >> boost/tools/build/src/user-config.jam"
-  - bash -c "echo -n ' :' >> boost/tools/build/src/user-config.jam"
-  - bash -c "echo ' /usr/bin/gcc-5 ;' >> boost/tools/build/src/user-config.jam"
   - cat ~/build/rafald/cpp_sandbox/boost/tools/build/src/user-config.jam
   
 script:
