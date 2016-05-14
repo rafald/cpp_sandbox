@@ -43,7 +43,7 @@ before_script:
   
 script:
   - ${CC} --version
-  - pwd ; ls -lrt boost/boost ; touch Jamroot
+  - pwd ; ls -n boost ; touch Jamroot
   - BOOST_ROOT=./boost ./boost/bjam -d2 toolset=${CC}
 
 after_success:
