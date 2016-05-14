@@ -26,12 +26,12 @@ project
         : usage-requirements 
                 <include>.
                 <implicit-dependency>/boost//headers
-                <cxxflags>"-std=c++1y "
+                <cxxflags>"-std=c++1z "
         : requirements 
 				<library>/boost//unit_test_framework
 			    #        <dependency>/boost//headers # <= THIS _ALWAYS_ REBUILDS TARGETS even if up to date
 				<implicit-dependency>/boost//headers
-                <cxxflags>"-std=c++1y "
+                <cxxflags>"-std=c++1z "
                 <include>EIGEN # /home/raf12/develop/c++/eigen
                 #<linkflags>"-lcholmod -lmetis -lamd -lcamd -lccolamd -lcolamd -llapack -lgfortran -lblas "
 ;

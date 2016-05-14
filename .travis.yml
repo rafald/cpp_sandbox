@@ -5,6 +5,11 @@
 sudo: false # required
 dist: trusty
 language: cpp
+cache:
+  apt: true
+  ccache: true
+  directories:
+  - boost
 compiler:
   - gcc
 #  - clang
