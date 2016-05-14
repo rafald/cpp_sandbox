@@ -16,12 +16,12 @@ git clone --depth 1 --branch $1 https://github.com/boostorg/chrono.git libs/chro
 git clone --depth 1 --branch $1 https://github.com/boostorg/system.git libs/system
 git clone --depth 1 --branch $1 https://github.com/boostorg/test.git libs/test
 git clone --depth 1 --branch $1 https://github.com/boostorg/timer.git libs/timer
+git clone --depth 1 --branch $1 https://github.com/boostorg/type_traits.git libs/type_traits
 
 git clone --depth 1 --branch $1 https://github.com/boostorg/build.git tools/build
 git clone --depth 1 --branch $1 https://github.com/boostorg/inspect.git tools/inspect
 
 #git submodule update
 
-which gcc
-#echo "using gcc : 5 : /usr/bin/gcc-5 ; " >> tools/build/src/user-config.jam
+# which gcc   $ /usr/bin/gcc
 echo "using gcc : : /usr/bin/gcc-5 ; " >> tools/build/src/user-config.jam
