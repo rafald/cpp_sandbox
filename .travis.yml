@@ -12,7 +12,7 @@ cache:
   - boost
   - EIGEN
 compiler:
-#  - gcc
+  - gcc
   - clang
 env:
 global:
