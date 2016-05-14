@@ -2,7 +2,7 @@
 #If you require sudo, add 'sudo: required' to your .travis.yml
 #See https://docs.travis-ci.com/user/workers/container-based-infrastructure/ for details.
 
-sudo: false # required
+sudo: required # false
 dist: trusty
 language: cpp
 cache:
