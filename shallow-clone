@@ -1,13 +1,13 @@
 #!/bin/bash
 
 function full_clone() {
-    for i in $(sed -n 's/\[submodule "\(.*\)"\]/\1/p' .gitmodules | sort); do
-        spath=$(git config -f .gitmodules --get submodule.$i.path)
-        surl=$(git config -f .gitmodules --get submodule.$i.url)
-        git clone --depth 1 --branch $1 $surl $spath
-    done
-    git submodule update
-#    git submodule update --init --recursive
+#    for i in $(sed -n 's/\[submodule "\(.*\)"\]/\1/p' .gitmodules | sort); do
+#        spath=$(git config -f .gitmodules --get submodule.$i.path)
+#        surl=$(git config -f .gitmodules --get submodule.$i.url)
+#        git clone --depth 1 --branch $1 $surl $spath
+#    done
+#    git submodule update
+    git submodule update --init --recursive
 }
 
 function partial_clone() {
