@@ -40,7 +40,7 @@ before_script:
 script:
   - ${CC} --version
   - pwd ; ls -lrt boost ; touch Jamroot
-  - bash -c 'echo "using gcc \: \: /usr/bin/gcc-5 ; " >> ~/build/rafald/cpp_sandbox/boost/tools/build/src/user-config.jam'
+  - bash -c 'echo "using gcc /usr/bin/gcc-5 ; " >> ~/build/rafald/cpp_sandbox/boost/tools/build/src/user-config.jam'
   - cat ~/build/rafald/cpp_sandbox/boost/tools/build/src/user-config.jam
   - BOOST_ROOT=./boost ./boost/bjam -d2 toolset=${CC}
 
