@@ -1,3 +1,7 @@
+#This job is running on container-based infrastructure, which does not allow use of 'sudo', setuid and setguid executables.
+#If you require sudo, add 'sudo: required' to your .travis.yml
+#See https://docs.travis-ci.com/user/workers/container-based-infrastructure/ for details.
+
 sudo: false # required
 dist: trusty
 language: cpp
