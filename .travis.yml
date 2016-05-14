@@ -35,7 +35,7 @@ install:
 
 before_script:
   - ${CC} --version
-  - pushd boost ; ./bootstrap.sh --with-toolset=gcc ; ls -lrt ; popd
+  - pushd boost ; ./bootstrap.sh --with-toolset=gcc ; ./b2 headers ; ls -lrt ; popd
   - bash -c "echo -n 'using gcc :' >> boost/tools/build/src/user-config.jam"
   - bash -c "echo -n ' :' >> boost/tools/build/src/user-config.jam"
   - bash -c "echo ' /usr/bin/gcc-5 ;' >> boost/tools/build/src/user-config.jam"
