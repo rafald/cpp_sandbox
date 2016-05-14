@@ -3,8 +3,7 @@ dist: trusty
 language: cpp
 compiler:
 #  - clang-3.9
-#  - gcc-4.9
-  - gcc
+  - gcc-5
 env:
 global:
   - CTEST_OUTPUT_ON_FAILURE=1
@@ -17,15 +16,12 @@ addons:
     - ubuntu-toolchain-r-test
     - ppa:purplekarrot/cmake
     packages:
-    - g++-4.9
-    - g++-5
+    - g++-5 # libboost-tools-dev 
     - cmake
     - cmake-data
     - libopenmpi-dev
 
 before_install:
-#  - sudo apt-get install libboost-tools-dev 
-#  - mkdir build
   - ./shallow-clone master https://github.com/boostorg/boost.git boost
   - ls boost/tools/build/src
   - ls ~/build/rafald/cpp_sandbox/boost/tools/build/src
@@ -34,15 +30,11 @@ before_install:
 #  - echo "using gcc : 4.9 ; " >> ~/build/rafald/cpp_sandbox/boost/tools/build/src/user-config.jam
 #$ {:"echo \"using gcc"=>"4.9 ; \" >> ./boost/tools/build/src/user-config.jam"}
 #/home/travis/build.sh: line 45: 4.9 ; " >> ./boost/tools/build/src/user-config.jam}: No such file or directory
-
-#  - echo "using gcc : 4.4 : /usr/bin/g++-4.4 ; " >> tools/build/src/user-config.jam
-#  - sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
-#  - sudo apt-get update -q
-#  - sudo apt-get install gcc-4.9 -y
-  - sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.9 20
+  - sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-5 20
   - sudo update-alternatives --config gcc
-  - which gcc
-#  - ~/build/rafald/cpp_sandbox/boost/bootstrap.sh --with-toolset=gcc-4.9
+  - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-5 20
+  - sudo update-alternatives --config g++
+  - which g++
 
 # skips install
 #install: true
@@ -51,10 +43,9 @@ install:
 
 before_script:
   - ${CC} --version
-#  - bash -c "echo 'using gcc : 4.9 : /usr/bin/gcc-4.9 ; ' >> ~/build/rafald/cpp_sandbox/boost/tools/build/src/user-config.jam"
-#  - bash -c "echo 'using gcc : 5 : /usr/bin/gcc-5 ; ' >> ~/build/rafald/cpp_sandbox/boost/tools/build/src/user-config.jam"
+#  - bash -c 'echo "using gcc : : /usr/bin/gcc-5 ; " >> ~/build/rafald/cpp_sandbox/boost/tools/build/src/user-config.jam'
   - cat ~/build/rafald/cpp_sandbox/boost/tools/build/src/user-config.jam
-  - pushd boost ; pwd ; ./bootstrap.sh --with-toolset=gcc
+  - pushd boost ; pwd ; ./bootstrap.sh --with-toolset=gcc ; popd
   - ls -lrt boost
   
 script:
@@ -62,7 +53,7 @@ script:
   - touch Jamroot
   - pwd
   - ls -lrt boost
-  - BOOST_ROOT=./boost ./boost/b2 -d2 toolset=${CC}-4.9 
+  - BOOST_ROOT=./boost ./boost/b2 -d2 toolset=${CC}
 #  - cd build
 #  - cmake -DCMAKE_BUILD_TYPE=Debug ..
 #  - cmake --build . --target $PROJECT-test
