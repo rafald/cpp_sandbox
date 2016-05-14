@@ -46,9 +46,8 @@ run strict_aliasing.c : <optimization>speed ;
 run tmpl_alias_overload.cpp : <toolset>clang ;
 alias tmpl_alias_overload : : <toolset>gcc ;
 
-run agregate_initialization.cpp ;
-explicit agregate_initialization ;
-run test_concepts.cpp ;
+run agregate_initialization.cpp ; explicit agregate_initialization ;
+run test_concepts.cpp ; explicit test_concepts ;
 run test_auto_cpp17.cpp ;
 run test_Eigen_QR.cpp ;
 run ret_mult_values.cpp ;
