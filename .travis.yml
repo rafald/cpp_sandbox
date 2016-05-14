@@ -21,7 +21,10 @@ before_install:
 #  - mkdir build
   - ./shallow-clone master https://github.com/boostorg/boost.git boost
   - ls boost/tools/build/src
-  - echo "using gcc : 4.9 ; " >> ./boost/tools/build/src/user-config.jam
+  - echo "using gcc : 4.9 ; " >> ~/build/rafald/cpp_sandbox/boost/tools/build/src/user-config.jam
+#$ {:"echo \"using gcc"=>"4.9 ; \" >> ./boost/tools/build/src/user-config.jam"}
+#/home/travis/build.sh: line 45: 4.9 ; " >> ./boost/tools/build/src/user-config.jam}: No such file or directory
+
 #  - echo "using gcc : 4.4 : /usr/bin/g++-4.4 ; " >> tools/build/src/user-config.jam
 #  - sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
 #  - sudo apt-get update -q
