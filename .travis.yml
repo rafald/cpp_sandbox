@@ -33,12 +33,9 @@ addons:
     - libopenmpi-dev
 
 before_install:
-#  - sudo apt-get remove gcc g++ -y
-#  - sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-5 20
-#  - sudo update-alternatives --config gcc  
-##  - sudo apt-get remove clang clang++ -y
-#  - sudo update-alternatives --install /usr/bin/clang clang /usr/bin/clang-3.6 20
-#  - sudo update-alternatives --config clang
+  - sudo apt-get remove gcc g++ -y
+  - sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-5 20
+  - sudo update-alternatives --config gcc  
   - ${CC} --version # gcc (Ubuntu 5.3.0-3ubuntu1~14.04) 5.3.0 
   - ./shallow-clone master https://github.com/boostorg/boost.git boost
   - ./create_user-config 5 3.6 # configured gcc does not have any version - it is default
@@ -47,8 +44,7 @@ install:
 
 before_script:
   - pushd boost ; ./bootstrap.sh --with-toolset=${CC}
-  - ./b2 headers # utility
-#  - ./b2 variant=debug chrono ; ./b2 variant=debug system ; ./b2 variant=debug unit_test_framework 
+  - ./b2 headers # ; ./b2 variant=debug chrono ; ./b2 variant=debug system ; ./b2 variant=debug unit_test_framework 
   - popd
   
 script:
