@@ -3,7 +3,8 @@ dist: trusty
 language: cpp
 compiler:
 #  - clang
-  - gcc-4.9
+#  - gcc-4.9
+  - gcc
 env:
 global:
   - CTEST_OUTPUT_ON_FAILURE=1
@@ -16,7 +17,8 @@ addons:
     - ubuntu-toolchain-r-test
     - ppa:purplekarrot/cmake
     packages:
-    - gcc-4.9
+    - g++-4.9
+    - g++-6.1
     - cmake
     - cmake-data
     - libopenmpi-dev
@@ -40,7 +42,7 @@ before_install:
   - sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.9 20
   - sudo update-alternatives --config gcc
   - which gcc
-  - ~/build/rafald/cpp_sandbox/boost/bootstrap.sh --with-toolset=gcc
+  - ~/build/rafald/cpp_sandbox/boost/bootstrap.sh --with-toolset=gcc-4.9
 
 # skips install
 #install: true
@@ -48,8 +50,7 @@ install: ./install-dependencies.sh
 
 before_script:
 - ${CC} --version
-- pushd boost
-- ./bootstrap.sh --with-toolset=gcc
+- ./boost/bootstrap.sh --with-toolset=gcc-4.9
 
 script:
   - ${CC} --version
