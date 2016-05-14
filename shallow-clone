@@ -22,7 +22,7 @@ function partial_clone() {
 
 
 pwd
-if [ ! -d $3 ] ; then
+if [ ! -d ${3}/.git ] ; then
     git clone --depth 1 --branch $1 $2 $3
     pushd $3
     git submodule init
@@ -37,6 +37,6 @@ else
     echo "$3 dir already present"
 fi
 
-if [ ! -d EIGEN ] ; then
+if [ ! -d EIGEN/.hg ] ; then
     hg clone https://bitbucket.org/eigen/eigen EIGEN
 fi

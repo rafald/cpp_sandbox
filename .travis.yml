@@ -35,14 +35,14 @@ addons:
 before_install:
   - sudo apt-get remove gcc g++ -y
   - ./shallow-clone master https://github.com/boostorg/boost.git boost
-  - pwd ; ls -n ./boost/tools/build/src/ ./create_user-config 
+#  - pwd ; ls -n ./boost/tools/build/src/ ./create_user-config 
 
 install: 
 
 before_script:
   - ${CC} --version
-  - pushd boost ; ./bootstrap.sh --with-toolset=gcc ; ./b2 headers ; ls -lrt ; popd
-  - cat ~/build/rafald/cpp_sandbox/boost/tools/build/src/user-config.jam
+  - pushd boost ; ./bootstrap.sh --with-toolset=${CC} ; ./b2 headers ; ls -lrt ; popd
+#  - cat ~/build/rafald/cpp_sandbox/boost/tools/build/src/user-config.jam
   
 script:
   - ${CC} --version
