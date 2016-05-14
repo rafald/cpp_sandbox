@@ -21,7 +21,8 @@ before_install:
 #  - mkdir build
   - ./shallow-clone master https://github.com/boostorg/boost.git boost
   - ls boost/tools/build/src
-  - echo "using gcc : 4.9 ; " >> ~/build/rafald/cpp_sandbox/boost/tools/build/src/user-config.jam
+  - ls ~/build/rafald/cpp_sandbox/boost/tools/build/src
+#  - echo "using gcc : 4.9 ; " >> ~/build/rafald/cpp_sandbox/boost/tools/build/src/user-config.jam
 #$ {:"echo \"using gcc"=>"4.9 ; \" >> ./boost/tools/build/src/user-config.jam"}
 #/home/travis/build.sh: line 45: 4.9 ; " >> ./boost/tools/build/src/user-config.jam}: No such file or directory
 
