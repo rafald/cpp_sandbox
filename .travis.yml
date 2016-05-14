@@ -48,7 +48,7 @@ install:
 before_script:
   - pushd boost ; ./bootstrap.sh --with-toolset=${CC}
   - ./b2 headers # utility
-#  - ./b2 chrono ; ./b2 system ; ./b2 unit_test_framework 
+  - ./b2 variant=debug chrono ; ./b2 variant=debug system ; ./b2 variant=debug unit_test_framework 
   - popd
   
 script:
