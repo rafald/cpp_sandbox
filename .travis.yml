@@ -48,11 +48,12 @@ before_install:
 #install: true
 #install: ./install-dependencies.sh
 install: 
-  - ${CC} --version
-  - cat ~/build/rafald/cpp_sandbox/boost/tools/build/src/user-config.jam
-  - ./boost/bootstrap.sh --with-toolset=gcc
 
 before_script:
+- ${CC} --version
+- cat ~/build/rafald/cpp_sandbox/boost/tools/build/src/user-config.jam
+- pwd
+- ./boost/bootstrap.sh --with-toolset=gcc
 
 script:
   - ${CC} --version
