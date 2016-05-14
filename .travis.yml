@@ -46,11 +46,13 @@ before_install:
 
 # skips install
 #install: true
-install: ./install-dependencies.sh
+#install: ./install-dependencies.sh
+install: 
+  - ${CC} --version
+  - cat ~/boost/tools/build/src/user-config.jam
+  - ./boost/bootstrap.sh --with-toolset=gcc-4.9
 
 before_script:
-- ${CC} --version
-- ./boost/bootstrap.sh --with-toolset=gcc-4.9
 
 script:
   - ${CC} --version
