@@ -6,7 +6,7 @@ sudo: required # false
 dist: trusty
 language: cpp
 cache:
-  apt: true
+#  apt: true
   ccache: true
   directories:
   - boost
@@ -36,20 +36,20 @@ before_install:
   - sudo apt-get remove gcc g++ -y
   - sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-5 20
   - sudo update-alternatives --config gcc  
+  - ${CC} --version
   - ./shallow-clone master https://github.com/boostorg/boost.git boost
-  - pwd ; ls -n ./boost/tools/build/src/ ; ./create_user-config 5
+  - pwd ; ls -n ./boost/tools/build/src/ ;
+  - ./create_user-config 5 # configured gcc does not have any version - it is default
   - cat ./boost/tools/build/src/user-config.jam
   
 install: 
 
 before_script:
-  - ${CC}-5 --version
-  - pushd boost ; ./bootstrap.sh --with-toolset=${CC}-5 ; ./b2 headers ; ls -lrt ; popd
+  - pushd boost ; ./bootstrap.sh --with-toolset=${CC} ; ./b2 headers ; ls -lrt ; popd
   
 script:
-  - ${CC}-5 --version
   - pwd ; ls -n boost ; touch Jamroot
-  - BOOST_ROOT=./boost ./boost/bjam -d2 -j8 toolset=${CC}-5
+  - BOOST_ROOT=./boost ./boost/bjam -d2 -j8 toolset=${CC}
 
 after_success:
   - bash -c "echo 'RLD: SUCCESS'"
