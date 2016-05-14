@@ -46,7 +46,8 @@ install:
 
 before_script:
   - pushd boost ; ./bootstrap.sh --with-toolset=${CC} ;
-  - ./b2 headers system unit_test_framework ; # utility
+  - ./b2 headers 
+#  - ./b2 system unit_test_framework utility
   - popd
   
 script:
