@@ -36,6 +36,8 @@ addons:
 
 before_install:
   - sudo apt-get remove gcc g++ -y
+  - sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-5 20
+  - sudo update-alternatives --config gcc  
   - ./shallow-clone master https://github.com/boostorg/boost.git boost
 #  - pwd ; ls -n ./boost/tools/build/src/ ./create_user-config 
 
