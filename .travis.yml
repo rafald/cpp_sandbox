@@ -24,8 +24,6 @@ addons:
   apt:
     sources:
     - ubuntu-toolchain-r-test
-    - llvm-toolchain-trusty
-    - llvm-toolchain-trusty-3.8
     packages:
 #    - clang-3.8
     - gcc-5
@@ -39,14 +37,14 @@ before_install:
   - sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-5 20
   - sudo update-alternatives --config gcc  
   - ./shallow-clone master https://github.com/boostorg/boost.git boost
-#  - pwd ; ls -n ./boost/tools/build/src/ ./create_user-config 
-
+  - pwd ; ls -n ./boost/tools/build/src/ ; ./create_user-config 5
+  - cat ./boost/tools/build/src/user-config.jam
+  
 install: 
 
 before_script:
   - ${CC}-5 --version
   - pushd boost ; ./bootstrap.sh --with-toolset=${CC}-5 ; ./b2 headers ; ls -lrt ; popd
-#  - cat ~/build/rafald/cpp_sandbox/boost/tools/build/src/user-config.jam
   
 script:
   - ${CC}-5 --version
