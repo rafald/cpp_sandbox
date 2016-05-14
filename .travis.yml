@@ -50,12 +50,12 @@ before_install:
 install: 
 
 before_script:
-- ${CC} --version
-- bash -c "echo 'using gcc : 4.9 : /usr/bin/gcc-4.9 ; ' >> ~/build/rafald/cpp_sandbox/boost/tools/build/src/user-config.jam"
-- bash -c "echo 'using gcc : 5 : /usr/bin/gcc-5 ; ' >> ~/build/rafald/cpp_sandbox/boost/tools/build/src/user-config.jam"
-- cat ~/build/rafald/cpp_sandbox/boost/tools/build/src/user-config.jam
-- pwd
-- pushd boost ; ./bootstrap.sh --with-toolset=gcc
+  - ${CC} --version
+  - bash -c "echo 'using gcc : 4.9 : /usr/bin/gcc-4.9 ; ' >> ~/build/rafald/cpp_sandbox/boost/tools/build/src/user-config.jam"
+  - bash -c "echo 'using gcc : 5 : /usr/bin/gcc-5 ; ' >> ~/build/rafald/cpp_sandbox/boost/tools/build/src/user-config.jam"
+  - cat ~/build/rafald/cpp_sandbox/boost/tools/build/src/user-config.jam
+  - pwd
+  - pushd boost ; ./bootstrap.sh --with-toolset=gcc
 
 script:
   - ${CC} --version
