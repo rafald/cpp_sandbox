@@ -12,7 +12,7 @@ cache:
   - boost
   - EIGEN
 compiler:
-  - gcc
+#  - gcc
   - clang
 env:
 global:
@@ -28,7 +28,6 @@ addons:
     - gcc-5
     - g++-5
     - clang-3.6
-    - clang++-3.6
     - cmake
     - cmake-data
     - libopenmpi-dev
@@ -37,7 +36,7 @@ before_install:
   - sudo apt-get remove gcc g++ -y
   - sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-5 20
   - sudo update-alternatives --config gcc  
-  - sudo apt-get remove clang clang++ -y
+#  - sudo apt-get remove clang clang++ -y
   - sudo update-alternatives --install /usr/bin/clang /usr/bin/clang-3.6 20
   - sudo update-alternatives --config clang 
     - ${CC} --version # gcc (Ubuntu 5.3.0-3ubuntu1~14.04) 5.3.0 
