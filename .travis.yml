@@ -1,22 +1,27 @@
 sudo: required
 dist: trusty
-
 language: cpp
-
 compiler:
 #  - clang
   - gcc-4.9
-
 env:
-  global:
-    - CTEST_OUTPUT_ON_FAILURE=1
-  matrix:
-    - PROJECT=BoostArray
+global:
+  - CTEST_OUTPUT_ON_FAILURE=1
+matrix:
+  - PROJECT=CPP_SANDBOX
+
+addons:
+  apt:
+    sources:
+    - ubuntu-toolchain-r-test
+    - ppa:purplekarrot/cmake
+    packages:
+    - gcc-4.9
+    - cmake
+    - cmake-data
+    - libopenmpi-dev
 
 before_install:
-  - sudo add-apt-repository -y ppa:purplekarrot/cmake
-#  - sudo apt-get update
-#  - sudo apt-get install cmake cmake-data libopenmpi-dev
 #  - sudo apt-get install libboost-tools-dev 
 #  - mkdir build
   - ./shallow-clone master https://github.com/boostorg/boost.git boost
@@ -38,23 +43,26 @@ before_install:
   - sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.9 20
   - sudo update-alternatives --config gcc
 
+# skips install
+#install: true
+install: ./install-dependencies.sh
+
+before_script:
+- ${CC} --version
+- pushd boost
+- ./bootstrap.sh --with-toolset=gcc
+
 script:
-  - sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.9 20
-  - sudo update-alternatives --config gcc
   - ${CC} --version
-  - pushd boost
-  - ./bootstrap.sh --with-toolset=gcc
-  - popd 
   - touch Jamroot
   - BOOST_ROOT=./boost ./boost/bjam -d2 toolset=${CC}-4.9 
 #  - cd build
 #  - cmake -DCMAKE_BUILD_TYPE=Debug ..
 #  - cmake --build . --target $PROJECT-test
 
-addons:
-  apt:
-    sources:
-    - ubuntu-toolchain-r-test
-    packages:
-    - gcc-4.9
+after_success:
+- echo "RLD: SUCCESS"
 
+after_failure:
+  - echo "RLD: failed!"
+  
