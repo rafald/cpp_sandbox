@@ -9,7 +9,8 @@ cache:
   apt: true
   ccache: true
   directories:
-#  - boost
+  - boost
+  - EIGEN
 compiler:
   - gcc
 #  - clang
@@ -24,14 +25,15 @@ addons:
     sources:
     - ubuntu-toolchain-r-test
     packages:
+    - clang-3.8
     - gcc-5
     - g++-5
-#    - clang-3.8
     - cmake
     - cmake-data
     - libopenmpi-dev
 
 before_install:
+  - sudo apt-get remove gcc g++
   - ./shallow-clone master https://github.com/boostorg/boost.git boost
   - pwd ; ./create_user-config 
 
