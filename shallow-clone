@@ -2,13 +2,16 @@
 
 if [ ! -d $3 ] ; then
     git clone --depth 1 --branch $1 $2 $3
-    cd $3
+    pushd $3
     git submodule init
 
     full_clone $1
     
     # which gcc   $ /usr/bin/gcc
     #echo "using gcc : : /usr/bin/gcc-5 ; " >> tools/build/src/user-config.jam
+    popd
+else
+    echo "$3 dir already present"
 fi
 
 function full_clone() {
