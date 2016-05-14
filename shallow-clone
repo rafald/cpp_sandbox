@@ -22,4 +22,4 @@ git clone --depth 1 --branch $1 https://github.com/boostorg/inspect.git tools/in
 
 #git submodule update
 
-echo "using gcc : 4.9 ; " >> tools/build/src/user-config.jam
+echo "using gcc : 4.9 : /usr/bin/gcc-4.9 ; " >> tools/build/src/user-config.jam
