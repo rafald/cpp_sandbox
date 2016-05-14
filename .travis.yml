@@ -24,6 +24,8 @@ addons:
   apt:
     sources:
     - ubuntu-toolchain-r-test
+    - llvm-toolchain-trusty
+    - llvm-toolchain-trusty-3.8
     packages:
 #    - clang-3.8
     - gcc-5
@@ -40,14 +42,14 @@ before_install:
 install: 
 
 before_script:
-  - ${CC} --version
-  - pushd boost ; ./bootstrap.sh --with-toolset=${CC} ; ./b2 headers ; ls -lrt ; popd
+  - ${CC}-5 --version
+  - pushd boost ; ./bootstrap.sh --with-toolset=${CC}-5 ; ./b2 headers ; ls -lrt ; popd
 #  - cat ~/build/rafald/cpp_sandbox/boost/tools/build/src/user-config.jam
   
 script:
-  - ${CC} --version
+  - ${CC}-5 --version
   - pwd ; ls -n boost ; touch Jamroot
-  - BOOST_ROOT=./boost ./boost/bjam -d2 toolset=${CC}
+  - BOOST_ROOT=./boost ./boost/bjam -d2 -j8 toolset=${CC}-5
 
 after_success:
   - bash -c "echo 'RLD: SUCCESS'"
