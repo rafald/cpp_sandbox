@@ -42,7 +42,7 @@ before_install:
   - sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.9 20
   - sudo update-alternatives --config gcc
   - which gcc
-  - ~/build/rafald/cpp_sandbox/boost/bootstrap.sh --with-toolset=gcc-4.9
+#  - ~/build/rafald/cpp_sandbox/boost/bootstrap.sh --with-toolset=gcc-4.9
 
 # skips install
 #install: true
