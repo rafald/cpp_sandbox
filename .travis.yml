@@ -33,7 +33,7 @@ addons:
 
 before_install:
   - ./shallow-clone master https://github.com/boostorg/boost.git boost
-  - ./create_user-config 
+  - pwd ; ./create_user-config 
 
 # skips install
 #install: true
