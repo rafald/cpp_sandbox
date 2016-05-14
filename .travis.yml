@@ -25,7 +25,7 @@ addons:
     sources:
     - ubuntu-toolchain-r-test
     packages:
-#    - clang-3.8
+    - clang-3.7
     - gcc-5
     - g++-5
     - cmake
@@ -44,8 +44,8 @@ install:
 
 before_script:
   - pushd boost ; ./bootstrap.sh --with-toolset=${CC}
-  - ./b2 headers 
-#  - ./b2 system unit_test_framework utility
+  - ./b2 headers # utility
+#  - ./b2 chrono ; ./b2 system ; ./b2 unit_test_framework 
   - popd
   
 script:
