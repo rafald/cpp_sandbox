@@ -35,3 +35,6 @@ else
     echo "$3 dir already present"
 fi
 
+if [ ! -d EIGEN ] ; then
+    hg clone https://bitbucket.org/eigen/eigen EIGEN
+fi
