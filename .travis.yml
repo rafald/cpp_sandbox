@@ -33,13 +33,7 @@ addons:
 
 before_install:
   - ./shallow-clone master https://github.com/boostorg/boost.git boost
-  - bash -c "echo -n 'using gcc :' >> boost/tools/build/src/user-config.jam"
-  - bash -c "echo -n ' :' >> boost/tools/build/src/user-config.jam"
-  - bash -c "echo ' /usr/bin/g++-5 ;' >> boost/tools/build/src/user-config.jam"
-#
-#  - echo "using gcc : 4.9 ; " >> ~/build/rafald/cpp_sandbox/boost/tools/build/src/user-config.jam
-#$ {:"echo \"using gcc"=>"4.9 ; \" >> ./boost/tools/build/src/user-config.jam"}
-#/home/travis/build.sh: line 45: 4.9 ; " >> ./boost/tools/build/src/user-config.jam}: No such file or directory
+  - ./create_user-config 
 
 # skips install
 #install: true

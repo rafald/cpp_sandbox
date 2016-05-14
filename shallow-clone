@@ -1,7 +1,15 @@
 #!/bin/bash
-git clone --depth 1 --branch $1 $2 $3
-cd $3
-git submodule init
+
+if [ ! -d $3 ] ; then
+    git clone --depth 1 --branch $1 $2 $3
+    cd $3
+    git submodule init
+
+    full_clone $1
+    
+    # which gcc   $ /usr/bin/gcc
+    #echo "using gcc : : /usr/bin/gcc-5 ; " >> tools/build/src/user-config.jam
+fi
 
 function full_clone() {
     for i in $(sed -n 's/\[submodule "\(.*\)"\]/\1/p' .gitmodules | sort); do
@@ -22,8 +30,4 @@ function partial_clone() {
     git clone --depth 1 --branch $1 https://github.com/boostorg/inspect.git tools/inspect
 }
 
-full_clone $1
-
-# which gcc   $ /usr/bin/gcc
-#echo "using gcc : : /usr/bin/gcc-5 ; " >> tools/build/src/user-config.jam
 
