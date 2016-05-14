@@ -3,23 +3,27 @@ git clone --depth 1 --branch $1 $2 $3
 cd $3
 git submodule init
 
-function clone_all_modules() {
-for i in $(sed -n 's/\[submodule "\(.*\)"\]/\1/p' .gitmodules | sort); do
-    spath=$(git config -f .gitmodules --get submodule.$i.path)
-    surl=$(git config -f .gitmodules --get submodule.$i.url)
-    git clone --depth 1 --branch $1 $surl $spath
-done
+function full_clone() {
+    for i in $(sed -n 's/\[submodule "\(.*\)"\]/\1/p' .gitmodules | sort); do
+        spath=$(git config -f .gitmodules --get submodule.$i.path)
+        surl=$(git config -f .gitmodules --get submodule.$i.url)
+        git clone --depth 1 --branch $1 $surl $spath
+    done
+    git submodule update
 }
 
-for mod in chrono config function mpl predef preprocessor smart_ptr system test throw_exception timer type_traits utility ;
-do
-    git clone --depth 1 --branch $1 https://github.com/boostorg/${mod}.git libs/${mod}
-done
+function partial_clone() {
+    for mod in chrono config function mpl ratio predef preprocessor smart_ptr system test throw_exception timer type_traits utility ;
+    do
+        git clone --depth 1 --branch $1 https://github.com/boostorg/${mod}.git libs/${mod}
+    done
+    
+    git clone --depth 1 --branch $1 https://github.com/boostorg/build.git tools/build
+    git clone --depth 1 --branch $1 https://github.com/boostorg/inspect.git tools/inspect
+}
 
-git clone --depth 1 --branch $1 https://github.com/boostorg/build.git tools/build
-git clone --depth 1 --branch $1 https://github.com/boostorg/inspect.git tools/inspect
-
-#git submodule update
+full_clone $1
 
 # which gcc   $ /usr/bin/gcc
 #echo "using gcc : : /usr/bin/gcc-5 ; " >> tools/build/src/user-config.jam
+
