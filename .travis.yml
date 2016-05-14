@@ -18,7 +18,7 @@ addons:
     - ppa:purplekarrot/cmake
     packages:
     - g++-4.9
-    - g++-6.1
+    - g++-5.1
     - cmake
     - cmake-data
     - libopenmpi-dev
@@ -50,7 +50,7 @@ before_install:
 install: 
   - ${CC} --version
   - cat ~/build/rafald/cpp_sandbox/boost/tools/build/src/user-config.jam
-  - ./boost/bootstrap.sh --with-toolset=gcc-4.9
+  - ./boost/bootstrap.sh --with-toolset=gcc
 
 before_script:
 
