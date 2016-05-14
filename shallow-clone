@@ -20,8 +20,6 @@ function partial_clone() {
     git clone --depth 1 --branch $1 https://github.com/boostorg/inspect.git tools/inspect
 }
 
-
-pwd
 if [ ! -d ${3}/.git ] ; then
     git clone --depth 1 --branch $1 $2 $3
     pushd $3
