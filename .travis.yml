@@ -55,11 +55,13 @@ before_script:
 #  - bash -c "echo 'using gcc : 5 : /usr/bin/gcc-5 ; ' >> ~/build/rafald/cpp_sandbox/boost/tools/build/src/user-config.jam"
   - cat ~/build/rafald/cpp_sandbox/boost/tools/build/src/user-config.jam
   - pushd boost ; pwd ; ./bootstrap.sh --with-toolset=gcc
-
+  - ls -lrt boost
+  
 script:
   - ${CC} --version
   - touch Jamroot
   - pwd
+  - ls -lrt boost
   - BOOST_ROOT=./boost ./boost/b2 -d2 toolset=${CC}-4.9 
 #  - cd build
 #  - cmake -DCMAKE_BUILD_TYPE=Debug ..
