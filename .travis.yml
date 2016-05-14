@@ -2,7 +2,7 @@ sudo: required
 dist: trusty
 language: cpp
 compiler:
-#  - clang
+#  - clang-3.9
 #  - gcc-4.9
   - gcc
 env:
@@ -18,7 +18,7 @@ addons:
     - ppa:purplekarrot/cmake
     packages:
     - g++-4.9
-    - g++-5.1
+    - g++-5
     - cmake
     - cmake-data
     - libopenmpi-dev
@@ -51,6 +51,8 @@ install:
 
 before_script:
 - ${CC} --version
+- bash -c "echo 'using gcc : 4.9 : /usr/bin/gcc-4.9 ; ' >> ~/build/rafald/cpp_sandbox/boost/tools/build/src/user-config.jam"
+- bash -c "echo 'using gcc : 5 : /usr/bin/gcc-5 ; ' >> ~/build/rafald/cpp_sandbox/boost/tools/build/src/user-config.jam"
 - cat ~/build/rafald/cpp_sandbox/boost/tools/build/src/user-config.jam
 - pwd
 - pushd boost ; ./bootstrap.sh --with-toolset=gcc
@@ -58,14 +60,15 @@ before_script:
 script:
   - ${CC} --version
   - touch Jamroot
-  - BOOST_ROOT=./boost ./boost/bjam -d2 toolset=${CC}-4.9 
+  - pwd
+  - BOOST_ROOT=./boost ./boost/b2 -d2 toolset=${CC}-4.9 
 #  - cd build
 #  - cmake -DCMAKE_BUILD_TYPE=Debug ..
 #  - cmake --build . --target $PROJECT-test
 
 after_success:
-- echo "RLD: SUCCESS"
+  - bash -c "echo 'RLD: SUCCESS'"
 
 after_failure:
-  - echo "RLD: failed!"
+  - bash -c "echo 'RLD: failed\!'"
   
