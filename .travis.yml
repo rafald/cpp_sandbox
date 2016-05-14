@@ -31,6 +31,7 @@ addons:
     - cmake
     - cmake-data
     - libopenmpi-dev
+    - gcovr
 
 before_install:
   - sudo apt-get remove gcc g++ -y
@@ -40,7 +41,7 @@ before_install:
   - ./shallow-clone master https://github.com/boostorg/boost.git boost
   - ./create_user-config 5 3.6 # configured gcc does not have any version - it is default
   
-install:
+install: #TODO CACHE IT
 #  - cd ${TRAVIS_BUILD_DIR}
   # install latest LCOV (1.9 was failing for me) [1]
   - wget http://ftp.de.debian.org/debian/pool/main/l/lcov/lcov_1.11.orig.tar.gz
