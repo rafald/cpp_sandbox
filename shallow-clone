@@ -11,7 +11,7 @@ for i in $(sed -n 's/\[submodule "\(.*\)"\]/\1/p' .gitmodules | sort); do
 done
 }
 
-for mod in chrono config function preprocessor system test timer type_traits ;
+for mod in chrono config function predef preprocessor system test timer type_traits ;
 do
     git clone --depth 1 --branch $1 https://github.com/boostorg/${mod}.git libs/${mod}
 done
