@@ -45,7 +45,9 @@ before_install:
 install: 
 
 before_script:
-  - pushd boost ; ./bootstrap.sh --with-toolset=${CC} ; ./b2 headers ; ls -lrt ; popd
+  - pushd boost ; ./bootstrap.sh --with-toolset=${CC} ;
+  - ./b2 headers system test utility ; 
+  - popd
   
 script:
   - pwd ; ls -n boost ; touch Jamroot
