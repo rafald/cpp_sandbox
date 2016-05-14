@@ -20,6 +20,9 @@ before_install:
 #  - sudo apt-get install libboost-tools-dev 
 #  - mkdir build
   - ./shallow-clone master https://github.com/boostorg/boost.git boost
+  - ls
+  - ls boost/tools/build/src
+  - ls boost/tools/build/v2
   - echo "using gcc : 4.9 ; " >> boost/tools/build/src/user-config.jam
 #  - echo "using gcc : 4.4 : /usr/bin/g++-4.4 ; " >> tools/build/src/user-config.jam
 #  - sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
@@ -36,7 +39,7 @@ script:
   - ./bootstrap.sh --with-toolset=gcc
   - popd 
   - touch Jamroot
-  - BOOST_ROOT=./boost ./boost/bjam -d2 toolset=${CC} 
+  - BOOST_ROOT=./boost ./boost/bjam -d2 toolset=${CC}-4.9 
 #  - cd build
 #  - cmake -DCMAKE_BUILD_TYPE=Debug ..
 #  - cmake --build . --target $PROJECT-test
