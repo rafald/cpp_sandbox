@@ -25,9 +25,10 @@ addons:
     sources:
     - ubuntu-toolchain-r-test
     packages:
-    - clang-3.6
     - gcc-5
     - g++-5
+    - clang-3.6
+    - clang++-3.6
     - cmake
     - cmake-data
     - libopenmpi-dev
@@ -36,9 +37,12 @@ before_install:
   - sudo apt-get remove gcc g++ -y
   - sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-5 20
   - sudo update-alternatives --config gcc  
-  - ${CC} --version # gcc (Ubuntu 5.3.0-3ubuntu1~14.04) 5.3.0 
+  - sudo apt-get remove clang clang++ -y
+  - sudo update-alternatives --install /usr/bin/clang /usr/bin/clang-3.6 20
+  - sudo update-alternatives --config clang 
+    - ${CC} --version # gcc (Ubuntu 5.3.0-3ubuntu1~14.04) 5.3.0 
   - ./shallow-clone master https://github.com/boostorg/boost.git boost
-  - ./create_user-config 5 # configured gcc does not have any version - it is default
+  - ./create_user-config 5 3.6 # configured gcc does not have any version - it is default
   
 install: 
 
