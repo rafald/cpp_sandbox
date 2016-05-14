@@ -1,5 +1,5 @@
-#sudo: required
-#dist: trusty
+sudo: false # required
+dist: trusty
 language: cpp
 compiler:
   - gcc
