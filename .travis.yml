@@ -33,7 +33,7 @@ addons:
     - libopenmpi-dev
 
 before_install:
-  - sudo apt-get remove gcc g++
+  - sudo apt-get remove gcc g++ -y
   - ./shallow-clone master https://github.com/boostorg/boost.git boost
   - pwd ; ./create_user-config 
 
