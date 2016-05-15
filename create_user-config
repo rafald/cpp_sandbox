@@ -1,4 +1,0 @@
-#!/usr/bin/env bash
-
-echo "using gcc : : /usr/bin/g++-${1} ;" > ./boost/tools/build/src/user-config.jam
-echo "using clang : : /usr/bin/clang++-${2} ;" >> ./boost/tools/build/src/user-config.jam

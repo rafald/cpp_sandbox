@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+# create brand new
+echo > ./boost/tools/build/src/user-config.jam
+
+# required by .travis.yml but normally in user_config.jam
+echo "import boost ;" >> ./boost/tools/build/src/user-config.jam
+echo "boost.use-project ;" >> ./boost/tools/build/src/user-config.jam
+
+echo "using gcc : : /usr/bin/${1} ;" >> ./boost/tools/build/src/user-config.jam
+echo "using clang : : /usr/bin/${2} ;" >> ./boost/tools/build/src/user-config.jam
+

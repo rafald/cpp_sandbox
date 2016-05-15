@@ -10,17 +10,13 @@ if ! [ python.configured ]
     ECHO "notice: will use default configuration" ;
     using python ;
 }
-#use-project boost : ./boost ;
-  
-  
   
 path-constant MYPROJECT_ROOT : . ;
 path-constant TOP : . ;
 
-# required by .travis.yml but normally in user_config.jam
-import boost ;
-boost.use-project ; 
-
+variant coverage : <cxxflags>--coverage <linkflags>"-lgcov --coverage" <optimization>off <inlining>off <debug-symbols>on ;
+# following extends existing debug variant to my_profile variant (there are predefined 'profile' and 'debug-python' variants)
+variant my_profile : debug : <optimization>speed <inlining>on <profiling>on ;
 
 project 
         : usage-requirements 
@@ -32,10 +28,9 @@ project
 			    #        <dependency>/boost//headers # <= THIS _ALWAYS_ REBUILDS TARGETS even if up to date
 				<implicit-dependency>/boost//headers
                 <cxxflags>"-std=c++1z "
-                <include>EIGEN # /home/raf12/develop/c++/eigen
+                <include>EIGEN 
                 #<linkflags>"-lcholmod -lmetis -lamd -lcamd -lccolamd -lcolamd -llapack -lgfortran -lblas "
 ;
-
 
 Echo [ SHELL "date +'%D %T'" ] ;
 
@@ -50,6 +45,7 @@ run test_concepts.cpp ; explicit test_concepts ;
 run test_auto_cpp17.cpp : <toolset>gcc ; alias test_auto_cpp17 : : <toolset>clang ;
 run test_Eigen_QR.cpp ; 
 run ret_mult_values.cpp ;
+
 run tmpl_inst.cpp 
 	: #args * 
 	: #input-files * 
@@ -61,9 +57,7 @@ run tmpl_inst.cpp
 ;
 explicit tmpl_inst ;
 
-unit-test test_dispatcher : test_dispatcher.cpp 
-  # /site-config//zlib /site-config//librt /site-config//crypto /site-config//ssl 
-  ; 
+unit-test test_dispatcher : test_dispatcher.cpp ; # /site-config//zlib /site-config//librt /site-config//crypto /site-config//ssl
 
 rule explicit-unit-test ( target : source : properties * )
 {
