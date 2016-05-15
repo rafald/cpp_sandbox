@@ -14,7 +14,7 @@ if ! [ python.configured ]
 path-constant MYPROJECT_ROOT : . ;
 path-constant TOP : . ;
 
-variant coverage : <cxxflags>--coverage <linkflags>"-lgcov --coverage" <optimization>off <inlining>off <debug-symbols>on ;
+variant coverage : <cxxflags>--coverage <linkflags>--coverage ;
 # following extends existing debug variant to my_profile variant (there are predefined 'profile' and 'debug-python' variants)
 variant my_profile : debug : <optimization>speed <inlining>on <profiling>on ;
 
