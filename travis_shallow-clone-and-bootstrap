@@ -12,6 +12,20 @@ function full_clone() {
     git submodule update --init --recursive
 }
 
+function create_user_config() {
+    # create brand new
+    echo > ./boost/tools/build/src/user-config.jam
+
+    # required by .travis.yml but normally in user_config.jam
+    echo "import boost ;" >> ./boost/tools/build/src/user-config.jam
+    echo "boost.use-project ;" >> ./boost/tools/build/src/user-config.jam
+
+    echo "using gcc : : /usr/bin/${1} ;" >> ./boost/tools/build/src/user-config.jam
+    echo "using clang : : /usr/bin/${2} ;" >> ./boost/tools/build/src/user-config.jam
+
+    cat ./boost/tools/build/src/user-config.jam
+}
+
 function partial_clone() {
     for mod in chrono config function mpl ratio predef preprocessor smart_ptr system test throw_exception timer type_traits utility ;
     do
@@ -26,18 +40,14 @@ if [ ! -d ${3}/.git ] ; then
     git clone --depth 1 --branch $1 $2 $3
     pushd $3
     git submodule init
-
     full_clone $1
 #    partial_clone $1
     
-    echo ${CC} 
-    #${CC} --version
-    #./bootstrap.sh --with-toolset=${CC} ; ./b2 headers
-    ./bootstrap.sh ; ./b2 headers
-    #./b2 variant=debug chrono ; ./b2 variant=debug system ; ./b2 variant=debug unit_test_framework 
+    echo ${CXX} ${CC} 
+    create_user_config ${CC} ${CC}
+    ./bootstrap.sh --with-toolset=${CC} ; ./b2 headers
+    ./b2 variant=debug chrono ; ./b2 variant=debug system ; ./b2 variant=debug unit_test_framework 
     
-    # which gcc   $ /usr/bin/gcc
-    #echo "using gcc : : /usr/bin/gcc-5 ; " >> tools/build/src/user-config.jam
     popd
 else
     echo "$3 dir already present"
