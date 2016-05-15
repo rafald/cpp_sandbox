@@ -39,18 +39,14 @@ before_install:
   - sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-5 20
   - sudo update-alternatives --config gcc  
   - ${CC} --version # gcc (Ubuntu 5.3.0-3ubuntu1~14.04) 5.3.0 
-  - ./travis_shallow-clone master https://github.com/boostorg/boost.git boost
-  - ./travis_create_user-config g++-5 clang++-3.6 # configured gcc does not have any version - it is default
-  - "echo 'test internal bash command'"
-  
 install: #TODO CACHE IT
   # install lcov to coveralls conversion + upload tool
   - gem install coveralls-lcov
 
 before_script:
-  - pushd boost ; ./bootstrap.sh --with-toolset=${CC}
-  - ./b2 headers # ; ./b2 variant=debug chrono ; ./b2 variant=debug system ; ./b2 variant=debug unit_test_framework 
-  - popd
+  - ${CC} --version # gcc (Ubuntu 5.3.0-3ubuntu1~14.04) 5.3.0 
+  - ./travis_shallow-clone-and-bootstrap master https://github.com/boostorg/boost.git boost
+  - ./travis_create_user-config g++-5 clang++-3.6 # configured gcc does not have any version - it is default
   
 script:
 #  - cd ${TRAVIS_BUILD_DIR}  
@@ -70,5 +66,5 @@ after_success:
   - popd
 
 after_failure:
-  - "echo 'RLD: failed'"
+  - bash -c "echo 'RLD: failed\!'"
   
