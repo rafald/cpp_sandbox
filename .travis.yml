@@ -62,14 +62,14 @@ install:
   - if [ "$CXX" = "clang++" ] && [ "$TRAVIS_OS_NAME" = "linux" ]; then export CXX="clang++-3.7" CC="clang-3.7"; fi
 # install lcov to coveralls conversion + upload tool
   - gem install coveralls-lcov
-  - sudo apt-get remove gcc g++ g++-4.8 -y # gcov is not available when this line is executed
-  - sudo apt-get install lcov -y
-  - sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-5 20
-  - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-5 20
-  - sudo update-alternatives --install /usr/bin/gcov gcov /usr/bin/gcov-5 20
-  - sudo update-alternatives --config gcc  
-  - sudo update-alternatives --config g++
-  - sudo update-alternatives --config gcov  
+#  - sudo apt-get remove g++-4.8 -y # gcov is not available when this line is executed
+#  - sudo apt-get install lcov -y
+#  - sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-5 20
+#  - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-5 20
+#  - sudo update-alternatives --install /usr/bin/gcov gcov /usr/bin/gcov-5 20
+#  - sudo update-alternatives --config gcc  
+#  - sudo update-alternatives --config g++
+#  - sudo update-alternatives --config gcov  
   - echo ${PATH}
   - echo ${CXX}
   - ${CC} --version # gcc (Ubuntu 5.3.0-3ubuntu1~14.04) 5.3.0
