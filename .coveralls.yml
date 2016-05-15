@@ -1,4 +1,2 @@
 service_name: travis-ci
-#repo_token: cYXIE3UjFJrMc9DCf6NFRSYB7quGfb2F2
-#service_job_id: $TRAVIS_JOB_ID
-
+service_job_id: $TRAVIS_JOB_ID

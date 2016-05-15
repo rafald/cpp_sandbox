@@ -70,5 +70,5 @@ after_success:
   - popd
 
 after_failure:
-  - "echo 'RLD: failed\!'"
+  - "echo 'RLD: failed'"
   
