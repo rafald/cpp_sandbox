@@ -5,3 +5,4 @@ version_file
 install_dir/
 EIGEN
 gmon.out
+coverage.info
