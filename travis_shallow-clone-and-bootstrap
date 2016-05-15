@@ -53,10 +53,10 @@ if [ ! -d ${3}/.git ] ; then
     full_clone $1
 #    partial_clone $1
     
-    echo ${4} ${5} 
+    echo ${4} ${5} ${6}
     create_user_config ${4} ${5} ${6}
-    ./bootstrap.sh --with-toolset=${4} ; ./b2 headers
-    ./b2 variant=debug chrono ; ./b2 variant=debug system ; ./b2 variant=debug unit_test_framework 
+    ./bootstrap.sh --with-toolset=${5} ; ./b2 toolset=${5} headers
+    ./b2 toolset=${5} variant=debug chrono ; ./b2 toolset=${5} variant=debug system ; ./b2 toolset=${5} variant=debug unit_test_framework 
     
     popd
 else
