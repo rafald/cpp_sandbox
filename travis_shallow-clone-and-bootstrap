@@ -31,8 +31,9 @@ if [ ! -d ${3}/.git ] ; then
 #    partial_clone $1
     
     ${CC} --version
-    ./bootstrap.sh --with-toolset=${CC} ; ./b2 headers
-    ./b2 variant=debug chrono ; ./b2 variant=debug system ; ./b2 variant=debug unit_test_framework 
+    #./bootstrap.sh --with-toolset=${CC} ; ./b2 headers
+    ./bootstrap.sh ; ./b2 headers
+    #./b2 variant=debug chrono ; ./b2 variant=debug system ; ./b2 variant=debug unit_test_framework 
     
     # which gcc   $ /usr/bin/gcc
     #echo "using gcc : : /usr/bin/gcc-5 ; " >> tools/build/src/user-config.jam
