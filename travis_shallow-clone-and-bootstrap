@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 function full_clone() {
 #    for i in $(sed -n 's/\[submodule "\(.*\)"\]/\1/p' .gitmodules | sort); do
 #        spath=$(git config -f .gitmodules --get submodule.$i.path)
