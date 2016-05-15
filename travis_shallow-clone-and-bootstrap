@@ -3,8 +3,9 @@
 # $1: master 
 # $2: https://github.com/boostorg/boost.git 
 # $3: boost 
-# $4: ${CXX} 
-# $5: ${CVER}
+# $4: ${CVER}
+# $5: ${CC} 
+# $6: ${CXX} 
 
 set -e
 
@@ -18,8 +19,9 @@ function full_clone() {
     git submodule update --init --recursive
 }
 
-# $1 g++ binary
-# $2 version #
+# $1: ${CVER}
+# $2: ${CC} 
+# $3: ${CXX} 
 function create_user_config() {
     # create brand new
     UCFILE=./tools/build/src/user-config.jam
@@ -29,7 +31,7 @@ function create_user_config() {
     echo "import boost ;" >> ${UCFILE}
     echo "boost.use-project ;" >> ${UCFILE}
 
-    echo "using ${1} : ${2} : /usr/bin/${1}-${2} ;" >> ${UCFILE}
+    echo "using ${2} : ${1} : /usr/bin/${3}-${1} ;" >> ${UCFILE}
 
     cat ${UCFILE}
 }
@@ -52,7 +54,7 @@ if [ ! -d ${3}/.git ] ; then
 #    partial_clone $1
     
     echo ${4} ${5} 
-    create_user_config ${4} ${5}
+    create_user_config ${4} ${5} ${6}
     ./bootstrap.sh --with-toolset=${4} ; ./b2 headers
     ./b2 variant=debug chrono ; ./b2 variant=debug system ; ./b2 variant=debug unit_test_framework 
     
