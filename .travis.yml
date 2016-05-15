@@ -35,37 +35,37 @@ addons:
     - lcov
 
 before_install:
-#  - sudo apt-get remove gcc g++ -y # gcov is not available when this line is executed
-  - sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-5 20
-  - sudo update-alternatives --config gcc  
-  - ${CC} --version # gcc (Ubuntu 5.3.0-3ubuntu1~14.04) 5.3.0
 
-install: #TODO CACHE IT
+install: 
   # install lcov to coveralls conversion + upload tool
   - gem install coveralls-lcov
+  - sudo apt-get remove gcc g++ -y # gcov is not available when this line is executed
+  - sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-5 20
+  - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-5 20
+  - sudo update-alternatives --install /usr/bin/gcov gcov /usr/bin/gcov-5 20
+  - sudo update-alternatives --config gcc  
+  - sudo update-alternatives --config g++
+  - sudo update-alternatives --config gcov  
+  - ${CC} --version # gcc (Ubuntu 5.3.0-3ubuntu1~14.04) 5.3.0
 
 before_script:
   - ${CC} --version # gcc (Ubuntu 5.3.0-3ubuntu1~14.04) 5.3.0
-  - pwd ; git submodule init ; git submodule update --init --recursive 
+#  - pwd ; git submodule init ; git submodule update --init --recursive # TODO then do not have to clone manually boost and eigen - following line
   - ./travis_shallow-clone-and-bootstrap master https://github.com/boostorg/boost.git boost
   - ./travis_create_user-config g++-5 clang++-3.6 # configured gcc does not have any version - it is default
+  - lcov --directory . --zerocounters
   
 script:
-#  - cd ${TRAVIS_BUILD_DIR}  
   - touch Jamroot
   - BOOST_ROOT=./boost ./boost/bjam -d2 -j8 toolset=${CC}
 
 after_success:
   - "echo 'RLD: SUCCESS'"
-#  - pushd ${TRAVIS_BUILD_DIR}
-  - lcov --directory . --zerocounters
-#  - cd ${TRAVIS_BUILD_DIR}
   - BOOST_ROOT=./boost ./boost/bjam -d2 -j8 toolset=${CC} variant=coverage
   - lcov --directory . --capture --output-file coverage.info # capture coverage info
   - lcov --remove coverage.info 'tests/*' '/usr/*' '/boost/*' '/EIGEN/*' --output-file coverage.info # filter out system and test code
   - lcov --list coverage.info # debug before upload
   - coveralls-lcov coverage.info # uploads to coveralls  # --repo-token ${COVERALLS_TOKEN}
-#  - popd
 
 after_failure:
   - bash -c "echo 'RLD: failed\!'"
