@@ -1,3 +1,8 @@
+# Build matrix / environment variable are explained on:
+# http://about.travis-ci.org/docs/user/build-configuration/
+# This file can be validated on:
+# http://lint.travis-ci.org/
+
 #This job is running on container-based infrastructure, which does not allow use of 'sudo', setuid and setguid executables.
 #If you require sudo, add 'sudo: required' to your .travis.yml
 #See https://docs.travis-ci.com/user/workers/container-based-infrastructure/ for details.
@@ -11,33 +16,51 @@ cache:
   directories:
   - boost
   - EIGEN
+os:
+  - linux
+  - osx
 compiler:
   - gcc
   - clang
 env:
-global:
+  global:
   - CTEST_OUTPUT_ON_FAILURE=1
-matrix:
-  - PROJECT=CPP_SANDBOX
+  matrix:
+    - PROJECT=CPP_SANDBOX
+    - GTEST_TARGET=googletest SHARED_LIB=OFF STATIC_LIB=ON CMAKE_PKG=OFF BUILD_TYPE=debug   VERBOSE_MAKE=true VERBOSE
+    - GTEST_TARGET=googlemock SHARED_LIB=OFF STATIC_LIB=ON CMAKE_PKG=OFF BUILD_TYPE=debug   VERBOSE_MAKE=true VERBOSE
+    - GTEST_TARGET=googlemock SHARED_LIB=OFF STATIC_LIB=ON CMAKE_PKG=OFF BUILD_TYPE=debug CXX_FLAGS=-std=c++11  VERBOSE_MAKE=true VERBOSE
+#    - GTEST_TARGET=googletest SHARED_LIB=ON  STATIC_LIB=ON CMAKE_PKG=ON  BUILD_TYPE=release VERBOSE_MAKE=false
+#    - GTEST_TARGET=googlemock SHARED_LIB=ON  STATIC_LIB=ON CMAKE_PKG=ON  BUILD_TYPE=release VERBOSE_MAKE=false
 
 addons:
   apt:
+    # List of whitelisted in travis packages for ubuntu-precise can be found here:
+    #   https://github.com/travis-ci/apt-package-whitelist/blob/master/ubuntu-precise
+    # List of whitelisted in travis apt-sources:
+    #   https://github.com/travis-ci/apt-source-whitelist/blob/master/ubuntu.json
     sources:
     - ubuntu-toolchain-r-test
+    - llvm-toolchain-precise-3.7
     packages:
     - gcc-5
     - g++-5
-    - clang-3.6
+    - clang-3.7
+    - lcov
+    - valgrind
     - cmake
     - cmake-data
     - libopenmpi-dev
     - gcovr
-    - lcov
 
 before_install:
 
 install: 
-  # install lcov to coveralls conversion + upload tool
+# /usr/bin/gcc is 4.6 always, but gcc-X.Y is available.
+  - if [ "$CXX" = "g++" ]; then export CXX="g++-5" CC="gcc-5"; fi
+# /usr/bin/clang is 3.4, lets override with modern one.
+  - if [ "$CXX" = "clang++" ] && [ "$TRAVIS_OS_NAME" = "linux" ]; then export CXX="clang++-3.7" CC="clang-3.7"; fi
+# install lcov to coveralls conversion + upload tool
   - gem install coveralls-lcov
   - sudo apt-get remove gcc g++ -y # gcov is not available when this line is executed
   - sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-5 20
@@ -46,13 +69,15 @@ install:
   - sudo update-alternatives --config gcc  
   - sudo update-alternatives --config g++
   - sudo update-alternatives --config gcov  
+  - echo ${PATH}
+  - echo ${CXX}
   - ${CC} --version # gcc (Ubuntu 5.3.0-3ubuntu1~14.04) 5.3.0
+  - ${CXX} -v
 
 before_script:
   - ${CC} --version # gcc (Ubuntu 5.3.0-3ubuntu1~14.04) 5.3.0
-#  - pwd ; git submodule init ; git submodule update --init --recursive # TODO then do not have to clone manually boost and eigen - following line
   - ./travis_shallow-clone-and-bootstrap master https://github.com/boostorg/boost.git boost
-  - ./travis_create_user-config g++-5 clang++-3.6 # configured gcc does not have any version - it is default
+  - ./travis_create_user-config g++-5 clang++-3.7 # configured gcc does not have any version - it is default
   - lcov --directory . --zerocounters
   
 script:
@@ -70,3 +95,5 @@ after_success:
 after_failure:
   - bash -c "echo 'RLD: failed\!'"
   
+notifications:
+  email: true
