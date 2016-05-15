@@ -63,6 +63,7 @@ install:
 # install lcov to coveralls conversion + upload tool
   - gem install coveralls-lcov
   - sudo apt-get remove gcc g++ -y # gcov is not available when this line is executed
+  - sudo apt-get install lcov
   - sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-5 20
   - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-5 20
   - sudo update-alternatives --install /usr/bin/gcov gcov /usr/bin/gcov-5 20
