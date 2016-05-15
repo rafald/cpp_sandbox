@@ -63,7 +63,7 @@ after_success:
   - lcov --remove coverage.info 'tests/*' '/usr/*' '/boost/*' '/EIGEN/*' --output-file coverage.info # filter out system and test code
   - lcov --list coverage.info # debug before upload
   - coveralls-lcov coverage.info # uploads to coveralls  # --repo-token ${COVERALLS_TOKEN}
-  - popd
+#  - popd
 
 after_failure:
   - bash -c "echo 'RLD: failed\!'"
