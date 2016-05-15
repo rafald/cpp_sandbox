@@ -30,7 +30,8 @@ if [ ! -d ${3}/.git ] ; then
     full_clone $1
 #    partial_clone $1
     
-    ${CC} --version
+    echo ${CC} 
+    #${CC} --version
     #./bootstrap.sh --with-toolset=${CC} ; ./b2 headers
     ./bootstrap.sh ; ./b2 headers
     #./b2 variant=debug chrono ; ./b2 variant=debug system ; ./b2 variant=debug unit_test_framework 

@@ -10,3 +10,4 @@ echo "boost.use-project ;" >> ./boost/tools/build/src/user-config.jam
 echo "using gcc : : /usr/bin/${1} ;" >> ./boost/tools/build/src/user-config.jam
 echo "using clang : : /usr/bin/${2} ;" >> ./boost/tools/build/src/user-config.jam
 
+cat ./boost/tools/build/src/user-config.jam
