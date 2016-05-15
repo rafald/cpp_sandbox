@@ -12,18 +12,21 @@ function full_clone() {
     git submodule update --init --recursive
 }
 
+# $1 gcc binary
+# $1 clang binary
 function create_user_config() {
     # create brand new
-    echo > ./boost/tools/build/src/user-config.jam
+    UCFILE=./tools/build/src/user-config.jam
+    echo > ${UCFILE}
 
     # required by .travis.yml but normally in user_config.jam
-    echo "import boost ;" >> ./boost/tools/build/src/user-config.jam
-    echo "boost.use-project ;" >> ./boost/tools/build/src/user-config.jam
+    echo "import boost ;" >> ${UCFILE}
+    echo "boost.use-project ;" >> ${UCFILE}
 
-    echo "using gcc : : /usr/bin/${1} ;" >> ./boost/tools/build/src/user-config.jam
-    echo "using clang : : /usr/bin/${2} ;" >> ./boost/tools/build/src/user-config.jam
+    echo "using gcc : : /usr/bin/${1} ;" >> ${UCFILE}
+    echo "using clang : : /usr/bin/${2} ;" >> ${UCFILE}
 
-    cat ./boost/tools/build/src/user-config.jam
+    cat ${UCFILE}
 }
 
 function partial_clone() {
