@@ -79,7 +79,8 @@ install:
 before_script:
   - ${CC} --version # gcc (Ubuntu 5.3.0-3ubuntu1~14.04) 5.3.0
   - ./travis_shallow-clone-and-bootstrap master https://github.com/boostorg/boost.git boost
-  - ./travis_create_user-config g++-5 clang++-3.7 # configured gcc does not have any version - it is default
+#  - ./travis_create_user-config g++-5 clang++-3.7 # configured gcc does not have any version - it is default
+  - ./travis_create_user-config ${CXX} ${CXX} # configured gcc does not have any version - it is default
   - if [ ! "$TRAVIS_OS_NAME" = "osx" ]; then lcov --directory . --zerocounters; fi
   
 script:
