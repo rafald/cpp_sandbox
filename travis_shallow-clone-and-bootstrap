@@ -31,7 +31,7 @@ function create_user_config() {
     echo "import boost ;" >> ${UCFILE}
     echo "boost.use-project ;" >> ${UCFILE}
 
-    echo "using ${2} : ${1} : /usr/bin/${3}-${1} ;" >> ${UCFILE}
+    echo "using ${2} : : /usr/bin/${3}-${1} ;" >> ${UCFILE}
 
     cat ${UCFILE}
 }
