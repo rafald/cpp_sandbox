@@ -44,7 +44,8 @@ install: #TODO CACHE IT
   - gem install coveralls-lcov
 
 before_script:
-  - ${CC} --version # gcc (Ubuntu 5.3.0-3ubuntu1~14.04) 5.3.0 
+  - ${CC} --version # gcc (Ubuntu 5.3.0-3ubuntu1~14.04) 5.3.0
+  - git submodule update --init --recursive 
   - ./travis_shallow-clone-and-bootstrap master https://github.com/boostorg/boost.git boost
   - ./travis_create_user-config g++-5 clang++-3.6 # configured gcc does not have any version - it is default
   
