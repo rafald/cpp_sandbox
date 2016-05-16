@@ -10,7 +10,7 @@ if ! [ python.configured ]
     ECHO "notice: will use default configuration" ;
     using python ;
 }
-  
+
 path-constant MYPROJECT_ROOT : . ;
 path-constant TOP : . ;
 
@@ -41,8 +41,8 @@ run strict_aliasing.c : <optimization>speed ;
 run tmpl_alias_overload.cpp : <toolset>clang ;  alias tmpl_alias_overload : : <toolset>gcc ;
 
 run agregate_initialization.cpp ; explicit agregate_initialization ;
-run test_concepts.cpp : : : <toolset>gcc-6.1 ;  #unit-test test_concepts : test_concepts.cpp : <toolset>gcc-6.1 ; 
-run test_auto_cpp17.cpp : <toolset>gcc ; alias test_auto_cpp17 : : <toolset>clang ;
+run test_concepts.cpp : : : <toolset>gcc-6.1 ; explicit test_concepts ; 
+run test_auto_cpp17.cpp : <toolset>gcc ; alias test_auto_cpp17 : : <toolset>clang ; 
 run test_Eigen_QR.cpp ; 
 run ret_mult_values.cpp dummy.cpp ; # rule dummy can have many cpp in 1st section
 
@@ -157,3 +157,14 @@ actions unconditional_action
 
 run quiz_aliasing.cpp ; 
 run test_enum_bit_op.cpp ;
+
+import property-set ;
+notfile print_toolset : @print_toolset_version ;
+rule print_toolset_version ( t : : properties * )
+{
+    local ps = [ property-set.create $(properties) ] ;
+    local toolset = [ $(ps).get <toolset> ] ;
+    echo Toolset is $(toolset) ;
+    local version = [ $(ps).get <toolset-$(toolset):version> ] ;
+    echo Toolset version is $(version) ;
+}
