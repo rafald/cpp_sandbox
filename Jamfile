@@ -41,10 +41,10 @@ run strict_aliasing.c : <optimization>speed ;
 run tmpl_alias_overload.cpp : <toolset>clang ;  alias tmpl_alias_overload : : <toolset>gcc ;
 
 run agregate_initialization.cpp ; explicit agregate_initialization ;
-run test_concepts.cpp ; explicit test_concepts ;
+run test_concepts.cpp : : : <toolset>gcc-6.1 ;  #unit-test test_concepts : test_concepts.cpp : <toolset>gcc-6.1 ; 
 run test_auto_cpp17.cpp : <toolset>gcc ; alias test_auto_cpp17 : : <toolset>clang ;
 run test_Eigen_QR.cpp ; 
-run ret_mult_values.cpp ;
+run ret_mult_values.cpp dummy.cpp ; # rule dummy can have many cpp in 1st section
 
 run tmpl_inst.cpp 
 	: #args * 
