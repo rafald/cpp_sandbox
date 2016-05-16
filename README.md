@@ -5,9 +5,9 @@
 # cpp_sandbox
 
 Sandbox to experiment with:
-*travis and coveralls integration
-*bjam / Boost.Testing build tool
-*modern C++ features
+* travis and coveralls integration
+* bjam / Boost.Testing build tool
+* modern C++ features
 
 C++ tips:
 * reverse_iterators refer/dereference to the position right before the one they’re initialized with:
