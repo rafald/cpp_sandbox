@@ -9,6 +9,7 @@ Sandbox to experiment with:
 * bjam / Boost.Testing build tool
 * modern C++ features
 
+
 C++ tips:
 * reverse_iterators refer/dereference to the position right before the one they’re initialized with:
   * so for range it is ok to specify range:  std::reverse_iterator(end_it), std::reverse_iterator(begin_it) 
