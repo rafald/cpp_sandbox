@@ -2,12 +2,9 @@
 
 [![Coverage Status](https://coveralls.io/repos/github/rafald/cpp_sandbox/badge.svg?branch=master)](https://coveralls.io/github/rafald/cpp_sandbox?branch=master)
 
-Windows:
 [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/rafald/cpp_sandbox/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
 <a href="https://https://ci.appveyor.com/project/rafald/cpp-sandbox" target="_blank">![Build Status](https://img.shields.io/appveyor/ci/rafald/cpp-sandbox/master.svg?label=windows)</a>
-
-
-# cpp_sandbox
 
 <a href="http://www.boost.org/LICENSE_1_0.txt" target="_blank">![Boost Licence](http://img.shields.io/badge/license-boost-blue.svg)</a>
 
@@ -19,6 +16,8 @@ Windows:
 
 <a href="http://github.com/rafald/cpp_sandbox/issues" target="_blank">![Github Issues](https://img.shields.io/github/issues/rafald/cpp_sandbox.svg)</a>
 
+
+# cpp_sandbox
 
 Sandbox to experiment with:
 * travis and coveralls integration
