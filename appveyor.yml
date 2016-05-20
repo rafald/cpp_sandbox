@@ -51,12 +51,12 @@ install:
 
   
 
-cache:
-  - packages -> **\packages.config  # preserve "packages" directory in the root of build folder but will reset it if packages.config is modified
-  - projectA\libs
-  - node_modules                    # local npm modules
-  - '%APPDATA%\npm-cache'             # npm cache
-  - '%USERPROFILE%\.nuget\packages -> **\project.json'  # project.json cache
+#cache:
+#  - packages -> **\packages.config  # preserve "packages" directory in the root of build folder but will reset it if packages.config is modified
+#  - projectA\libs
+#  - node_modules                    # local npm modules
+#  - '%APPDATA%\npm-cache'             # npm cache
+#  - '%USERPROFILE%\.nuget\packages -> **\project.json'  # project.json cache
 
 
 
