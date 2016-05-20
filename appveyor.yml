@@ -1,17 +1,18 @@
-#before_build:
-#    ps: cd "${env:APPVEYOR_BUILD_FOLDER}"
 build_script:
   - echo %CD%
-  - set PATH=%PATH%;"${env:APPVEYOR_BUILD_FOLDER}"\boost.1.60.0.0  
+  - set PATH=%PATH%;"${env:APPVEYOR_BUILD_FOLDER}"/boost.1.60.0.0  
   - echo %PATH%
-  - ps: cd boost.1.60.0.0
+  - ps: cd "${env:APPVEYOR_BUILD_FOLDER}/boost.1.60.0.0"
   - echo %CD%
-  - ls 
+  - ls -l
   - bootstrap.bat
   - ps: cd ..
   - echo %PATH%
-  - boost.1.60.0.0\bjam -d2
+  - boost.1.60.0.0/bjam -d2
   
+before_build:
+    ps: cd "${env:APPVEYOR_BUILD_FOLDER}"
+
 build:
   parallel: true                  # enable MSBuild parallel builds
   project: "Script"      # path to Visual Studio solution or project
@@ -41,6 +42,7 @@ install:
   - ps: cd "${env:APPVEYOR_BUILD_FOLDER}"
   - appveyor DownloadFile http://downloads.sourceforge.net/project/boost/boost/1.61.0/boost_1_61_0.7z
   - 7z x boost_1_61_0.7z > nul
+  - ls -l
   #- cinst drmemory
   #- appveyor DownloadFile http://downloads.sourceforge.net/mingw-w64/x86_64-5.2.0-release-posix-seh-rt_v4-rev1.7z
   #- 7z x x86_64-5.2.0-release-posix-seh-rt_v4-rev1.7z > nul
@@ -49,6 +51,12 @@ install:
 
   
 
+cache:
+  - packages -> **\packages.config  # preserve "packages" directory in the root of build folder but will reset it if packages.config is modified
+  - projectA\libs
+  - node_modules                    # local npm modules
+  - '%APPDATA%\npm-cache'             # npm cache
+  - '%USERPROFILE%\.nuget\packages -> **\project.json'  # project.json cache
 
 
 
