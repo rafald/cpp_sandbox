@@ -1,7 +1,12 @@
 #before_build:
 #    ps: cd "${env:APPVEYOR_BUILD_FOLDER}"
 build_script:
-    cmd: ./boost.1.60.0.0/bootstrap.sh && ./boost.1.60.0.0/bjam -d2
+  - echo %CD%
+  - ps: cd boost.1.60.0.0
+  - echo %CD%
+  - ./bootstrap.sh
+  - ps: cd ..
+  - ./bjam -d2
   
 build:
   parallel: true                  # enable MSBuild parallel builds
