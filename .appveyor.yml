@@ -5,7 +5,7 @@ build_script:
   
 build:
   parallel: true                  # enable MSBuild parallel builds
-  project: "${env:APPVEYOR_BUILD_FOLDER}"      # path to Visual Studio solution or project
+  project: "Script"      # path to Visual Studio solution or project
 #  project: MyTestAzureCS.sln      # path to Visual Studio solution or project
 #  #project: C:\projects\cpp_sandbox\build\morebin.sln
 #  publish_wap: true               # package Web Application Projects (WAP) for Web Deploy
