@@ -23,3 +23,7 @@ C++ tips:
   * so for range it is ok to specify range:  std::reverse_iterator(end_it), std::reverse_iterator(begin_it) 
   * for translation of single iterator:  std::reverse_iterator( std::next(iter) ) ) so iter can not be end()
 * more stuff goes here ...
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/rafald/cpp_sandbox/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
