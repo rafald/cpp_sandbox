@@ -2,6 +2,7 @@
 #    ps: cd "${env:APPVEYOR_BUILD_FOLDER}"
 build_script:
   - echo %CD%
+  - echo %PATH%
   - ps: cd boost.1.60.0.0
   - echo %CD%
   - bootstrap.bat
