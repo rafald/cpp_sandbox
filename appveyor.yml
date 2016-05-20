@@ -4,7 +4,8 @@ before_build:
 
 build_script:
   - echo %CD% %PATH%
-  - BOOST_ROOT=./boost bjam -d2
+  - set BOOST_ROOT=./boost
+  - bjam -d2
 
 build:
   parallel: true                  # enable MSBuild parallel builds
@@ -30,7 +31,6 @@ install:
   - appveyor DownloadFile http://downloads.sourceforge.net/project/boost/boost/1.61.0/boost_1_61_0.7z
   - 7z x boost_*.7z > nul
   - del boost_*.7z > nul
-  - ls -l
   #- ps: cd "${env:APPVEYOR_BUILD_FOLDER}/boost_1_61_0"
   - ps: cd "${env:APPVEYOR_BUILD_FOLDER}/boost*/"
   - bootstrap.bat
