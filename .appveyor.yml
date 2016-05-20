@@ -1,10 +1,11 @@
 #before_build:
 #    ps: cd "${env:APPVEYOR_BUILD_FOLDER}"
 build_script:
-    cmd: bjam -d2
+    cmd: cd "${env:APPVEYOR_BUILD_FOLDER}" && bjam -d2
   
-#build:
-#  parallel: true                  # enable MSBuild parallel builds
+build:
+  parallel: true                  # enable MSBuild parallel builds
+  project: "${env:APPVEYOR_BUILD_FOLDER}"      # path to Visual Studio solution or project
 #  project: MyTestAzureCS.sln      # path to Visual Studio solution or project
 #  #project: C:\projects\cpp_sandbox\build\morebin.sln
 #  publish_wap: true               # package Web Application Projects (WAP) for Web Deploy
@@ -15,7 +16,7 @@ build_script:
 #  include_nuget_references: true  # add -IncludeReferencedProjects option while packaging NuGet artifacts
 
   # MSBuild verbosity level
-  #verbosity: quiet|minimal|normal|detailed
+  verbosity: detailed # quiet|minimal|normal|detailed
   
   
 
