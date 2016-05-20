@@ -1,14 +1,7 @@
 build_script:
   - echo %CD%
-  - set PATH=%PATH%;"${env:APPVEYOR_BUILD_FOLDER}"/boost.1.60.0.0  
   - echo %PATH%
-  - ps: cd "${env:APPVEYOR_BUILD_FOLDER}/boost.1.60.0.0"
-  - echo %CD%
-  - ls -l
-  - bootstrap.bat
-  - ps: cd ..
-  - echo %PATH%
-  - boost.1.60.0.0/bjam -d2
+  - bjam -d2
   
 before_build:
     ps: cd "${env:APPVEYOR_BUILD_FOLDER}"
@@ -43,6 +36,11 @@ install:
   - appveyor DownloadFile http://downloads.sourceforge.net/project/boost/boost/1.61.0/boost_1_61_0.7z
   - 7z x boost_1_61_0.7z > nul
   - ls -l
+  - ps: cd "${env:APPVEYOR_BUILD_FOLDER}/boost_1_61_0"
+  - bootstrap.bat
+  - b2 headers
+  - ps: cd ..
+  - set PATH=%PATH%;"${env:APPVEYOR_BUILD_FOLDER}"/boost_1_61_0  
   #- cinst drmemory
   #- appveyor DownloadFile http://downloads.sourceforge.net/mingw-w64/x86_64-5.2.0-release-posix-seh-rt_v4-rev1.7z
   #- 7z x x86_64-5.2.0-release-posix-seh-rt_v4-rev1.7z > nul
