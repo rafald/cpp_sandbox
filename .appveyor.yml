@@ -1,0 +1,33 @@
+ version: 2.4.{build}
+ 
+ branches:
+   except:
+   - coverity_scan
+ 
+ configuration: Release
+  
+  environment:
+    PROJECT_BASE: "C:/projects/cpp_sandbox"
+    PATH: "C:\Libraries\boost_1_60_0;%PATH%"
+  
+  platform: x64
+  
+ -install:
+ -- ps: nuget install boost -o "${env:APPVEYOR_BUILD_FOLDER}"
+ -- ps: nuget install boost_date_time-vc120 -o "${env:APPVEYOR_BUILD_FOLDER}"
+ -- ps: nuget install boost_program_options-vc120 -o "${env:APPVEYOR_BUILD_FOLDER}"
+ -
+  before_build:
+  - ps: cd "${env:APPVEYOR_BUILD_FOLDER}"
+  - cmd: dir
+  
+  before_build:
+  - ps: cd "${env:APPVEYOR_BUILD_FOLDER}"
+  - cmd: dir
+  - bjam -d2
+
+build:
+  project: C:\projects\cpp_sandbox\build\morebin.sln
+  parallel: true
+  verbosity: normal
+  
