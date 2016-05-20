@@ -1,9 +1,7 @@
 #before_build:
 #    ps: cd "${env:APPVEYOR_BUILD_FOLDER}"
 build_script:
-    cmd: cd boost.1.60.0.0/
-    cmd: ./bootstrap.sh 
-    cmd: cd ..
+    cmd: ( cd boost.1.60.0.0/ ; ./bootstrap.sh ; cd .. ; )
     cmd: ./boost/bjam -d2
   
 build:
