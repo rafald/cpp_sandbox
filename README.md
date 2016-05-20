@@ -7,8 +7,9 @@
 
 
 [![Travis Status](https://api.travis-ci.org/rafald/cpp_sandbox.svg?branch=master)](https://api.travis-ci.org/rafald/cpp_sandbox.svg?branch=master)
-
+<!--
 <a href="https://travis-ci.org/rafald/cpp_sandbox" target="_blank">![Build Status](https://img.shields.io/travis/rafald/cpp_sandbox/master.svg?label=linux/osx)</a>
+-->
 
 <a href="https://https://ci.appveyor.com/project/rafald/cpp-sandbox" target="_blank">![Build Status](https://img.shields.io/appveyor/ci/rafald/cpp-sandbox/master.svg?label=windows)</a>
 
@@ -17,6 +18,7 @@
 <!--
 <a href="https://coveralls.io/r/rafald/cpp_sandbox?branch=master" target="_blank">![Coveralls](http://img.shields.io/coveralls/rafald/cpp_sandbox/master.svg)</a>
 -->
+
 <a href="https://github.com/rafald/cpp_sandbox/releases" target="_blank">![Version](https://badge.fury.io/gh/rafald%2Fcpp_sandbox.svg)</a>
 
 <a href="http://github.com/rafald/cpp_sandbox/issues" target="_blank">![Github Issues](https://img.shields.io/github/issues/rafald/cpp_sandbox.svg)</a>
