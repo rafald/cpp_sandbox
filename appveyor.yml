@@ -6,6 +6,7 @@ build_script:
   - echo %CD%
   - bootstrap.bat
   - ps: cd ..
+  - echo %PATH%
   - boost.1.60.0.0\bjam -d2
   
 build:
