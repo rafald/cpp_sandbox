@@ -1,10 +1,50 @@
  version: 2.4.{build}
  
- branches:
+before_build:
+    ps: cd "${env:APPVEYOR_BUILD_FOLDER}"
+    cmd: bjam -d2
+  
+build:
+  #project: C:\projects\cpp_sandbox\build\morebin.sln
+  parallel: true
+  verbosity: normal
+
+
+
+install:
+  # by default, all script lines are interpreted as batch
+  - echo This is batch
+  # to run script as a PowerShell command prepend it with ps:
+  - ps: Write-Host 'This is PowerShell'
+  # batch commands start from cmd:
+  - cmd: echo This is batch again
+  - cmd: set MY_VAR=12345
+  - ps: nuget install boost -o "${env:APPVEYOR_BUILD_FOLDER}"
+  - ps: nuget install boost_date_time-vc120 -o "${env:APPVEYOR_BUILD_FOLDER}"
+  - ps: nuget install boost_program_options-vc120 -o "${env:APPVEYOR_BUILD_FOLDER}"
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+version: 2.4.{build}
+ 
+branches:
    except:
    - coverity_scan
   
- environment:
+environment:
   fast_finish: true
 
   matrix:
@@ -12,29 +52,8 @@
     os: Visual Studio 2015
     env: BS=bjam GENERATOR="MinGW Makefiles" MEMCHECK=DRMEMORY PLATFROM=x86
 
- configuration: Release
+    configuration:  Release
   
- environment:
     PROJECT_BASE: "C:/projects/cpp_sandbox"
     PATH: "C:\Libraries\boost_1_60_0;%PATH%"
-  
-  platform: x64
-  
- install:
- - ps: nuget install boost -o "${env:APPVEYOR_BUILD_FOLDER}"
- - ps: nuget install boost_date_time-vc120 -o "${env:APPVEYOR_BUILD_FOLDER}"
- - ps: nuget install boost_program_options-vc120 -o "${env:APPVEYOR_BUILD_FOLDER}"
-
-  before_build:
-  - ps: cd "${env:APPVEYOR_BUILD_FOLDER}"
-  - cmd: dir
-  - bjam -d2
-
-build_script:
-  - mingw32-make all
-  
-build:
-  --project: C:\projects\cpp_sandbox\build\morebin.sln
-  parallel: true
-  verbosity: normal
   
