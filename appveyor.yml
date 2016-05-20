@@ -3,8 +3,7 @@ before_build:
     ps: cd "${env:APPVEYOR_BUILD_FOLDER}"
 
 build_script:
-  - echo %CD% %PATH%
-  - set BOOST_ROOT=./boost
+  - echo %CD% %PATH% %BOOST_ROOT%
   - bjam -d2
 
 build:
@@ -21,21 +20,19 @@ build:
 
   # MSBuild verbosity level
   verbosity: detailed # quiet|minimal|normal|detailed
-  
-  
 
 install:
+  - echo %PLATFORM%
   - C:\"Program Files (x86)"\"Microsoft Visual Studio 14.0"\VC\vcvarsall.bat %PLATFORM%
-  #- ps: nuget install boost -o "${env:APPVEYOR_BUILD_FOLDER}"
   - ps: cd "${env:APPVEYOR_BUILD_FOLDER}"
   - appveyor DownloadFile http://downloads.sourceforge.net/project/boost/boost/1.61.0/boost_1_61_0.7z
   - 7z x boost_*.7z > nul
   - del boost_*.7z > nul
-  #- ps: cd "${env:APPVEYOR_BUILD_FOLDER}/boost_1_61_0"
   - ps: cd "${env:APPVEYOR_BUILD_FOLDER}/boost*/"
   - bootstrap.bat
   - b2 headers
   - set PATH=%PATH%;%CD% 
+  - set BOOST_ROOT=%CD% 
   - ps: cd ..
   #- cinst drmemory
   #- appveyor DownloadFile http://downloads.sourceforge.net/mingw-w64/x86_64-5.2.0-release-posix-seh-rt_v4-rev1.7z
@@ -48,17 +45,6 @@ install:
 #  - node_modules                    # local npm modules
 #  - '%APPDATA%\npm-cache'             # npm cache
 #  - '%USERPROFILE%\.nuget\packages -> **\project.json'  # project.json cache
-
-
-
-
-
-
-
-
-
-
-
 
 version: 2.4.{build}
  
@@ -77,5 +63,4 @@ environment:
     configuration:  Release
   
     PROJECT_BASE: "C:/projects/cpp_sandbox"
-    #PATH: "C:\Libraries\boost_1_60_0;%PATH%"
   
