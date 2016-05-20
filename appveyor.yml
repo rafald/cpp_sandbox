@@ -4,7 +4,6 @@ before_build:
 
 build_script:
   - echo %CD% %PATH%
-  - set PATH=%PATH%;boost*/
   - bjam -d2
 
 build:
@@ -35,6 +34,7 @@ install:
   - ps: cd "${env:APPVEYOR_BUILD_FOLDER}/boost*/"
   - bootstrap.bat
   - b2 headers
+  - set PATH=%PATH%;%CD% # boost_1_61_0
   - ps: cd ..
   #- cinst drmemory
   #- appveyor DownloadFile http://downloads.sourceforge.net/mingw-w64/x86_64-5.2.0-release-posix-seh-rt_v4-rev1.7z
