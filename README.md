@@ -2,6 +2,7 @@
 
 [![Coverage Status](https://coveralls.io/repos/github/rafald/cpp_sandbox/badge.svg?branch=master)](https://coveralls.io/github/rafald/cpp_sandbox?branch=master)
 
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/rafald/cpp_sandbox/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 # cpp_sandbox
 
 <a href="http://www.boost.org/LICENSE_1_0.txt" target="_blank">![Boost Licence](http://img.shields.io/badge/license-boost-blue.svg)</a>
@@ -23,7 +24,3 @@ C++ tips:
   * so for range it is ok to specify range:  std::reverse_iterator(end_it), std::reverse_iterator(begin_it) 
   * for translation of single iterator:  std::reverse_iterator( std::next(iter) ) ) so iter can not be end()
 * more stuff goes here ...
-
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/rafald/cpp_sandbox/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
-
