@@ -35,8 +35,8 @@ install:
   - cmd: set MY_VAR=12345
   - ps: nuget install boost -o "${env:APPVEYOR_BUILD_FOLDER}"
   - cinst drmemory
-  - appveyor DownloadFile http://downloads.sourceforge.net/mingw-w64/x86_64-5.2.0-release-posix-seh-rt_v4-rev1.7z
-  - 7z x x86_64-5.2.0-release-posix-seh-rt_v4-rev1.7z > nul
+  #- appveyor DownloadFile http://downloads.sourceforge.net/mingw-w64/x86_64-5.2.0-release-posix-seh-rt_v4-rev1.7z
+  #- 7z x x86_64-5.2.0-release-posix-seh-rt_v4-rev1.7z > nul
   - C:\"Program Files (x86)"\"Microsoft Visual Studio 14.0"\VC\vcvarsall.bat %PLATFORM%
   - set PATH=.;%PATH%;mingw64\bin  
 
@@ -71,5 +71,5 @@ environment:
     configuration:  Release
   
     PROJECT_BASE: "C:/projects/cpp_sandbox"
-    PATH: "C:\Libraries\boost_1_60_0;%PATH%"
+    #PATH: "C:\Libraries\boost_1_60_0;%PATH%"
   
