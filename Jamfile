@@ -170,5 +170,5 @@ rule print_toolset_version ( t : : properties * )
 }
 
 
-Echo [ SHELL "scan-build bjam" ] ;
+#Echo [ SHELL "scan-build bjam" ] ;
 

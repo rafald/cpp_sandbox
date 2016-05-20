@@ -2,6 +2,7 @@
 #    ps: cd "${env:APPVEYOR_BUILD_FOLDER}"
 build_script:
   - echo %CD%
+  - set PATH=%PATH%;"${env:APPVEYOR_BUILD_FOLDER}"\boost.1.60.0.0  
   - echo %PATH%
   - ps: cd boost.1.60.0.0
   - echo %CD%
@@ -41,7 +42,7 @@ install:
   #- appveyor DownloadFile http://downloads.sourceforge.net/mingw-w64/x86_64-5.2.0-release-posix-seh-rt_v4-rev1.7z
   #- 7z x x86_64-5.2.0-release-posix-seh-rt_v4-rev1.7z > nul
   - C:\"Program Files (x86)"\"Microsoft Visual Studio 14.0"\VC\vcvarsall.bat %PLATFORM%
-  - set PATH=.;%PATH%;mingw64\bin  
+  - set PATH=%PATH%;mingw64\bin  
 
   
 
