@@ -1,7 +1,7 @@
 #before_build:
 #    ps: cd "${env:APPVEYOR_BUILD_FOLDER}"
 build_script:
-    cmd: cd "${env:APPVEYOR_BUILD_FOLDER}" && bjam -d2
+    cmd: cd "${env:APPVEYOR_BUILD_FOLDER}" && pwd && bjam -d2
   
 build:
   parallel: true                  # enable MSBuild parallel builds
@@ -29,8 +29,6 @@ install:
   - cmd: echo This is batch again
   - cmd: set MY_VAR=12345
   - ps: nuget install boost -o "${env:APPVEYOR_BUILD_FOLDER}"
-  - ps: nuget install boost_date_time-vc120 -o "${env:APPVEYOR_BUILD_FOLDER}"
-  - ps: nuget install boost_program_options-vc120 -o "${env:APPVEYOR_BUILD_FOLDER}"
   
 
   
