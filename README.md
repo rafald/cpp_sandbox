@@ -2,12 +2,11 @@
 <a href="http://www.boost.org/LICENSE_1_0.txt" target="_blank">![Boost Licence](http://img.shields.io/badge/license-boost-blue.svg)</a>
 
 
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/rafald/cpp_sandbox/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
 
 
 [![Travis Status](https://api.travis-ci.org/rafald/cpp_sandbox.svg?branch=master)](https://api.travis-ci.org/rafald/cpp_sandbox.svg?branch=master)
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/rafald/cpp_sandbox/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
-
 
 <a href="https://travis-ci.org/rafald/cpp_sandbox" target="_blank">![Build Status](https://img.shields.io/travis/rafald/cpp_sandbox/master.svg?label=linux/osx)</a>
 
@@ -15,9 +14,9 @@
 
 
 [![Coverage Status](https://coveralls.io/repos/github/rafald/cpp_sandbox/badge.svg?branch=master)](https://coveralls.io/github/rafald/cpp_sandbox?branch=master)
-
+<!--
 <a href="https://coveralls.io/r/rafald/cpp_sandbox?branch=master" target="_blank">![Coveralls](http://img.shields.io/coveralls/rafald/cpp_sandbox/master.svg)</a>
-
+-->
 <a href="https://github.com/rafald/cpp_sandbox/releases" target="_blank">![Version](https://badge.fury.io/gh/rafald%2Fcpp_sandbox.svg)</a>
 
 <a href="http://github.com/rafald/cpp_sandbox/issues" target="_blank">![Github Issues](https://img.shields.io/github/issues/rafald/cpp_sandbox.svg)</a>
