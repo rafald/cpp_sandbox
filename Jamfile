@@ -168,3 +168,7 @@ rule print_toolset_version ( t : : properties * )
     local version = [ $(ps).get <toolset-$(toolset):version> ] ;
     echo Toolset version is $(version) ;
 }
+
+
+Echo [ SHELL "scan-build bjam" ] ;
+
