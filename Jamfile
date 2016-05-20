@@ -1,3 +1,4 @@
+
 # Echo [ SHELL "./write_version.sh" ] ; # runs the script from Jamfile dir /not Jamroot dir/
 # ^ in Jamroot /must be run before loading of this file/
 
@@ -172,5 +173,5 @@ rule print_toolset_version ( t : : properties * )
 }
 
 
-#Echo [ SHELL "scan-build bjam" ] ;
 
+ECHO "You may run super-lint:      scan-build bjam" ;
