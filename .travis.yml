@@ -75,6 +75,10 @@ before_script:
 script:
   - touch Jamroot
   - BOOST_ROOT=./boost ./boost/bjam -d2 -j8 toolset=${CC}
+  - if [ "$CXX" == "clang++" ] ; #Run the clang static analyzer.
+    then
+      CC=clang-3.6 CXX=clang++-3.6 scan-build-3.6 bjam;
+    fi
 
 after_success:
   - "echo 'RLD: SUCCESS'"
@@ -88,4 +92,6 @@ after_failure:
   - bash -c "echo 'RLD: failed\!'"
   
 notifications:
-  email: true
+  email:
+    on_success: change
+    on_failure: always
