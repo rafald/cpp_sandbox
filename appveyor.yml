@@ -4,7 +4,7 @@ before_build:
 
 build_script:
   - echo %CD% %PATH%
-  - boost*/ bjam -d2
+  - boost*/bjam -d2
 
 build:
   parallel: true                  # enable MSBuild parallel builds
