@@ -33,6 +33,8 @@ install:
   - b2 headers
   - set PATH=%PATH%;%CD% 
   - set BOOST_ROOT=%CD% 
+  - cmd: echo using msvc ; > tools/build/src/user-config.jam
+  - cmd: echo using python ; >> tools/build/src/user-config.jam
   - ps: cd ..
   #- cinst drmemory
   #- appveyor DownloadFile http://downloads.sourceforge.net/mingw-w64/x86_64-5.2.0-release-posix-seh-rt_v4-rev1.7z
