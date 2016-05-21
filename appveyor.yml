@@ -29,7 +29,7 @@ before_build:
 
 build_script:
   - echo %CD% %PATH% %BOOST_ROOT%
-  - cmd: boost_1_61_0\bjam -d9 # here must use specific version, boost*\bjam does not work
+  - cmd: boost_1_61_0\bjam -d5 # here must use specific version, boost*\bjam does not work
 
 #build:
 #  parallel: true        # enable MSBuild parallel builds
