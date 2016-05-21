@@ -25,7 +25,7 @@ build:
 install:
   - C:\"Program Files (x86)"\"Microsoft Visual Studio 14.0"\VC\vcvarsall.bat %PLATFORM%
   - ps: cd "${env:APPVEYOR_BUILD_FOLDER}"
-  - pwd && appveyor DownloadFile http://downloads.sourceforge.net/project/boost/boost/1.61.0/boost_1_61_0.7z
+  - appveyor DownloadFile "http://downloads.sourceforge.net/project/boost/boost/1.61.0/boost_1_61_0.7z?r=&ts=1463825512&use_mirror=netassist"
   - ls -l && 7z x boost_*.7z > nul
   - del boost_*.7z > nul
   - ps: cd "${env:APPVEYOR_BUILD_FOLDER}/boost*/"
