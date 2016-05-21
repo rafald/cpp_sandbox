@@ -5,7 +5,7 @@ before_build:
 
 build_script:
   - echo %CD% %PATH% %BOOST_ROOT%
-  - cmd: bjam -d2 bad_target_name
+  - cmd: boost\bjam -d2
 
 build:
   parallel: true                  # enable MSBuild parallel builds
@@ -31,7 +31,7 @@ install:
   - ps: cd "${env:APPVEYOR_BUILD_FOLDER}/boost*/"
   - bootstrap.bat
   - b2 headers
-  - set PATH=%PATH%;%CD% 
+  #- set PATH=%PATH%;%CD% 
   - set BOOST_ROOT=%CD% 
   - cmd: echo using msvc ; > tools/build/src/user-config.jam
   - cmd: echo using python ; >> tools/build/src/user-config.jam
