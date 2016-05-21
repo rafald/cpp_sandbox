@@ -5,7 +5,7 @@ before_build:
 
 build_script:
   - echo %CD% %PATH% %BOOST_ROOT%
-  - ps: bjam -d2 bad_target_name
+  - bjam -d2 bad_target_name
 
 build:
   parallel: true                  # enable MSBuild parallel builds
