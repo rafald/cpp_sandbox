@@ -29,7 +29,8 @@ before_build:
 
 build_script:
   - echo %CD% %PATH% %BOOST_ROOT%
-  - cmd: boost_1_61_0\bjam -d4 # here must use specific version, boost*\bjam does not work
+  #- cmd: boost_1_61_0\bjam -d4 # here must use specific version, boost*\bjam does not work
+  - bjam -d4 
 
 #build:
 #  parallel: true        # enable MSBuild parallel builds
@@ -39,13 +40,14 @@ build_script:
 install:
   - C:\"Program Files (x86)"\"Microsoft Visual Studio 14.0"\VC\vcvarsall.bat %PLATFORM%
   - ps: cd "${env:APPVEYOR_BUILD_FOLDER}"
-  - appveyor DownloadFile "http://downloads.sourceforge.net/project/boost/boost/1.61.0/boost_1_61_0.7z?r=&ts=1463825512&use_mirror=netassist"
+  - appveyor DownloadFile "http://downloads.sourceforge.net/project/boost/boost/1.60.0/boost_1_60_0.7z?r=&ts=1463866071&use_mirror=netassist"
+  #- appveyor DownloadFile "http://downloads.sourceforge.net/project/boost/boost/1.61.0/boost_1_61_0.7z?r=&ts=1463825512&use_mirror=netassist"
   - ls -l && 7z x boost_*.7z > nul
   - del boost_*.7z > nul
   - ps: cd "${env:APPVEYOR_BUILD_FOLDER}/boost*/"
   - bootstrap.bat
   - b2 headers
-  #- set PATH=%PATH%;%CD% 
+  - set PATH=%PATH%;%CD% # TODO remove
   - set BOOST_ROOT=%CD% 
   - cmd: echo using msvc ; > tools/build/src/user-config.jam
   - cmd: echo using python ; >> tools/build/src/user-config.jam
