@@ -51,7 +51,9 @@ install:
   - b2 headers
   - set PATH=%PATH%;%CD% # TODO remove
   - set BOOST_ROOT=%CD% 
-  - cmd: echo using msvc ; > tools/build/src/user-config.jam
+  - cmd: echo import boost ; > tools/build/src/user-config.jam
+  - cmd: echo boost.use-project ; >> tools/build/src/user-config.jam
+  - cmd: echo using msvc ; >> tools/build/src/user-config.jam
   - cmd: echo using python ; >> tools/build/src/user-config.jam
   - cat tools/build/src/user-config.jam
   - ps: cd ..
