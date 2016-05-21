@@ -21,12 +21,12 @@ variant my_profile : debug : <optimization>speed <inlining>on <profiling>on ;
 project 
         : usage-requirements 
                 <include>.
-                <implicit-dependency>/boost//headers
+        #        <implicit-dependency>/boost//headers
                 <cxxflags>"-std=c++1z "
         : requirements
-		<library>/boost//unit_test_framework
+		#<library>/boost//unit_test_framework
 		#        <dependency>/boost//headers # <= THIS _ALWAYS_ REBUILDS TARGETS even if up to date
-		<implicit-dependency>/boost//headers
+		#<implicit-dependency>/boost//headers
                 <cxxflags>"-std=c++1z "
                 <include>EIGEN 
                 #<linkflags>"-lcholmod -lmetis -lamd -lcamd -lccolamd -lcolamd -llapack -lgfortran -lblas "
