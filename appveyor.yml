@@ -1,47 +1,3 @@
-
-before_build:
-  - ps: cd "${env:APPVEYOR_BUILD_FOLDER}"
-  - cmd: copy /Y NUL Jamroot # ATTRIB -R filename.ext
-
-build_script:
-  - echo %CD% %PATH% %BOOST_ROOT%
-  - cmd: boost_1_61_0\bjam -d2 # here must use specific version, boost*\bjam does not work
-
-build:
-  parallel: true                  # enable MSBuild parallel builds
-  project: "Script"      # path to Visual Studio solution or project
-#  project: MyTestAzureCS.sln      # path to Visual Studio solution or project
-#  #project: C:\projects\cpp_sandbox\build\morebin.sln
-#  publish_wap: true               # package Web Application Projects (WAP) for Web Deploy
-#  publish_wap_xcopy: true         # package Web Application Projects (WAP) for XCopy deployment
-#  publish_azure: true             # package Azure Cloud Service projects and push to artifacts
-#  publish_nuget: true             # package projects with .nuspec files and push to artifacts
-#  publish_nuget_symbols: true     # generate and publish NuGet symbol packages
-#  include_nuget_references: true  # add -IncludeReferencedProjects option while packaging NuGet artifacts
-
-  # MSBuild verbosity level
-  verbosity: detailed # quiet|minimal|normal|detailed
-
-install:
-  - C:\"Program Files (x86)"\"Microsoft Visual Studio 14.0"\VC\vcvarsall.bat %PLATFORM%
-  - ps: cd "${env:APPVEYOR_BUILD_FOLDER}"
-  - appveyor DownloadFile "http://downloads.sourceforge.net/project/boost/boost/1.61.0/boost_1_61_0.7z?r=&ts=1463825512&use_mirror=netassist"
-  - ls -l && 7z x boost_*.7z > nul
-  - del boost_*.7z > nul
-  - ps: cd "${env:APPVEYOR_BUILD_FOLDER}/boost*/"
-  - bootstrap.bat
-  - b2 headers
-  #- set PATH=%PATH%;%CD% 
-  - set BOOST_ROOT=%CD% 
-  - cmd: echo using msvc ; > tools/build/src/user-config.jam
-  - cmd: echo using python ; >> tools/build/src/user-config.jam
-  - cat tools/build/src/user-config.jam
-  - ps: cd ..
-  #- cinst drmemory
-  #- appveyor DownloadFile http://downloads.sourceforge.net/mingw-w64/x86_64-5.2.0-release-posix-seh-rt_v4-rev1.7z
-  #- 7z x x86_64-5.2.0-release-posix-seh-rt_v4-rev1.7z > nul
-  - set PATH=%PATH%;mingw64\bin  
-
 #cache:
 #  - packages -> **\packages.config  # preserve "packages" directory in the root of build folder but will reset it if packages.config is modified
 #  - projectA\libs
@@ -66,4 +22,37 @@ environment:
     configuration:  Release
   
     PROJECT_BASE: "C:/projects/cpp_sandbox"
-  
+
+before_build:
+  - ps: cd "${env:APPVEYOR_BUILD_FOLDER}"
+  - cmd: copy /Y NUL Jamroot # ATTRIB -R filename.ext
+
+build_script:
+  - echo %CD% %PATH% %BOOST_ROOT%
+  - cmd: boost_1_61_0\bjam -d2 # here must use specific version, boost*\bjam does not work
+
+#build:
+#  parallel: true        # enable MSBuild parallel builds
+#  project: "Script"     # path to Visual Studio solution or project
+#  verbosity: detailed # quiet|minimal|normal|detailed
+
+install:
+  - C:\"Program Files (x86)"\"Microsoft Visual Studio 14.0"\VC\vcvarsall.bat %PLATFORM%
+  - ps: cd "${env:APPVEYOR_BUILD_FOLDER}"
+  - appveyor DownloadFile "http://downloads.sourceforge.net/project/boost/boost/1.61.0/boost_1_61_0.7z?r=&ts=1463825512&use_mirror=netassist"
+  - ls -l && 7z x boost_*.7z > nul
+  - del boost_*.7z > nul
+  - ps: cd "${env:APPVEYOR_BUILD_FOLDER}/boost*/"
+  - bootstrap.bat
+  - b2 headers
+  #- set PATH=%PATH%;%CD% 
+  - set BOOST_ROOT=%CD% 
+  - cmd: echo using msvc ; > tools/build/src/user-config.jam
+  - cmd: echo using python ; >> tools/build/src/user-config.jam
+  - cat tools/build/src/user-config.jam
+  - ps: cd ..
+  #- cinst drmemory
+  #- appveyor DownloadFile http://downloads.sourceforge.net/mingw-w64/x86_64-5.2.0-release-posix-seh-rt_v4-rev1.7z
+  #- 7z x x86_64-5.2.0-release-posix-seh-rt_v4-rev1.7z > nul
+  - set PATH=%PATH%;mingw64\bin  
+
