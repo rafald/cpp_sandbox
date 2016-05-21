@@ -24,7 +24,7 @@
 <a href="http://github.com/rafald/cpp_sandbox/issues" target="_blank">![Github Issues](https://img.shields.io/github/issues/rafald/cpp_sandbox.svg)</a>
 
 
-![Codeship Status for rafald/cpp_sandbox](https://codeship.com/projects/1532d940-fdc5-0133-0c34-226b7b8bc1bd/status?branch=master)](https://codeship.com/projects/152293)
+[![Codeship Status for rafald/cpp_sandbox](https://codeship.com/projects/1532d940-fdc5-0133-0c34-226b7b8bc1bd/status?branch=master)](https://codeship.com/projects/152293)
 
 # cpp_sandbox
 
