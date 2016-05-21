@@ -1,0 +1,15 @@
+project 
+        : usage-requirements 
+                <include>.
+        #        <implicit-dependency>/boost//headers
+        : requirements
+        #        <library>/boost//unit_test_framework
+        #        <implicit-dependency>/boost//headers
+        #        <cxxflags>"-std=c++1z "
+        #        <include>EIGEN 
+        #        #<linkflags>"-lcholmod -lmetis -lamd -lcamd -lccolamd -lcolamd -llapack -lgfortran -lblas "
+        :
+         source-location src 
+;
+
+run quiz_aliasing.cpp ; 
