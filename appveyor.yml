@@ -1,6 +1,7 @@
 
 before_build:
     ps: cd "${env:APPVEYOR_BUILD_FOLDER}"
+  - echo \# > Jamroot
 
 build_script:
   - echo %CD% %PATH% %BOOST_ROOT%
@@ -22,7 +23,6 @@ build:
   verbosity: detailed # quiet|minimal|normal|detailed
 
 install:
-  - echo %PLATFORM%
   - C:\"Program Files (x86)"\"Microsoft Visual Studio 14.0"\VC\vcvarsall.bat %PLATFORM%
   - ps: cd "${env:APPVEYOR_BUILD_FOLDER}"
   - appveyor DownloadFile http://downloads.sourceforge.net/project/boost/boost/1.61.0/boost_1_61_0.7z
