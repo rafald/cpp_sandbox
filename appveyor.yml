@@ -40,6 +40,7 @@ build_script:
 install:
   - C:\"Program Files (x86)"\"Microsoft Visual Studio 14.0"\VC\vcvarsall.bat %PLATFORM%
   - ps: cd "${env:APPVEYOR_BUILD_FOLDER}"
+  - hg clone https://bitbucket.org/eigen/eigen EIGEN
   #- appveyor DownloadFile "http://downloads.sourceforge.net/project/boost/boost/1.58.0/boost_1_58_0.7z?r=&ts=1463866208&use_mirror=freefr"
   # - appveyor DownloadFile "http://downloads.sourceforge.net/project/boost/boost/1.59.0/boost_1_59_0.7z?r=&ts=1463866154&use_mirror=freefr"
   #- appveyor DownloadFile "http://downloads.sourceforge.net/project/boost/boost/1.60.0/boost_1_60_0.7z?r=&ts=1463866071&use_mirror=netassist"

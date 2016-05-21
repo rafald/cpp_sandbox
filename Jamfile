@@ -158,8 +158,8 @@ actions unconditional_action
 	if $(UNIX)
 	{
 	   echo "running unconditional_action"
-       #./write_version.sh
-       #touch "wrote"
+       echo COMMENTED_OUT ./write_version.sh
+       echo COMMENTED_OUT touch "wrote"
 	}
 }
 
