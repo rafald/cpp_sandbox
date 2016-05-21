@@ -1,7 +1,7 @@
 
 before_build:
-    ps: cd "${env:APPVEYOR_BUILD_FOLDER}"
-  - echo \# > Jamroot
+  - ps: cd "${env:APPVEYOR_BUILD_FOLDER}"
+  - cmd: copy /Y NUL Jamroot # ATTRIB -R filename.ext
 
 build_script:
   - echo %CD% %PATH% %BOOST_ROOT%
