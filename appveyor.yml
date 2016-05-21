@@ -5,7 +5,7 @@ before_build:
 
 build_script:
   - echo %CD% %PATH% %BOOST_ROOT%
-  - ps: bjam -d2 -v # test_dispatcher
+  - ps: bjam -d2 test_dispatcher
 
 build:
   parallel: true                  # enable MSBuild parallel builds
