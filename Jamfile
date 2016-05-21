@@ -34,7 +34,10 @@ project
                 source-location src 
 ;
 
-# TODO if os.type == linux Echo [ SHELL "date +'%D %T'" ] ;
+if $(UNIX)
+{
+	Echo [ SHELL "date +'%D %T'" ] ;
+}
 
 run strict_aliasing.c : <optimization>speed ;
 # optimization speed space off
@@ -152,9 +155,12 @@ actions in2out
 notfile unconditional_action : @unconditional_action ;
 actions unconditional_action
 {
+	if $(UNIX)
+	{
     echo "running unconditional_action"
     #./write_version.sh
     #touch "wrote"
+	}
 }
 
 run quiz_aliasing.cpp ; 
@@ -170,7 +176,5 @@ rule print_toolset_version ( t : : properties * )
     local version = [ $(ps).get <toolset-$(toolset):version> ] ;
     echo Toolset version is $(version) ;
 }
-
-
 
 ECHO "You may run super-lint:      scan-build bjam" ;
