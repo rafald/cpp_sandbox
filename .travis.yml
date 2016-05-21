@@ -75,7 +75,7 @@ before_script:
 script:
   - touch Jamroot
   - BOOST_ROOT=./boost ./boost/bjam -d2 -j8 toolset=${CC}
-  - if [ "$CXX" == "clang++" ] ; then BOOST_ROOT=./boost scan-build ./boost/bjam ; fi
+  #- if [ "$CXX" == "clang++" ] ; then BOOST_ROOT=./boost scan-build ./boost/bjam ; fi
 
 after_success:
   - "echo 'RLD: SUCCESS'"
