@@ -1,15 +1,41 @@
+# Echo [ SHELL "./write_version.sh" ] ; # runs the script from Jamfile dir /not Jamroot dir/
+# ^ in Jamroot /must be run before loading of this file/
+
+import notfile ;
+
+import python ;
+if ! [ python.configured ]
+{
+    ECHO "notice: no Python configured in user-config.jam" ;
+    ECHO "notice: will use default configuration" ;
+    using python ;
+}
+
+path-constant MYPROJECT_ROOT : . ;
+path-constant TOP : . ;
+
+variant coverage : <cxxflags>--coverage <linkflags>--coverage ;
+# following extends existing debug variant to my_profile variant (there are predefined 'profile' and 'debug-python' variants)
+variant my_profile : debug : <optimization>speed <inlining>on <profiling>on ;
+
 project 
         : usage-requirements 
                 <include>.
-        #        <implicit-dependency>/boost//headers
+                <implicit-dependency>/boost//headers
+                <cxxflags>"-std=c++1z "
         : requirements
-        #        <library>/boost//unit_test_framework
-        #        <implicit-dependency>/boost//headers
-        #        <cxxflags>"-std=c++1z "
-        #        <include>EIGEN 
-        #        #<linkflags>"-lcholmod -lmetis -lamd -lcamd -lccolamd -lcolamd -llapack -lgfortran -lblas "
+		<library>/boost//unit_test_framework
+		#        <dependency>/boost//headers # <= THIS _ALWAYS_ REBUILDS TARGETS even if up to date
+		<implicit-dependency>/boost//headers
+                <cxxflags>"-std=c++1z "
+                <include>EIGEN 
+                #<linkflags>"-lcholmod -lmetis -lamd -lcamd -lccolamd -lcolamd -llapack -lgfortran -lblas "
         :
-         source-location src 
+                source-location src 
 ;
 
-run quiz_aliasing.cpp ; 
+Echo [ SHELL "date +'%D %T'" ] ;
+
+
+
+ECHO "You may run super-lint:      scan-build bjam" ;
