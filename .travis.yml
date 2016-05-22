@@ -20,13 +20,8 @@ os:
   - linux
 #  - osx # toolset=darwin 
 compiler:
-  gcc: true
-  clang:
-    addons:
-      apt:
-         packages: ["clang-format-3.8", "clang-tidy-3.8"]
-         sources: ["ubuntu-toolchain-r-test", "llvm-toolchain-precise-3.8"]
-  
+  - gcc
+  - clang
 matrix:
   fast_finish: true
 env:
@@ -49,6 +44,7 @@ addons:
     sources: ["ubuntu-toolchain-r-test", "llvm-toolchain-precise-3.8"]
     packages: ["clang-format-3.8", "clang-tidy-3.8", gcc-5, g++-5, clang-3.8, lcov, 
       valgrind, cmake, cmake-data, libopenmpi-dev, gcovr]
+         packages: ["clang-format-3.8", "clang-tidy-3.8"]
 
 before_install:
 
