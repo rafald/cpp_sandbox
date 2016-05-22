@@ -51,10 +51,12 @@ if [ ! -d ${3}/.git ] ; then
     full_clone $1
 #    partial_clone $1
     
+    ./bootstrap.sh # use default toolset
+    
     echo ${4} ${5} # gcc-version clang-version
     create_user_config ${4} ${5} 
     TOOLSET=gcc-${4},clang-${5}
-    ./bootstrap.sh --with-toolset=clang-${5} ; ./b2 toolset=${TOOLSET} headers
+    ./b2 toolset=${TOOLSET} headers
     ./b2 toolset=${TOOLSET} variant=debug chrono system unit_test_framework 
     
     popd

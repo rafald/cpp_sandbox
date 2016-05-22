@@ -65,7 +65,7 @@ install:
 
 before_script:
   - ./travis_shallow-clone-and-bootstrap master https://github.com/boostorg/boost.git boost ${GCC_VER} ${CLANG_VER}
-  - if [ ! "$TRAVIS_OS_NAME" = "osx" ]; then lcov --directory . --zerocounters; fi # TODO try to uncomment
+  - lcov --directory . --zerocounters; fi # if [ ! "$TRAVIS_OS_NAME" = "osx" ]; then 
   
 script:
   - touch Jamroot
@@ -88,4 +88,4 @@ after_failure:
 notifications:
   email:
     on_success: change
-    on_failure: always
+    on_failure: change # always
