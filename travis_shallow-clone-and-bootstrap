@@ -3,8 +3,8 @@
 # $1: master 
 # $2: https://github.com/boostorg/boost.git 
 # $3: boost 
-# $4: GCC_VER
-# $5: CLANG_VER
+# $4: CLANG_VER
+# $5: optional GCC_VER
 
 
 function full_clone() {
@@ -17,8 +17,8 @@ function full_clone() {
     git submodule update --init --recursive
 }
 
-# $1: GCC_VER
-# $2: CLANG_VER
+# $1: CLANG_VER
+# $2: optional GCC_VER
 function create_user_config() {
     # create brand new
     UCFILE=./tools/build/src/user-config.jam
@@ -28,8 +28,8 @@ function create_user_config() {
     echo "import boost ;" >> ${UCFILE}
     echo "boost.use-project ;" >> ${UCFILE}
 
-    echo "using gcc : ${1} : /usr/bin/g++-${1} ;" >> ${UCFILE}
-    echo "using clang : ${2} : /usr/bin/clang++-${2} ;" >> ${UCFILE}
+    echo "using gcc : ${2} : /usr/bin/g++-${2} ;" >> ${UCFILE}
+    echo "using clang : ${1} : /usr/bin/clang++-${1} ;" >> ${UCFILE}
 
     cat ${UCFILE}
 }
@@ -53,7 +53,7 @@ if [ ! -d ${3}/.git ] ; then
     
     ./bootstrap.sh # use default toolset
     
-    echo ${4} ${5} # gcc-version clang-version
+    echo ${4} ${5} # clang-version optional-gcc-version
     create_user_config ${4} ${5} 
     TOOLSET=gcc-${4},clang-${5}
     ./b2 toolset=${TOOLSET} headers
