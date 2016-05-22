@@ -50,7 +50,7 @@ addons:
     - gcc-5
     - g++-5
     - clang-3.8
-    - lcov, 
+    - lcov
     - valgrind
     - cmake
     - cmake-data
@@ -64,7 +64,7 @@ install:
   - if [ "$CXX" = "g++" ] && [ "$TRAVIS_OS_NAME" = "linux" ]; then export CVER="5"; fi
   - if [ "$CXX" = "g++" ] && [ "$TRAVIS_OS_NAME" = "osx" ]; then export CVER="4.9"; fi
 # /usr/bin/clang is 3.4, lets override with modern one.
-  - if [ "$CXX" = "clang++" ] && [ "$TRAVIS_OS_NAME" = "linux" ]; then export CVER="3.7"; fi
+  - if [ "$CXX" = "clang++" ] && [ "$TRAVIS_OS_NAME" = "linux" ]; then export CVER="3.8"; fi
 # install lcov to coveralls conversion + upload tool
   - gem install coveralls-lcov
   - echo ${PATH}
