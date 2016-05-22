@@ -62,7 +62,7 @@ install:
   - gem install coveralls-lcov
 
 before_script:
-  - if [ $TRAVIS_OS_NAME == osx ]; then export GCC_VER=4.9 ; fi # TODO pass empty GCC_VER ; GCC_VER is unused but entry in user-config.jam is created
+  - if [ $TRAVIS_OS_NAME == osx ]; then export GCC_VER= ; fi # empty version
   - ./travis_shallow-clone-and-bootstrap master https://github.com/boostorg/boost.git boost ${CLANG_VER} ${GCC_VER}
   
 script:
