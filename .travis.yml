@@ -65,7 +65,7 @@ install:
 
 before_script:
   - ./travis_shallow-clone-and-bootstrap master https://github.com/boostorg/boost.git boost ${GCC_VER} ${CLANG_VER}
-  - lcov --directory . --zerocounters; fi # if [ ! "$TRAVIS_OS_NAME" = "osx" ]; then 
+  - lcov --directory . --zerocounters
   
 script:
   - touch Jamroot
