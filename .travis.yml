@@ -10,6 +10,10 @@
 sudo: required # false
 dist: trusty
 language: cpp
+branches:
+  only:
+    - master
+    - develop
 cache:
 #  apt: true
   ccache: true
@@ -18,15 +22,16 @@ cache:
   - EIGEN
 os:
   - linux
-#  - osx # toolset=darwin 
-compiler:
-  - gcc
-  - clang
+  - osx # toolset=darwin
+#compiler:
+#  - gcc
+#  - clang
 matrix:
   fast_finish: true
 env:
   global:
   - CTEST_OUTPUT_ON_FAILURE=1
+  - GCC_VER=5
   - CLANG_VER=3.8
 addons:
   apt:
@@ -53,32 +58,25 @@ addons:
 before_install:
 
 install: 
-# /usr/bin/gcc is 4.6 always, but gcc-X.Y is available.
-  - if [ "$CXX" = "g++" ] && [ "$TRAVIS_OS_NAME" = "linux" ]; then export CVER="5"; fi
-  - if [ "$CXX" = "g++" ] && [ "$TRAVIS_OS_NAME" = "osx" ]; then export CVER="4.9"; fi
-# /usr/bin/clang is 3.4, lets override with modern one.
-  - if [ "$CXX" = "clang++" ] && [ "$TRAVIS_OS_NAME" = "linux" ]; then export CVER=${CLANG_VER}; fi
+  - TOOLSET=gcc,clang
+  - if [ $TRAVIS_OS_NAME == osx ]; then TOOLSET=clang; fi
 # install lcov to coveralls conversion + upload tool
   - gem install coveralls-lcov
-  - echo ${PATH}
-  - echo ${CXX} ${CC} ${CVER}
-  - ${CC} --version # gcc (Ubuntu 5.3.0-3ubuntu1~14.04) 5.3.0
-  - ${CXX} -v
 
 before_script:
-  - ./travis_shallow-clone-and-bootstrap master https://github.com/boostorg/boost.git boost ${CVER} ${CC} ${CXX} 
-  - if [ ! "$TRAVIS_OS_NAME" = "osx" ]; then lcov --directory . --zerocounters; fi
+  - ./travis_shallow-clone-and-bootstrap master https://github.com/boostorg/boost.git boost ${GCC_VER} ${CLANG_VER}
+  - if [ ! "$TRAVIS_OS_NAME" = "osx" ]; then lcov --directory . --zerocounters; fi # TODO try to uncomment
   
 script:
   - touch Jamroot
-  - BOOST_ROOT=./boost ./boost/bjam -d2 -j8 toolset=${CC}
+  - BOOST_ROOT=./boost ./boost/bjam -d2 -j8 toolset=${TOOLSET}
 
 after_success:
   - "echo 'RLD: SUCCESS'"
   - clang-tidy-${CLANG_VER} src/* # TODO does not work
-  - BOOST_ROOT=./boost scan-build-${CLANG_VER} ./boost/bjam -j8 toolset=${CC} variant=release 
+  - BOOST_ROOT=./boost scan-build-${CLANG_VER} ./boost/bjam -j8 toolset=${TOOLSET} variant=release 
   # produce coveralls data 
-  - BOOST_ROOT=./boost ./boost/bjam -j8 toolset=${CC} variant=coverage
+  - BOOST_ROOT=./boost ./boost/bjam -j8 toolset=${TOOLSET} variant=coverage
   - lcov --directory . --capture --output-file coverage.info # capture coverage info
   - lcov --remove coverage.info 'tests/*' '/usr/*' '/boost/*' '/EIGEN/*' --output-file coverage.info # filter out system and test code
   - lcov --list coverage.info # debug before upload
