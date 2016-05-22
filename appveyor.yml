@@ -23,19 +23,6 @@ environment:
   
     PROJECT_BASE: "C:/projects/cpp_sandbox"
 
-before_build:
-  - ps: cd "${env:APPVEYOR_BUILD_FOLDER}"
-  - cmd: copy /Y NUL Jamroot # ATTRIB -R filename.ext
-
-build_script:
-  - echo %CD% %PATH% %BOOST_ROOT%
-  - bjam
-
-#build:
-#  parallel: true        # enable MSBuild parallel builds
-#  project: "Script"     # path to Visual Studio solution or project
-#  verbosity: detailed # quiet|minimal|normal|detailed
-
 install:
   - C:\"Program Files (x86)"\"Microsoft Visual Studio 14.0"\VC\vcvarsall.bat %PLATFORM%
   - ps: cd "${env:APPVEYOR_BUILD_FOLDER}"
@@ -62,3 +49,37 @@ install:
   #- 7z x x86_64-5.2.0-release-posix-seh-rt_v4-rev1.7z > nul
   - set PATH=%PATH%;mingw64\bin  
 
+before_build:
+  - ps: cd "${env:APPVEYOR_BUILD_FOLDER}"
+  - cmd: copy /Y NUL Jamroot # ATTRIB -R filename.ext
+
+build_script:
+  - echo %CD% %PATH% %BOOST_ROOT%
+  - bjam
+
+#build:
+#  parallel: true        # enable MSBuild parallel builds
+#  project: "Script"     # path to Visual Studio solution or project
+#  verbosity: detailed # quiet|minimal|normal|detailed
+
+test:
+  # assemblies to test - optional
+  assemblies:
+    #- test-assembly-A.dll
+    #- '**\*.tests.dll'
+
+  # categories to test - optional
+  categories:
+    - A
+    - B
+
+# run custom scripts before tests
+before_test:
+  #- script 1
+  #- script 2
+
+# run custom scripts after tests
+after_test:
+  #- script 1
+  #- script 2
+  

@@ -151,7 +151,6 @@ actions in2out
     touch $(<)
 }
 
-
 notfile unconditional_action : @unconditional_action ;
 actions unconditional_action
 {
