@@ -45,11 +45,11 @@ addons:
     - ubuntu-toolchain-r-test
     - llvm-toolchain-precise-3.8
     packages: 
-    - clang-format-3.8
-    - clang-tidy-3.8
     - gcc-5
     - g++-5
     - clang-3.8
+    - clang-format-3.8
+    - clang-tidy-3.8
     - lcov
     - valgrind
     - cmake
@@ -83,13 +83,12 @@ script:
 
 after_success:
   - "echo 'RLD: SUCCESS'"
-  - clang-tidy src/*
+  - clang-tidy-3.8 src/*
   - BOOST_ROOT=./boost ./boost/bjam -d2 -j8 toolset=${CC} variant=coverage
   - lcov --directory . --capture --output-file coverage.info # capture coverage info
   - lcov --remove coverage.info 'tests/*' '/usr/*' '/boost/*' '/EIGEN/*' --output-file coverage.info # filter out system and test code
   - lcov --list coverage.info # debug before upload
   - coveralls-lcov coverage.info # uploads to coveralls  # --repo-token ${COVERALLS_TOKEN}
-  #- clang-format -i src/*
 
 after_failure:
   - bash -c "echo 'RLD: failed\!'"
