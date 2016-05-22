@@ -36,13 +36,13 @@ addons:
     #   https://github.com/travis-ci/apt-source-whitelist/blob/master/ubuntu.json
     sources:
     - ubuntu-toolchain-r-test
-    - llvm-toolchain-precise-3.8
+    - llvm-toolchain-precise-3.8 # TODO ${CLANG_VER}
     packages: 
     - gcc-5
     - g++-5
-    - clang-${CLANG_VER}
-    - clang-format-${CLANG_VER}
-    - clang-tidy-${CLANG_VER}
+    - clang-3.8 # TODO ${CLANG_VER}
+    - clang-format-3.8 # TODO ${CLANG_VER}
+    - clang-tidy-3.8 # TODO ${CLANG_VER}
     - lcov
     - valgrind
     - cmake
@@ -57,7 +57,7 @@ install:
   - if [ "$CXX" = "g++" ] && [ "$TRAVIS_OS_NAME" = "linux" ]; then export CVER="5"; fi
   - if [ "$CXX" = "g++" ] && [ "$TRAVIS_OS_NAME" = "osx" ]; then export CVER="4.9"; fi
 # /usr/bin/clang is 3.4, lets override with modern one.
-  - if [ "$CXX" = "clang++" ] && [ "$TRAVIS_OS_NAME" = "linux" ]; then export CVER="3.8"; fi
+  - if [ "$CXX" = "clang++" ] && [ "$TRAVIS_OS_NAME" = "linux" ]; then export CVER=${CLANG_VER}; fi
 # install lcov to coveralls conversion + upload tool
   - gem install coveralls-lcov
   - echo ${PATH}
