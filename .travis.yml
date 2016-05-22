@@ -42,11 +42,20 @@ addons:
     # List of whitelisted in travis apt-sources:
     #   https://github.com/travis-ci/apt-source-whitelist/blob/master/ubuntu.json
     sources:
-      - ubuntu-toolchain-r-test
-      - llvm-toolchain-precise-3.8
-    packages: ["clang-format-3.8", "clang-tidy-3.8", gcc-5, g++-5, clang-3.8, lcov, 
-      valgrind, cmake, cmake-data, libopenmpi-dev, gcovr]
-         packages: ["clang-format-3.8", "clang-tidy-3.8"]
+    - ubuntu-toolchain-r-test
+    - llvm-toolchain-precise-3.8
+    packages: 
+    - clang-format-3.8
+    - clang-tidy-3.8
+    - gcc-5
+    - g++-5
+    - clang-3.8
+    - lcov, 
+    - valgrind
+    - cmake
+    - cmake-data
+    - libopenmpi-dev
+    - gcovr
 
 before_install:
 
