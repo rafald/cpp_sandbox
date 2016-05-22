@@ -12,5 +12,3 @@ int main() {
   int c = f(a, a);
   std::cout << a << b << c;
 }
-
-

@@ -1,5 +1,5 @@
-#include <iostream>
 #include <algorithm>
+#include <iostream>
 
 #include "dispatcher.h"
 
@@ -7,7 +7,7 @@
 
 #define BOOST_TEST_MODULE dispatcher
 //#define BOOST_TEST_DYN_LINK
-#define BOOST_TEST_MAIN 
+#define BOOST_TEST_MAIN
 #include <boost/test/unit_test.hpp>
 
 #else
@@ -17,16 +17,15 @@
 
 using namespace std;
 
-BOOST_AUTO_TEST_CASE( instantiate_dispatcher )
-{
-    OptimisticDispatcher<function<void (uint32_t, string)>> event;
+BOOST_AUTO_TEST_CASE(instantiate_dispatcher) {
+  OptimisticDispatcher<function<void(uint32_t, string)>> event;
 
-    auto subscriber = event.add([] (auto number, auto text) {
-        cout << "Number was " << number << " and text was " << text << endl;
-    });
+  auto subscriber = event.add([](auto number, auto text) {
+    cout << "Number was " << number << " and text was " << text << endl;
+  });
 
-    event.invoke(42, "Hello Universe!");
+  event.invoke(42, "Hello Universe!");
 
-    // the subscriber is removed from event here automatically
-    //BOOST_CHECK( test_object.is_valid() );
+  // the subscriber is removed from event here automatically
+  // BOOST_CHECK( test_object.is_valid() );
 }
