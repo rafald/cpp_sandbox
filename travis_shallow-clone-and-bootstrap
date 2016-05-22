@@ -27,11 +27,12 @@ function create_user_config() {
     # required by .travis.yml but normally in user_config.jam
     echo "import boost ;" >> ${UCFILE}
     echo "boost.use-project ;" >> ${UCFILE}
-
+    if [ -n "${1}" ] ; then 
+      echo "using clang : ${1} : /usr/bin/clang++-${1} ;" >> ${UCFILE}
+    fi
     if [ -n "${2}" ] ; then 
       echo "using gcc : ${2} : /usr/bin/g++-${2} ;" >> ${UCFILE}
     fi
-    echo "using clang : ${1} : /usr/bin/clang++-${1} ;" >> ${UCFILE}
 
     cat ${UCFILE}
 }
