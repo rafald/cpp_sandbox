@@ -48,7 +48,9 @@ run tmpl_alias_overload.cpp : <toolset>clang ;  alias tmpl_alias_overload : : <t
 run agregate_initialization.cpp ; explicit agregate_initialization ;
 run test_concepts.cpp : : : <toolset>gcc-6.1 ; explicit test_concepts ; 
 
-run test_auto_cpp17.cpp : <toolset>gcc ; alias test_auto_cpp17 : : <toolset>clang <toolset>msvc ;
+alias test_auto_cpp17 : : <toolset>clang ;
+alias test_auto_cpp17 : : <toolset>msvc ;
+run test_auto_cpp17.cpp : <toolset>gcc ; 
 
 run test_Eigen_QR.cpp ; 
 run ret_mult_values.cpp dummy.cpp : <toolset>clang,gcc ; alias ret_mult_values : : <toolset>msvc ; 
