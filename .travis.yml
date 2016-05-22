@@ -58,25 +58,25 @@ addons:
 before_install:
 
 install: 
-  - TOOLSET=gcc,clang
-  - if [ $TRAVIS_OS_NAME == osx ]; then TOOLSET=clang; fi
-# install lcov to coveralls conversion + upload tool
+  # install lcov to coveralls conversion + upload tool
   - gem install coveralls-lcov
 
 before_script:
   - ./travis_shallow-clone-and-bootstrap master https://github.com/boostorg/boost.git boost ${GCC_VER} ${CLANG_VER}
-  - lcov --directory . --zerocounters
   
 script:
   - touch Jamroot
-  - BOOST_ROOT=./boost ./boost/bjam -d2 -j8 toolset=${TOOLSET}
+  - BOOST_ROOT=./boost ./boost/bjam -d2 -j8 toolset=clang
+  - if [ ! $TRAVIS_OS_NAME == osx ]; BOOST_ROOT=./boost ./boost/bjam -d2 -j8 toolset=gcc ; fi
+  
 
 after_success:
   - "echo 'RLD: SUCCESS'"
   - clang-tidy-${CLANG_VER} src/* # TODO does not work
-  - BOOST_ROOT=./boost scan-build-${CLANG_VER} ./boost/bjam -j8 toolset=${TOOLSET} variant=release 
+  - BOOST_ROOT=./boost scan-build-${CLANG_VER} ./boost/bjam -j8 toolset=gcc variant=release 
   # produce coveralls data 
-  - BOOST_ROOT=./boost ./boost/bjam -j8 toolset=${TOOLSET} variant=coverage
+  - lcov --directory . --zerocounters
+  - BOOST_ROOT=./boost ./boost/bjam -j8 toolset=gcc variant=coverage
   - lcov --directory . --capture --output-file coverage.info # capture coverage info
   - lcov --remove coverage.info 'tests/*' '/usr/*' '/boost/*' '/EIGEN/*' --output-file coverage.info # filter out system and test code
   - lcov --list coverage.info # debug before upload
