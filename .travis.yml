@@ -27,14 +27,6 @@ matrix:
 env:
   global:
   - CTEST_OUTPUT_ON_FAILURE=1
-#  matrix:
-#    - PROJECT=CPP_SANDBOX
-#    - GTEST_TARGET=googletest SHARED_LIB=OFF STATIC_LIB=ON CMAKE_PKG=OFF BUILD_TYPE=debug   VERBOSE_MAKE=true VERBOSE
-#    - GTEST_TARGET=googlemock SHARED_LIB=OFF STATIC_LIB=ON CMAKE_PKG=OFF BUILD_TYPE=debug   VERBOSE_MAKE=true VERBOSE
-#    - GTEST_TARGET=googlemock SHARED_LIB=OFF STATIC_LIB=ON CMAKE_PKG=OFF BUILD_TYPE=debug CXX_FLAGS=-std=c++11  VERBOSE_MAKE=true VERBOSE
-##    - GTEST_TARGET=googletest SHARED_LIB=ON  STATIC_LIB=ON CMAKE_PKG=ON  BUILD_TYPE=release VERBOSE_MAKE=false
-##    - GTEST_TARGET=googlemock SHARED_LIB=ON  STATIC_LIB=ON CMAKE_PKG=ON  BUILD_TYPE=release VERBOSE_MAKE=false
-        
 addons:
   apt:
     # List of whitelisted in travis packages for ubuntu-precise can be found here:
@@ -79,12 +71,13 @@ before_script:
 script:
   - touch Jamroot
   - BOOST_ROOT=./boost ./boost/bjam -d2 -j8 toolset=${CC}
-  #- if [ "$CXX" == "clang++" ] ; then BOOST_ROOT=./boost scan-build ./boost/bjam ; fi
 
 after_success:
   - "echo 'RLD: SUCCESS'"
-  - clang-tidy-3.8 src/*
-  - BOOST_ROOT=./boost ./boost/bjam -d2 -j8 toolset=${CC} variant=coverage
+  - clang-tidy-3.8 src/* # TODO does not work
+  - BOOST_ROOT=./boost scan-build ./boost/bjam -j8 toolset=${CC} variant=release ; fi
+  # produce coveralls data 
+  - BOOST_ROOT=./boost ./boost/bjam -j8 toolset=${CC} variant=coverage
   - lcov --directory . --capture --output-file coverage.info # capture coverage info
   - lcov --remove coverage.info 'tests/*' '/usr/*' '/boost/*' '/EIGEN/*' --output-file coverage.info # filter out system and test code
   - lcov --list coverage.info # debug before upload
