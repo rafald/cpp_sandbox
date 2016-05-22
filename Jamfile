@@ -148,10 +148,6 @@ make file.out : test_dispatcher : @in2out ;
 actions in2out
 {
     echo in2out $(<) $(>) 
-    # in2out bin/clang-linux-3.6.2/debug/file.out bin/clang-linux-3.6.2/debug/test_dispatcher.passed
-    # test_dispatcher 
-    #    is replaced with
-    # bin/clang-linux-3.6.2/debug/test_dispatcher.passed
     touch $(<)
 }
 
@@ -160,12 +156,12 @@ notfile unconditional_action : @unconditional_action ;
 actions unconditional_action
 {
 	echo "running unconditional_action, warning! might be bash shell SH or winowz cmd line BAT"
+	touch "run_unconditional_action"
 }
 #<host-os>linux,<target-os>linux:<source>abc.cpp
 #if $(UNIX)
 #{ #TODO write in python
 #   #./write_version.sh
-#   #touch "wrote"
 #}
 
 run quiz_aliasing.cpp ; 
