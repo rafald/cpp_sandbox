@@ -18,7 +18,7 @@ cache:
   - EIGEN
 os:
   - linux
-#  - osx # toolset=darwin 
+  - osx # toolset=darwin 
 compiler:
   - gcc
   - clang
@@ -55,7 +55,7 @@ before_install:
 install: 
 # /usr/bin/gcc is 4.6 always, but gcc-X.Y is available.
   - if [ "$CXX" = "g++" ] && [ "$TRAVIS_OS_NAME" = "linux" ]; then export CVER="5"; fi
-  - if [ "$CXX" = "g++" ] && [ "$TRAVIS_OS_NAME" = "osx" ]; then export CVER="4.9"; fi
+  - if [ "$CXX" = "g++" ] && [ "$TRAVIS_OS_NAME" = "osx" ]; then export CVER="4.9"; export CC=darwin ; fi
 # /usr/bin/clang is 3.4, lets override with modern one.
   - if [ "$CXX" = "clang++" ] && [ "$TRAVIS_OS_NAME" = "linux" ]; then export CVER=${CLANG_VER}; fi
 # install lcov to coveralls conversion + upload tool
