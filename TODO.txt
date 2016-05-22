@@ -2,3 +2,17 @@
 -try to remove ./travis_create_user-config g++-5 /we override CXX and CC/
 - pwd ; git submodule init ; git submodule update --init --recursive | then do not have to clone manually boost and eigen - following line
 
+
+rule generate-std-flag ( properties * ) {
+    local result ;
+    if <host-os>darwin in $(properties)
+    {
+        result += <cxxflags>"-std=c++1y " ;
+    }
+    else
+    {
+        result += <cxxflags>"-std=c++1z " ;
+    }
+    return $(result) ;
+  }
+<conditional>@generate-std-flag

@@ -18,17 +18,17 @@ path-constant TOP : . ;
 variant coverage : <cxxflags>--coverage <linkflags>--coverage ;
 # following extends existing debug variant to my_profile variant (there are predefined 'profile' and 'debug-python' variants)
 variant my_profile : debug : <optimization>speed <inlining>on <profiling>on ;
-
+  
 project 
         : usage-requirements 
                 <include>.
                 <implicit-dependency>/boost//headers
-                <cxxflags>"-std=c++1z "
+                <cxxflags>"-std=c++1z " <host-os>darwin:<cxxflags>"-std=c++1y "
         : requirements
 		<library>/boost//unit_test_framework
 		#        <dependency>/boost//headers # <= THIS _ALWAYS_ REBUILDS TARGETS even if up to date
 		<implicit-dependency>/boost//headers
-                <cxxflags>"-std=c++1z "
+                <cxxflags>"-std=c++1z " <host-os>darwin:<cxxflags>"-std=c++1y "
                 <include>EIGEN 
                 #<linkflags>"-lcholmod -lmetis -lamd -lcamd -lccolamd -lcolamd -llapack -lgfortran -lblas "
         :
