@@ -47,9 +47,9 @@ run tmpl_alias_overload.cpp : <toolset>clang ;  alias tmpl_alias_overload : : <t
 
 run agregate_initialization.cpp ; explicit agregate_initialization ;
 run test_concepts.cpp : : : <toolset>gcc-6.1 ; explicit test_concepts ; 
-run test_auto_cpp17.cpp : <toolset>gcc ; alias test_auto_cpp17 : : <toolset>clang ; 
+run test_auto_cpp17.cpp : <toolset>gcc ; alias test_auto_cpp17 : : <toolset>clang,msvc ; 
 run test_Eigen_QR.cpp ; 
-run ret_mult_values.cpp dummy.cpp ; # rule dummy can have many cpp in 1st section
+run ret_mult_values.cpp dummy.cpp : <toolset>clang,gcc ; alias ret_mult_values : : <toolset>msvc ; 
 
 run tmpl_inst.cpp 
 	: #args * 
@@ -155,13 +155,13 @@ actions in2out
 notfile unconditional_action : @unconditional_action ;
 actions unconditional_action
 {
-	if $(UNIX)
-	{
-	   echo "running unconditional_action"
-       echo COMMENTED_OUT ./write_version.sh
-       echo COMMENTED_OUT touch "wrote"
-	}
 }
+#if $(UNIX)
+#{
+#   echo "running unconditional_action"
+#   #./write_version.sh
+#   #touch "wrote"
+#}
 
 run quiz_aliasing.cpp ; 
 run test_enum_bit_op.cpp ;
