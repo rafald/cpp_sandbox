@@ -19,9 +19,7 @@ environment:
   - platform: x86
     os: Visual Studio 2015
     env: BS=bjam GENERATOR="MinGW Makefiles" MEMCHECK=DRMEMORY PLATFROM=x86
-
     configuration:  Release
-  
     PROJECT_BASE: "C:/projects/cpp_sandbox"
 
 install:
@@ -46,15 +44,12 @@ install:
   #- appveyor DownloadFile http://downloads.sourceforge.net/mingw-w64/x86_64-5.2.0-release-posix-seh-rt_v4-rev1.7z
   #- 7z x x86_64-5.2.0-release-posix-seh-rt_v4-rev1.7z > nul
   - set PATH=%PATH%;mingw64\bin  
-
 before_build:
   - ps: cd "${env:APPVEYOR_BUILD_FOLDER}"
   - cmd: copy /Y NUL Jamroot # ATTRIB -R filename.ext
-
 build_script:
   - echo %CD% %PATH% %BOOST_ROOT%
   - bjam toolset=msvc-9.0,msvc-10.0,msvc-11.0,msvc-12.0,msvc-13.0,msvc-14.0,msvc-15.0
-
 #build:
 #  parallel: true        # enable MSBuild parallel builds
 #  project: "Script"     # path to Visual Studio solution or project
@@ -63,28 +58,10 @@ build_script:
 # to run your custom scripts instead of automatic tests
 test_script:
   - echo This is my custom test script
-
 # to disable automatic tests 
 test: off
-
-#test:
-#   assemblies to test - optional
-#  assemblies:
-#    - test-assembly-A.dll
-#    - '**\*.tests.dll'
-
-  # categories to test - optional
-#  categories:
-#    - A
-#    - B
-
 # run custom scripts before tests
 before_test:
-  #- script 1
-  #- script 2
-
 # run custom scripts after tests
 after_test:
-  #- script 1
-  #- script 2
   
