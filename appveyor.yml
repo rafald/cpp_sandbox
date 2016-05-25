@@ -39,7 +39,7 @@ install:
   #- cmd: echo using python ; >> tools/build/src/user-config.jam
   - cat tools/build/src/user-config.jam
   - ps: cd ..
-  - hg clone https://bitbucket.org/eigen/eigen EIGEN
+  - hg clone https://bitbucket.org/eigen/eigen -r 3.2.8 EIGEN 
   #- cinst drmemory
   #- appveyor DownloadFile http://downloads.sourceforge.net/mingw-w64/x86_64-5.2.0-release-posix-seh-rt_v4-rev1.7z
   #- 7z x x86_64-5.2.0-release-posix-seh-rt_v4-rev1.7z > nul
