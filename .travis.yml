@@ -74,10 +74,10 @@ script:
 after_success:
   - "echo 'RLD: SUCCESS'"
   - clang-tidy-${CLANG_VER} src/* # TODO does not work
-  - BOOST_ROOT=./boost scan-build-${CLANG_VER} ./boost/bjam -j8 toolset=gcc variant=release 
+  - BOOST_ROOT=./boost scan-build-${CLANG_VER} ./boost/bjam -j8 toolset=clang variant=release 
   # produce coveralls data 
   - lcov --directory . --zerocounters
-  - BOOST_ROOT=./boost ./boost/bjam -j8 toolset=gcc variant=coverage
+  - BOOST_ROOT=./boost ./boost/bjam -j8 toolset=clang variant=coverage
   - lcov --directory . --capture --output-file coverage.info # capture coverage info
   - lcov --remove coverage.info 'tests/*' '/usr/*' '/boost/*' '/EIGEN/*' --output-file coverage.info # filter out system and test code
   - lcov --list coverage.info # debug before upload
