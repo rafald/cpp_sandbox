@@ -23,12 +23,14 @@ project
         : usage-requirements 
                 <include>.
                 <implicit-dependency>/boost//headers
-                <cxxflags>"-std=c++1z " <host-os>darwin:<cxxflags>"-std=c++1y "
+                #TODO <host-os>darwin:<cxxflags>"-std=c++1y "
         : requirements
-		<library>/boost//unit_test_framework
-		#        <dependency>/boost//headers # <= THIS _ALWAYS_ REBUILDS TARGETS even if up to date
-		<implicit-dependency>/boost//headers
-                <cxxflags>"-std=c++1z " <host-os>darwin:<cxxflags>"-std=c++1y "
+        <library>/boost//unit_test_framework
+        #        <dependency>/boost//headers # <= THIS _ALWAYS_ REBUILDS TARGETS even if up to date
+        <implicit-dependency>/boost//headers
+                <host-os>linux:<cxxflags>"-std=c++1z " 
+                <host-os>windows:<cxxflags>"-std=c++1z " 
+                <host-os>darwin:<cxxflags>"-std=c++1y "
                 <include>EIGEN 
                 #<linkflags>"-lcholmod -lmetis -lamd -lcamd -lccolamd -lcolamd -llapack -lgfortran -lblas "
         :
@@ -57,13 +59,13 @@ run test_Eigen_QR.cpp ;
 run ret_mult_values.cpp dummy.cpp : <toolset>clang,gcc ; alias ret_mult_values : : <toolset>msvc ; 
 
 run tmpl_inst.cpp 
-	: #args * 
-	: #input-files * 
-	: #requirements * 
-		<cxxflags>"`pkg-config --cflags dbus-1`"
-          	<linkflags>"`pkg-config --libs dbus-1`"
-	: #target-name ?
-	: #default-build * 
+    : #args * 
+    : #input-files * 
+    : #requirements * 
+        <cxxflags>"`pkg-config --cflags dbus-1`"
+        <linkflags>"`pkg-config --libs dbus-1`"
+    : #target-name ?
+    : #default-build * 
 ;
 explicit tmpl_inst ;
 
@@ -75,7 +77,7 @@ rule explicit-unit-test ( target : source : properties * )
     explicit $(target) ;
 }
 explicit-unit-test test_bind : test_bind.cpp 
-	: <testing.launcher>"valgrind --leak-check=full --show-leak-kinds=all " # -v 
+    : <testing.launcher>"valgrind --leak-check=full --show-leak-kinds=all " # -v 
 ;
 
 test-suite my_suite
@@ -120,7 +122,7 @@ explicit my_suite ; # ! explicit can be used without declaration - introduced fi
 
 #if $(BOOST_ROOT)
 #{
-#	use-project /boost : $(BOOST_ROOT) ;
+#    use-project /boost : $(BOOST_ROOT) ;
 #}
 
 rule run-test ( test-name : sources + : requirements * )
@@ -155,8 +157,8 @@ actions in2out
 notfile unconditional_action : @unconditional_action ;
 actions unconditional_action
 {
-	echo "running unconditional_action, warning! might be bash shell SH or winowz cmd line BAT"
-	touch "run_unconditional_action"
+    echo "running unconditional_action, warning! might be bash shell SH or winowz cmd line BAT"
+    touch "run_unconditional_action"
 }
 #<host-os>linux,<target-os>linux:<source>abc.cpp
 #if $(UNIX)
