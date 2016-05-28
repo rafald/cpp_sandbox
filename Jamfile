@@ -31,7 +31,7 @@ project
                 <host-os>linux:<cxxflags>"-std=c++1z " 
                 <host-os>windows:<cxxflags>"-std=c++1z " 
                 <host-os>darwin:<cxxflags>"-std=c++1y "
-                <include>EIGEN 
+                <include>EIGEN <include>GSL/include
                 #<linkflags>"-lcholmod -lmetis -lamd -lcamd -lccolamd -lcolamd -llapack -lgfortran -lblas "
         :
                 source-location src 
@@ -55,6 +55,7 @@ alias test_auto_cpp17 : : <toolset>clang ;
 alias test_auto_cpp17 : : <toolset>msvc ;
 run test_auto_cpp17.cpp : <toolset>gcc ; 
 
+run test_GSL.cpp ;
 run test_Eigen_QR.cpp ; 
 run ret_mult_values.cpp dummy.cpp : <toolset>clang,gcc ; alias ret_mult_values : : <toolset>msvc ; 
 

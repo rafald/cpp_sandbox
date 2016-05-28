@@ -1,0 +1,189 @@
+#include <functional>
+#include <vector>
+
+#define GSL_THROW_ON_CONTRACT_VIOLATION //GSL_TERMINATE_ON_CONTRACT_VIOLATION
+#include <gsl.h>
+
+#define BOOST_TEST_MAIN
+#include <boost/test/unit_test.hpp>
+
+using namespace std;
+using namespace gsl;
+
+
+void f(int* i)
+{
+    *i += 1;
+}
+BOOST_AUTO_TEST_CASE(test_owner) {
+    owner<int*> p = new int(120);
+    BOOST_CHECK_EQUAL(*p , 120);
+    f(p);
+    BOOST_CHECK_EQUAL(*p , 121);
+    delete p;
+}
+
+
+BOOST_AUTO_TEST_SUITE(at_tests)
+
+    BOOST_AUTO_TEST_CASE(static_array)
+    {
+        int a[] = { 1, 2, 3, 4 };
+
+        for (int i = 0; i < 4; ++i)
+            BOOST_CHECK_EQUAL(at(a, i) , i+1);
+
+        BOOST_CHECK_THROW(gsl::at(a, 4), fail_fast);
+    }
+
+    BOOST_AUTO_TEST_CASE(std_array)
+    {
+        std::array<int,4> a = { 1, 2, 3, 4 };
+
+        for (int i = 0; i < 4; ++i)
+            BOOST_CHECK_EQUAL(at(a, i) , i+1);
+
+        BOOST_CHECK_THROW(at(a, 4), fail_fast);
+    }
+
+    BOOST_AUTO_TEST_CASE(StdVector)
+    {
+        std::vector<int> a = { 1, 2, 3, 4 };
+
+        for (int i = 0; i < 4; ++i)
+            BOOST_CHECK_EQUAL(at(a, i) , i+1);
+
+        BOOST_CHECK_THROW(at(a, 4), fail_fast);
+    }
+
+BOOST_AUTO_TEST_SUITE_END()
+
+
+
+
+
+int f_Expects(int i)
+{
+	Expects(i > 0 && i < 10);
+	return i;
+}
+int g_Ensures(int i)
+{        
+	i++;
+	Ensures(i > 0 && i < 10);
+	return i;
+}
+BOOST_AUTO_TEST_SUITE(assertion_tests)
+
+    BOOST_AUTO_TEST_CASE(expects)
+    {
+        BOOST_CHECK_EQUAL(f_Expects(2) , 2);
+        BOOST_CHECK_THROW(f_Expects(10), fail_fast);
+    }
+
+
+    BOOST_AUTO_TEST_CASE(ensures)
+    {
+        BOOST_CHECK_EQUAL(g_Ensures(2) , 3);
+        BOOST_CHECK_THROW(g_Ensures(9), fail_fast);
+    }
+BOOST_AUTO_TEST_SUITE_END()
+
+
+
+
+
+namespace n_utils_tests {
+void f_utils(int& i)
+{
+	i += 1;
+}
+int j = 0;
+void g_finally() { j += 1; };
+BOOST_AUTO_TEST_SUITE(utils_tests)
+
+
+    BOOST_AUTO_TEST_CASE(finally_lambda)
+    {
+        int i = 0;
+        {
+            auto _ = finally([&]() {f_utils(i);});
+            BOOST_CHECK_EQUAL(i , 0);
+        }
+        BOOST_CHECK_EQUAL(i , 1);
+    }
+
+    BOOST_AUTO_TEST_CASE(finally_lambda_move)
+    {
+        int i = 0;
+        {
+            auto _1 = finally([&]() {f_utils(i);});
+            {
+                auto _2 = std::move(_1);
+                BOOST_CHECK_EQUAL(i , 0);
+            }
+            BOOST_CHECK_EQUAL(i , 1);
+            {
+                auto _2 = std::move(_1);
+                BOOST_CHECK_EQUAL(i , 1);
+            }
+            BOOST_CHECK_EQUAL(i , 1);
+        }
+        BOOST_CHECK_EQUAL(i , 1);
+    }
+
+    BOOST_AUTO_TEST_CASE(finally_function_with_bind)
+    {
+        int i = 0;
+        {
+            auto _ = finally(std::bind(&f_utils, std::ref(i)));
+            BOOST_CHECK_EQUAL(i , 0);
+        }
+        BOOST_CHECK_EQUAL(i , 1);
+    }
+
+    BOOST_AUTO_TEST_CASE(finally_function_ptr)
+    {
+        j = 0;
+        {
+            auto _ = finally(&g_finally);
+            BOOST_CHECK_EQUAL(j , 0);
+        }
+        BOOST_CHECK_EQUAL(j , 1);
+    }
+
+    BOOST_AUTO_TEST_CASE(test_narrow_cast)
+    {
+        int n = 120;
+        char c = narrow_cast<char>(n);
+        BOOST_CHECK_EQUAL(c , 120);
+
+        n = 300;
+        unsigned char uc = narrow_cast<unsigned char>(n);
+        BOOST_CHECK_EQUAL(uc , 44);
+    }
+
+    BOOST_AUTO_TEST_CASE(test_narrow)
+    {
+        int n = 120;
+        char c = narrow<char>(n);
+        BOOST_CHECK_EQUAL(c , 120);
+
+        n = 300;
+        BOOST_CHECK_THROW(narrow<char>(n), narrowing_error);
+
+        const auto int32_max = std::numeric_limits<int32_t>::max();
+        const auto int32_min = std::numeric_limits<int32_t>::min();
+
+        BOOST_CHECK_EQUAL(narrow<uint32_t>(int32_t(0)) , 0);
+        BOOST_CHECK_EQUAL(narrow<uint32_t>(int32_t(1)) , 1);
+        BOOST_CHECK_EQUAL(narrow<uint32_t>(int32_max) , int32_max);
+
+        BOOST_CHECK_THROW(narrow<uint32_t>(int32_t(-1)), narrowing_error);
+        BOOST_CHECK_THROW(narrow<uint32_t>(int32_min), narrowing_error);
+
+        n = -42;
+        BOOST_CHECK_THROW(narrow<unsigned>(n), narrowing_error);
+    }
+BOOST_AUTO_TEST_SUITE_END()
+} //namespace n_utils_tests

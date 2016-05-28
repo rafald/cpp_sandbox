@@ -70,3 +70,8 @@ fi
 if [ ! -d EIGEN/.hg ] ; then
     hg clone https://bitbucket.org/eigen/eigen EIGEN
 fi
+
+if [ ! -d GSL/.git ] ; then
+    git clone https://github.com/Microsoft/GSL.git
+fi
+
