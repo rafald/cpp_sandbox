@@ -71,10 +71,11 @@ BOOST_AUTO_TEST_SUITE(bounds_test)
 		static_bounds<7, 4, 2> b1;
 		static_bounds<7, dynamic_range, 2> b2 = b1;
 		(void)b2;	
+//TODO b4 should be b4_compile_error
 #ifdef CONFIRM_COMPILATION_ERRORS
 		static_bounds<7, dynamic_range, 1> b4 = b2; 
 #endif
-	
+
 		static_bounds<dynamic_range, dynamic_range, dynamic_range> b3 = b1;
 		static_bounds<7, 4, 2> b4 = b3; 
 		(void)b4;
