@@ -55,7 +55,9 @@ alias test_auto_cpp17 : : <toolset>clang ;
 alias test_auto_cpp17 : : <toolset>msvc ;
 run test_auto_cpp17.cpp : <toolset>gcc ; 
 
-run test_GSL.cpp ;
+run test_GSL.cpp test_GSL_bounds.cpp ;
+compile-fail test_GSL_bounds.cpp : <define>CONFIRM_COMPILATION_ERRORS ;
+
 run test_Eigen_QR.cpp ; 
 run ret_mult_values.cpp dummy.cpp : <toolset>clang,gcc ; alias ret_mult_values : : <toolset>msvc ; 
 
