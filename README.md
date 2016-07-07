@@ -39,3 +39,9 @@ C++ tips:
   * so for range it is ok to specify range:  std::reverse_iterator(end_it), std::reverse_iterator(begin_it) 
   * for translation of single iterator:  std::reverse_iterator( std::next(iter) ) ) so iter can not be end()
 * more stuff goes here ...
+
+Gurus:
+* Sean Parent
+  *Write all code as if it where a library you intend to submit for standardization. Focus on the interface. Borrow, don’t invent. Write complete and efficient types. Use algorithms instead of loops. Avoid inheritance and owning pointers in your interface. Make your data structures explicit. Use a task system, message queues, futures with continuations, and parallel algorithms, instead of threads, mutexes, semaphores, and condition variables. It is important to be able to scale down to a single thread as well as up to many. Embrace nothingness.
+ 
+  *Finally, don’t worry about how much space there is around parentheses, what line the curly brace goes, or if you use spaces or tabs. These are bike-shed arguments.
