@@ -56,9 +56,11 @@ int main()
 	std::cout << "[" << std::setprecision(17);
 	for( unsigned dim = 1 ; dim != 20 ; ++dim)
 	{
+		using
 		//long double is good enough
 		//dec_float<19> is OK but dec_float<19> is not
-		std::cout << unit_sphere_volume<long double>(dim) / unit_cube_volume(dim) << ", ";
+		= Number;
+		std::cout << unit_sphere_volume<Number>(dim) / unit_cube_volume<Number>(dim) << ", ";
 	}
 	std::cout << "]";
 	return 0;
