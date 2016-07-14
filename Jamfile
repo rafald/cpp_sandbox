@@ -55,7 +55,7 @@ alias test_auto_cpp17 : : <toolset>clang ;
 alias test_auto_cpp17 : : <toolset>msvc ;
 run test_auto_cpp17.cpp : <toolset>gcc ; 
 
-# run accepts multiply targets
+# run accepts multiply modules, the first one is the name of the target
 #TODO run test_GSL.cpp test_GSL_bounds.cpp test_GSL_span.cpp ;
 run test_GSL.cpp test_GSL_bounds.cpp ;
 compile-fail test_GSL_bounds.cpp : <define>CONFIRM_COMPILATION_ERRORS ;
