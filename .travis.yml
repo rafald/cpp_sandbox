@@ -15,11 +15,11 @@ branches:
     - master
     - develop
 cache:
-#  apt: true
   ccache: true
   directories:
   - boost
   - EIGEN
+  - $HOME/.ccache
 os:
   - linux
   - osx # toolset=darwin

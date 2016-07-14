@@ -9,4 +9,5 @@ coverage.info
 travis.log
 run_unconditional_action
 GSL
-
+*.swp
+*.pch
