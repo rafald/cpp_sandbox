@@ -87,6 +87,10 @@ explicit tmpl_inst ;
 
 unit-test test_dispatcher : test_dispatcher.cpp ; # /site-config//zlib /site-config//librt /site-config//crypto /site-config//ssl
 
+run 17/entry_point.cpp 
+  17/nested_ns.cpp #17/clamp.cpp 
+;
+
 rule explicit-unit-test ( target : source : properties * )
 {
     unit-test $(target) : $(source) : $(properties) ;
