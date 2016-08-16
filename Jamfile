@@ -85,10 +85,10 @@ run tmpl_inst.cpp
 ;
 explicit tmpl_inst ;
 
-unit-test test_dispatcher : test_dispatcher.cpp ; # /site-config//zlib /site-config//librt /site-config//crypto /site-config//ssl
+unit-test test_dispatcher : test_dispatcher.cpp auto_tie.cpp ; # /site-config//zlib /site-config//librt /site-config//crypto /site-config//ssl
 
 run cpp17tests.cpp 
-  17/nested_ns.cpp 17/fold.cpp #17/clamp.cpp 
+  17/nested_ns.cpp 17/fold.cpp # 17/if_and_switch_Init.cpp #17/clamp.cpp
 ;
 explicit cpp17tests ;
 
