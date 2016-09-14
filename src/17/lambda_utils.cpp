@@ -1,8 +1,14 @@
 // https://gist.github.com/cdacamar/584c6d43a9cca1ccffec3b36ad5dfe3f
 
 #include <type_traits>
-#include <variant>
+#include <boost/variant.hpp> //#include <variant>
 
+#if __has_include(<algorithm>)
+#include <boost/test/unit_test.hpp>
+#endif
+
+
+namespace std {
 namespace lambda_util {
 
 namespace detail {
@@ -40,8 +46,59 @@ auto compose(lambda_ts&&... lambdas) {
 
 } // namespace lambda_util
 
-int main() {
+#if 0
+template <class Visitor, class... Variants>
+constexpr /*see below*/ decltype(auto) visit(Visitor&& vis, Variants&&... vars)
+{
+  return std::invoke(std::forward<Visitor>(vis), std::get<vars.index()>(std::forward<Variants>(vars))...) ;
+}
+#endif
+
+} // std
+
+BOOST_AUTO_TEST_CASE(test_lambda_util) {
+  boost::variant<int, const char*, double> v; //std::variant<int, const char*, double> v;
+  v = 10.5;
+ //return std::visit(lambda_util::compose([](double) { return 0; }, [](const char*) { return 1; }, [](auto) { return 2; }), v);
+ auto result = boost::apply_visitor(std::lambda_util::compose([](double) { return 3; }, [](const char*) { return 5; }, [](auto) { return 7; }), v);
+ BOOST_CHECK_EQUAL(result, 3);
+}
+
+#if 0
+
+// https://cdacamar.github.io/organization/localizing-code-with-variant/
+
+#include <iostream>
+#include <string>
+#include <variant>
+
+//#include <lambda_util>
+
+template <typename... Ts>
+void print_variant(const std::variant<Ts...>& v) {
+  std::visit(
+    lambda_util::compose(
+      [](int i)                { std::cout<<i<<'\n';  },
+      [](const std::string& s) { std::cout<<s<<'\n';  },
+      [](const auto&)          { std::cout<<"TODO\n"; }),
+    v);
+}
+
+void test() {
   std::variant<int, const char*, double> v;
   v = 10.5;
-  return std::visit(lambda_util::compose([](double) { return 0; }, [](const char*) { return 1; }, [](auto) { return 2; }), v);
+  auto result = std::visit(lambda_util::compose([](double) { return 0; }, [](const char*) { return 1; }, [](auto) { return 2; }), v);
+
+  using namespace std::string_literals;
+  std::variant<int, std::string> v;
+
+  // use std::string side
+  v = "Hello, World!"s;
+  print_variant(v);
+
+  // use int side
+  v = 42;
+  print_variant(v);
 }
+#endif
+

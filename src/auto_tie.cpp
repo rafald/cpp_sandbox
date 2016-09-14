@@ -71,6 +71,11 @@ template <size_t>
 auto
 get(S const & s);
 
+TODO define std::tuple_element_t<I, S > like
+std::tuple_element_t<I, std::pair<T1,T2> >
+or constexpr std::variant_alternative_t<
+  I, std::variant<Types...>
+> const&& get(const std::variant<Types...>&& v); 
 }
 */
 namespace {

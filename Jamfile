@@ -31,7 +31,7 @@ project
                 <host-os>linux:<cxxflags>"-std=c++1z " 
                 <host-os>windows:<cxxflags>"-std=c++1z " 
                 <host-os>darwin:<cxxflags>"-std=c++1y "
-                <include>EIGEN <include>GSL/include
+                <include>EIGEN <include>GSL/gsl
                 #<linkflags>"-lcholmod -lmetis -lamd -lcamd -lccolamd -lcolamd -llapack -lgfortran -lblas "
         :
                 source-location src 
@@ -88,7 +88,7 @@ explicit tmpl_inst ;
 unit-test test_dispatcher : test_dispatcher.cpp auto_tie.cpp ; # /site-config//zlib /site-config//librt /site-config//crypto /site-config//ssl
 
 run cpp17tests.cpp 
-  17/nested_ns.cpp 17/fold.cpp # 17/if_and_switch_Init.cpp #17/clamp.cpp
+  17/nested_ns.cpp 17/fold.cpp 17/lambda_utils.cpp # 17/if_and_switch_Init.cpp #17/clamp.cpp
 ;
 explicit cpp17tests ;
 
