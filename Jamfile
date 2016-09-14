@@ -69,7 +69,7 @@ run test_auto_cpp17.cpp : <toolset>gcc ;
 # run accepts multiply modules, the first one is the name of the target
 #TODO run test_GSL.cpp test_GSL_bounds.cpp test_GSL_span.cpp ;
 run test_GSL.cpp test_GSL_bounds.cpp ;
-compile-fail test_GSL_bounds.cpp : <define>CONFIRM_COMPILATION_ERRORS ;
+#compile-fail test_GSL_bounds.cpp : <define>CONFIRM_COMPILATION_ERRORS ; #TODO how to compile this 2nd time
 compile-fail test_GSL_span.cpp : <define>CONFIRM_COMPILATION_ERRORS ;
 
 run ret_mult_values.cpp dummy.cpp : <toolset>clang,gcc ; alias ret_mult_values : : <toolset>msvc ; 
