@@ -9,7 +9,7 @@
 #include <boost/test/unit_test.hpp>
 
 #define GSL_THROW_ON_CONTRACT_VIOLATION // GSL_TERMINATE_ON_CONTRACT_VIOLATION
-#include <span.h>
+#include "span"
 
 using namespace std;
 using namespace gsl;
