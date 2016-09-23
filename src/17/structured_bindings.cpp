@@ -18,4 +18,3 @@ BOOST_AUTO_TEST_CASE(test_nested_ns) {
    BOOST_CHECK_EQUAL(m.size(), 0);
 }
 
-
