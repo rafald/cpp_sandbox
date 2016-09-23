@@ -96,6 +96,7 @@ run tmpl_inst.cpp
     : #requirements * 
         <cxxflags>"`pkg-config --cflags dbus-1`"
         <linkflags>"`pkg-config --libs dbus-1`"
+        <target-os>linux
     : #target-name ?
     : #default-build * 
 ;
