@@ -18,6 +18,9 @@ path-constant TOP : . ;
 variant coverage : <cxxflags>--coverage <linkflags>--coverage ;
 # following extends existing debug variant to my_profile variant (there are predefined 'profile' and 'debug-python' variants)
 variant my_profile : debug : <optimization>speed <inlining>on <profiling>on ;
+
+import boost ;
+boost.use-project ;
   
 project 
         : usage-requirements 
