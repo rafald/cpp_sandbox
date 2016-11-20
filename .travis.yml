@@ -46,6 +46,8 @@ addons:
     packages: 
     - gcc-6 # TODO ${GCC_VER}
     - g++-6 # TODO ${GCC_VER}
+    - gcc-7 # TODO ${GCC_VER}
+    - g++-7 # TODO ${GCC_VER}
     - clang-3.8 # TODO ${CLANG_VER}
     - clang-format-3.8 # TODO ${CLANG_VER}
     - clang-tidy-3.8 # TODO ${CLANG_VER}
