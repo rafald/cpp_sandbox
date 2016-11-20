@@ -67,8 +67,8 @@ before_script:
   
 script:
   - touch Jamroot
-  - BOOST_ROOT=./boost ./boost/bjam -d2 -j8 toolset=clang
-  - if [ ! $TRAVIS_OS_NAME == osx ]; then BOOST_ROOT=./boost ./boost/bjam -d2 -j8 toolset=gcc ; fi
+  #- BOOST_ROOT=./boost ./boost/bjam -d2 -j8 toolset=clang
+  - if [ ! $TRAVIS_OS_NAME == osx ]; then BOOST_ROOT=./boost ./boost/bjam -d2 -j8 toolset=gcc ; else BOOST_ROOT=./boost ./boost/bjam -d2 -j8 toolset=clang ; fi
   
 
 after_success:

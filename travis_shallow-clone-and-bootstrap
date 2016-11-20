@@ -56,9 +56,10 @@ if [ ! -d ${3}/.git ] ; then
     
     ./bootstrap.sh # use default toolset
     
-    echo ${4} ${5} # clang-version optional-gcc-version
+    echo "clang-version: ${4} optional-gcc-version: ${5}" # clang-version optional-gcc-version
     create_user_config ${4} ${5} 
-    TOOLSET=gcc-${4},clang-${5}
+    #TOOLSET=gcc-${4},clang-${5}
+    TOOLSET=gcc-${5},clang-${4}
     ./b2 toolset=${TOOLSET} headers
     ./b2 toolset=${TOOLSET} variant=debug chrono system unit_test_framework 
     
