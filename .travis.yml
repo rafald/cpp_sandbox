@@ -42,12 +42,12 @@ addons:
     sources:
     - ubuntu-toolchain-r-test
     - llvm-toolchain-precise-3.8 # TODO ${CLANG_VER}
-    - llvm-toolchain-precise-3.9 # TODO ${CLANG_VER}
+    #- llvm-toolchain-precise-3.9 # TODO ${CLANG_VER}
     packages: 
     - gcc-6 # TODO ${GCC_VER}
     - g++-6 # TODO ${GCC_VER}
-    - gcc-7 # TODO ${GCC_VER}
-    - g++-7 # TODO ${GCC_VER}
+    #- gcc-7 # TODO ${GCC_VER}
+    #- g++-7 # TODO ${GCC_VER}
     - clang-3.8 # TODO ${CLANG_VER}
     - clang-format-3.8 # TODO ${CLANG_VER}
     - clang-tidy-3.8 # TODO ${CLANG_VER}
@@ -58,7 +58,7 @@ addons:
     - libopenmpi-dev
     - gcovr
     - python3.5
-    - clang-3.9 # TODO ${CLANG_VER}
+    #- clang-3.9 # TODO ${CLANG_VER}
 
 before_install:
 
