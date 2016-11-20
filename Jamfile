@@ -113,7 +113,7 @@ alias cpp17clang : : <toolset>clang ;
 unit-test cpp17tests : 
   cpp17tests.cpp 17/nested_ns.cpp 17/fold.cpp 17/lambda_utils.cpp  17/concept.cpp
   #17/if_and_switch_Init.cpp 
-  17/constexpr_if.cpp
+  17/constexpr_if.cpp 17/ctregex.cpp 17/ctprintf.cpp
   # 17/clamp.cpp
  : <cxxflags>"-fconcepts " <toolset>gcc-6 #reqs
 ;
@@ -229,3 +229,4 @@ rule print_toolset_version ( t : : properties * )
 
 ECHO "You may want to run super-lint:      scan-build bjam" ;
 
+run core_dumps_and_SIGSEGV.cpp ; 
