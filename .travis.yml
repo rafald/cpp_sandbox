@@ -7,6 +7,17 @@
 #If you require sudo, add 'sudo: required' to your .travis.yml
 #See https://docs.travis-ci.com/user/workers/container-based-infrastructure/ for details.
 
+branches:
+  only:
+    - master
+    - develop
+
+language: cpp
+
+env:
+  global:
+  - CTEST_OUTPUT_ON_FAILURE=1
+
 cache:
   ccache: true
   directories:
@@ -15,26 +26,37 @@ cache:
   - GSL
   - $HOME/.ccache
 
-language: cpp
-
-env:
-  global:
-  - CTEST_OUTPUT_ON_FAILURE=1
-
-
+# List of whitelisted in travis packages for ubuntu-precise can be found here:
+#   https://github.com/travis-ci/apt-package-whitelist/blob/master/ubuntu-precise
+# List of whitelisted in travis apt-sources:
+#   https://github.com/travis-ci/apt-source-whitelist/blob/master/ubuntu.json
 matrix: 
+  addons: 
+    apt: 
+      packages: 
+        - clang-format-3.8
+        - clang-tidy-3.8
+        - lcov
+        - valgrind
+        - cmake
+        - cmake-data
+        - libopenmpi-dev
+        - gcovr
+      sources: 
+        - ubuntu-toolchain-r-test
+        - llvm-toolchain-precise-3.8
   fast_finish: true
   include: 
     - 
       compiler: clang
       os: osx
-      osx_image: xcode8.2 # xcode8
+      osx_image: xcode8.2
       sudo: false
     - 
       compiler: gcc
       #env: CVER=4.8
       os: osx
-      osx_image: xcode8.2 # xcode8 xcode7.3
+      osx_image: xcode8.2
       sudo: false
     - 
       addons: 
@@ -62,31 +84,7 @@ matrix:
       env: CVER=6
       os: linux
       sudo: required
-            
-branches:
-  only:
-    - master
-    - develop
-
-addons:
-  apt:
-    # List of whitelisted in travis packages for ubuntu-precise can be found here:
-    #   https://github.com/travis-ci/apt-package-whitelist/blob/master/ubuntu-precise
-    # List of whitelisted in travis apt-sources:
-    #   https://github.com/travis-ci/apt-source-whitelist/blob/master/ubuntu.json
-    sources:
-    - ubuntu-toolchain-r-test
-    - llvm-toolchain-precise-3.8 # TODO ${CLANG_VER}
-    packages: 
-    - clang-format-3.8 # TODO ${CLANG_VER}
-    - clang-tidy-3.8 # TODO ${CLANG_VER}
-    - lcov
-    - valgrind
-    - cmake
-    - cmake-data
-    - libopenmpi-dev
-    - gcovr
-
+      
 before_install:
 
 install: 
