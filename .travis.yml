@@ -21,7 +21,7 @@ env:
   - CTEST_OUTPUT_ON_FAILURE=1
 
 matrix:
- fast_finish: true
+ #fast_finish: true
  include:
   - os: osx
     osx_image: xcode8 # gcc 4.2.1
