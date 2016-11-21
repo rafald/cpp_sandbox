@@ -9,9 +9,6 @@
 
 sudo: required # if false then gcc-6 and clang++-3.8 not installed
 dist: trusty # newer version did not work: xenial 
-os:
-  - linux
-  - osx # toolset=darwin
 
 cache:
   ccache: true
@@ -25,11 +22,12 @@ language: cpp
 env:
   global:
   - CTEST_OUTPUT_ON_FAILURE=1
-  #- GCC_VER=6
-  #- CLANG_VER=3.8
 
 matrix:
  fast_finish: true
+ os:
+  - linux
+  - osx # toolset=darwin
  include:
  - compiler: gcc
    addons:
@@ -38,7 +36,7 @@ matrix:
          - ubuntu-toolchain-r-test
        packages:
          - g++-6
-   env: CXX=g++ CC=gcc CVER=6
+   env: CVER=6
  - compiler: clang
    addons:
      apt:
@@ -47,7 +45,7 @@ matrix:
          - llvm-toolchain-precise-3.8
        packages:
          - clang++-3.8
-   env: CXX=clang++ CC=clang CVER=3.8
+   env: CVER=3.8
 
 branches:
   only:
@@ -89,12 +87,13 @@ install:
 
 before_script:
   #- if [ $TRAVIS_OS_NAME == osx ]; then export GCC_VER= ; export CLANG_VER= ; fi # empty version
-  - ./travis_shallow-clone-and-bootstrap master https://github.com/boostorg/boost.git boost ${CVER} # ${CLANG_VER} ${GCC_VER}
+  - ./travis_shallow-clone-and-bootstrap master https://github.com/boostorg/boost.git boost ${CVER}
   
 script:
   - touch Jamroot
   #- BOOST_ROOT=./boost ./boost/bjam -d2 -j8 toolset=clang
-  - if [ ! $TRAVIS_OS_NAME == osx ]; then BOOST_ROOT=./boost ./boost/bjam -d2 -j8 toolset=gcc ; else BOOST_ROOT=./boost ./boost/bjam -d2 -j8 toolset=clang ; fi
+  #- if [ ! $TRAVIS_OS_NAME == osx ]; then BOOST_ROOT=./boost ./boost/bjam -d2 -j8 toolset=gcc ; else BOOST_ROOT=./boost ./boost/bjam -d2 -j8 toolset=clang ; fi
+  - BOOST_ROOT=./boost ./boost/bjam -d2 -j8 toolset=${CC}
   
 
 after_success:
