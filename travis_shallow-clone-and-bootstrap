@@ -20,6 +20,7 @@ function full_clone() {
 # $1: version of compiler
 function create_user_config() {
     UCFILE=./tools/build/src/user-config.jam
+    # more tests to avoid nop update (to profit from caching)
     if ! grep -w ${CC} ${UCFILE} ; then
        #echo > ${UCFILE} # create brand new
        if [ -n "${1}" ] ; then
