@@ -9,30 +9,36 @@
 
 sudo: required # false
 dist: trusty
-language: cpp
-branches:
-  only:
-    - master
-    - develop
+os:
+  - linux
+  - osx # toolset=darwin
+
 cache:
   ccache: true
   directories:
   - boost
   - EIGEN
   - $HOME/.ccache
-os:
-  - linux
-  - osx # toolset=darwin
-#compiler:
-#  - gcc
-#  - clang
-matrix:
-  fast_finish: true
+
+language: cpp
+compiler: # ? then CXX defined
+  - gcc
+  - clang
+
 env:
   global:
   - CTEST_OUTPUT_ON_FAILURE=1
   - GCC_VER=6
   - CLANG_VER=3.8
+
+matrix:
+  fast_finish: true
+
+branches:
+  only:
+    - master
+    - develop
+
 addons:
   apt:
     # List of whitelisted in travis packages for ubuntu-precise can be found here:
