@@ -26,21 +26,6 @@ cache:
   - GSL
   - $HOME/.ccache
 
-addons: 
- apt: 
-   packages: 
-     - clang-format-3.8
-     - clang-tidy-3.8
-     - lcov
-     - valgrind
-     - cmake
-     - cmake-data
-     - libopenmpi-dev
-     - gcovr
-   sources: 
-     - ubuntu-toolchain-r-test
-     - llvm-toolchain-precise-3.8
-
 # List of whitelisted in travis packages for ubuntu-precise can be found here:
 #   https://github.com/travis-ci/apt-package-whitelist/blob/master/ubuntu-precise
 # List of whitelisted in travis apt-sources:
@@ -63,8 +48,16 @@ matrix:
       addons: 
         apt: 
           packages: 
-            - clang++-3.8
-            - g++-6
+           - clang++-3.8
+           - g++-6
+           - clang-format-3.8
+           - clang-tidy-3.8
+           - lcov
+           - valgrind
+           - cmake
+           - cmake-data
+           - libopenmpi-dev
+           - gcovr
           sources: 
             - ubuntu-toolchain-r-test
             - llvm-toolchain-precise-3.8
@@ -77,9 +70,18 @@ matrix:
       addons: 
         apt: 
           packages: 
-            - g++-6
+           - g++-6
+           - clang-format-3.8
+           - clang-tidy-3.8
+           - lcov
+           - valgrind
+           - cmake
+           - cmake-data
+           - libopenmpi-dev
+           - gcovr
           sources: 
             - ubuntu-toolchain-r-test
+            - llvm-toolchain-precise-3.8
       compiler: gcc
       dist: trusty
       env: CVER=6
