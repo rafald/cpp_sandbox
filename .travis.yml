@@ -31,21 +31,20 @@ matrix:
  fast_finish: true
  include:
  - compiler: gcc
-   sudo: required
    os: linux
    dist: trusty
-   env: CVER=6
+   sudo: required
    addons:
      apt:
        sources:
          - ubuntu-toolchain-r-test
        packages:
          - g++-6
+   env: CVER=6
  - compiler: clang
-   sudo: required
    os: linux
    dist: trusty
-   env: CVER=3.8
+   sudo: required
    addons:
      apt:
        sources:
@@ -54,11 +53,12 @@ matrix:
        packages:
          - clang++-3.8
          - g++-6 # TODO: clang uses some headers from gcc
- - compiler: clang
-   sudo: required
-   os: osx # toolset=darwin      if [ $TRAVIS_OS_NAME == osx ];
-   osx_image: xcode8 # xcode7.2
    env: CVER=3.8
+ - compiler: clang
+   sudo: required # TODO false
+   os: osx # toolset=darwin      if [ $TRAVIS_OS_NAME == osx ];
+   dist: trusty # TODO either dist or osx_image
+   osx_image: xcode8 # xcode7.2
    addons:
      apt:
        sources:
@@ -67,6 +67,7 @@ matrix:
        packages:
          - clang++-3.8
          #- g++-6 # TODO: clang uses some headers from gcc
+   env: CVER=800.0.38 # 3.8
 
 branches:
   only:
