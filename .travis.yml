@@ -21,9 +21,9 @@ cache:
   - $HOME/.ccache
 
 language: cpp
-compiler: # ? then CXX defined
-  - gcc
-  - clang
+#compiler: # ? then CXX defined
+#  - gcc
+#  - clang
 
 env:
   global:
