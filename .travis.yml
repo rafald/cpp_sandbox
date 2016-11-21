@@ -57,7 +57,7 @@ addons:
     - cmake-data
     - libopenmpi-dev
     - gcovr
-    - python3.5
+    #- python3.5
     #- clang-3.9 # TODO ${CLANG_VER}
 
 before_install:
