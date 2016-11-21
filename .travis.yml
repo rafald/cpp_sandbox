@@ -23,9 +23,9 @@ cache:
 
 language: cpp
 
-env:
-  global:
-  - CTEST_OUTPUT_ON_FAILURE=1
+#env:
+#  global:
+#  - CTEST_OUTPUT_ON_FAILURE=1
 
 matrix:
  fast_finish: true
