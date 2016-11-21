@@ -12,6 +12,7 @@ dist: trusty # newer version did not work: xenial
 os:
   - linux
   - osx # toolset=darwin      if [ $TRAVIS_OS_NAME == osx ];
+    osx_image: xcode8 # xcode7.2
       
 cache:
   ccache: true
@@ -29,11 +30,6 @@ env:
 matrix:
  fast_finish: true
  include:
- - os: linux
-   dist: trusty
-   sudo: required
- - os: osx # toolset=darwin      if [ $TRAVIS_OS_NAME == osx ];
-   osx_image: xcode8 # xcode7.2
  - compiler: gcc
    addons:
      apt:
