@@ -31,8 +31,6 @@ matrix:
  - compiler: gcc
    os:
      - linux
-       #dist: trusty
-       #sudo: required
    addons:
      apt:
        sources:
@@ -43,8 +41,6 @@ matrix:
  - compiler: clang
    os:
      - linux
-       dist: trusty
-       sudo: required
      - osx # toolset=darwin
    addons:
      apt:
