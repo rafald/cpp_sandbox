@@ -20,7 +20,7 @@ function full_clone() {
 # $1: version of compiler
 function create_user_config() {
     UCFILE=./tools/build/src/user-config.jam
-    #if [ -n ${UCFILE} ] ; then
+    if ! grep -w ${CC} ${UCFILE} ; then
        #echo > ${UCFILE} # create brand new
        if [ -n "${1}" ] ; then
           echo "using ${CC} : ${1} : /usr/bin/${CXX}-${1} ;" >> ${UCFILE}
@@ -30,7 +30,7 @@ function create_user_config() {
           ${CXX} --version
           echo "using ${CC} : : /usr/bin/${CXX} ;" >> ${UCFILE}
        fi
-    #fi
+    fi
     cat ${UCFILE}
 }
 
