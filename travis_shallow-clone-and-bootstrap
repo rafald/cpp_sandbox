@@ -41,7 +41,7 @@ function partial_clone() {
     git clone --depth 1 --branch $1 https://github.com/boostorg/build.git tools/build
     git clone --depth 1 --branch $1 https://github.com/boostorg/inspect.git tools/inspect
 }
-ls -l /usr/bin/clang*
+ls -l /usr/bin/${CC}*
 if [ ! -d ${3}/.git ] ; then
     git clone --depth 1 --branch $1 $2 $3
     pushd $3
