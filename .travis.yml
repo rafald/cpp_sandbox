@@ -31,8 +31,8 @@ matrix:
  - compiler: gcc
    os:
      - linux
-       dist: trusty
-       sudo: required
+       #dist: trusty
+       #sudo: required
    addons:
      apt:
        sources:
