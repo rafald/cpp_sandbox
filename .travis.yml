@@ -21,15 +21,12 @@ cache:
   - $HOME/.ccache
 
 language: cpp
-#compiler: # ? then CXX defined
-#  - gcc
-#  - clang
 
 env:
   global:
   - CTEST_OUTPUT_ON_FAILURE=1
-  - GCC_VER=6
-  - CLANG_VER=3.8
+  #- GCC_VER=6
+  #- CLANG_VER=3.8
 
 matrix:
  fast_finish: true
@@ -41,7 +38,7 @@ matrix:
          - ubuntu-toolchain-r-test
        packages:
          - g++-6
-   env: COMPILER=g++-6
+   env: CXX=g++ CC=gcc CVER=6
  - compiler: clang
    addons:
      apt:
@@ -50,7 +47,7 @@ matrix:
          - llvm-toolchain-precise-3.8
        packages:
          - clang++-3.8
-   env: COMPILER=clang++-3.8
+   env: CXX=clang++ CC=clang CVER=3.8
 
 branches:
   only:
@@ -68,11 +65,11 @@ addons:
     - llvm-toolchain-precise-3.8 # TODO ${CLANG_VER}
     #- llvm-toolchain-precise-3.9 # TODO ${CLANG_VER}
     packages: 
-    - gcc-6 # TODO ${GCC_VER}
-    - g++-6 # TODO ${GCC_VER}
+    #- gcc-6 # TODO ${GCC_VER}
+    #- g++-6 # TODO ${GCC_VER}
     #- gcc-7 # TODO ${GCC_VER}
     #- g++-7 # TODO ${GCC_VER}
-    - clang-3.8 # TODO ${CLANG_VER}
+    #- clang-3.8 # TODO ${CLANG_VER}
     - clang-format-3.8 # TODO ${CLANG_VER}
     - clang-tidy-3.8 # TODO ${CLANG_VER}
     - lcov
@@ -91,8 +88,8 @@ install:
   - gem install coveralls-lcov
 
 before_script:
-  - if [ $TRAVIS_OS_NAME == osx ]; then export GCC_VER= ; export CLANG_VER= ; fi # empty version
-  - ./travis_shallow-clone-and-bootstrap master https://github.com/boostorg/boost.git boost ${CLANG_VER} ${GCC_VER}
+  #- if [ $TRAVIS_OS_NAME == osx ]; then export GCC_VER= ; export CLANG_VER= ; fi # empty version
+  - ./travis_shallow-clone-and-bootstrap master https://github.com/boostorg/boost.git boost ${CVER} # ${CLANG_VER} ${GCC_VER}
   
 script:
   - touch Jamroot
@@ -102,8 +99,8 @@ script:
 
 after_success:
   - "echo 'RLD: SUCCESS'"
-  - clang-tidy-${CLANG_VER} src/* # TODO does not work
-  - BOOST_ROOT=./boost scan-build-${CLANG_VER} ./boost/bjam -j8 toolset=clang variant=release 
+  - clang-tidy-3.8 src/* # TODO does not work
+  - BOOST_ROOT=./boost scan-build-3.8 ./boost/bjam -j8 toolset=clang variant=release 
   # produce coveralls data 
   - lcov --directory . --zerocounters
   - BOOST_ROOT=./boost ./boost/bjam -j8 toolset=clang variant=coverage

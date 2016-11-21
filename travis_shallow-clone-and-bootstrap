@@ -17,8 +17,7 @@ function full_clone() {
     git submodule update --init --recursive
 }
 
-# $1: CLANG_VER
-# $2: optional GCC_VER
+# $1: version of compiler
 function create_user_config() {
     # create brand new
     UCFILE=./tools/build/src/user-config.jam
@@ -27,12 +26,13 @@ function create_user_config() {
     # required by .travis.yml but normally in user_config.jam
     #echo "import boost ;" >> ${UCFILE}
     #echo "boost.use-project ;" >> ${UCFILE}
-    if [ -n "${1}" ] ; then 
-      echo "using clang : ${1} : /usr/bin/clang++-${1} ;" >> ${UCFILE}
-    fi
-    if [ -n "${2}" ] ; then 
-      echo "using gcc : ${2} : /usr/bin/g++-${2} ;" >> ${UCFILE}
-    fi
+    #if [ -n "${1}" ] ; then 
+    #  echo "using clang : ${1} : /usr/bin/clang++-${1} ;" >> ${UCFILE}
+    #fi
+    #if [ -n "${2}" ] ; then 
+    #  echo "using gcc : ${2} : /usr/bin/g++-${2} ;" >> ${UCFILE}
+    #fi
+    echo "using ${CC} : ${r12} : /usr/bin/${CXX}-${1} ;" >> ${UCFILE}
 
     cat ${UCFILE}
 }
@@ -56,10 +56,10 @@ if [ ! -d ${3}/.git ] ; then
     
     ./bootstrap.sh # use default toolset
     
-    echo "clang-version: ${4} optional-gcc-version: ${5}" # clang-version optional-gcc-version
-    create_user_config ${4} ${5} 
-    #TOOLSET=gcc-${4},clang-${5}
-    TOOLSET=gcc-${5},clang-${4}
+    #echo "${4} is version of compiler"
+    echo "compiler: ${CXX} compiler version: ${4}"
+    create_user_config ${4} 
+    TOOLSET=${CC}-${4}
     ./b2 toolset=${TOOLSET} headers
     ./b2 toolset=${TOOLSET} variant=debug chrono system unit_test_framework 
     
