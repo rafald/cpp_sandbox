@@ -55,19 +55,15 @@ matrix:
          - g++-6 # TODO: clang uses some headers from gcc
    env: CVER=3.8
  - compiler: clang
-   sudo: required # TODO false
+   sudo: false
    os: osx # toolset=darwin      if [ $TRAVIS_OS_NAME == osx ];
-   dist: trusty # TODO either dist or osx_image
    osx_image: xcode8 # xcode7.2
-   addons:
-     apt:
-       sources:
-         - ubuntu-toolchain-r-test
-         - llvm-toolchain-precise-3.8
-       packages:
-         - clang++-3.8
-         #- g++-6 # TODO: clang uses some headers from gcc
-   env: CVER=800.0.38 # 3.8
+   env: CVER=800.0.38 
+ - compiler: gcc
+   sudo: false
+   os: osx # toolset=darwin      if [ $TRAVIS_OS_NAME == osx ];
+   #osx_image: xcode8 # xcode7.2
+   env: CVER=5.2 
 
 branches:
   only:
