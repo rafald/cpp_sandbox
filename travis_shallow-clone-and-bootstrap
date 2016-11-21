@@ -35,12 +35,13 @@ function create_user_config() {
     #echo "using ${CC} : ${1} : /usr/bin/${CXX}-${1} ;" >> ${UCFILE}
     if [ -n "${1}" ] ; then
        echo "using ${CC} : ${1} : /usr/bin/${CXX}-${1} ;" > ${UCFILE}
-       cat ${UCFILE}
     else
        echo -n "Empty ${UCFILE}. Query version: "
        ${CC} --version
        ${CXX} --version
+       echo "using ${CC} : : /usr/bin/${CXX} ;" > ${UCFILE}
     fi
+    cat ${UCFILE}
 
     cat ${UCFILE}
 }
