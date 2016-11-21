@@ -7,8 +7,8 @@
 #If you require sudo, add 'sudo: required' to your .travis.yml
 #See https://docs.travis-ci.com/user/workers/container-based-infrastructure/ for details.
 
-sudo: false # TODO required
-dist: trusty # does not work xenial 
+sudo: required # if false then gcc-6 and clang++-3.8 not installed
+dist: trusty # newer version did not work: xenial 
 os:
   - linux
   - osx # toolset=darwin
@@ -32,7 +32,25 @@ env:
   - CLANG_VER=3.8
 
 matrix:
-  fast_finish: true
+ fast_finish: true
+ include:
+ - compiler: gcc
+   addons:
+     apt:
+       sources:
+         - ubuntu-toolchain-r-test
+       packages:
+         - g++-6
+   env: COMPILER=g++-6
+ - compiler: clang
+   addons:
+     apt:
+       sources:
+         - ubuntu-toolchain-r-test
+         - llvm-toolchain-precise-3.8
+       packages:
+         - clang++-3.8
+   env: COMPILER=clang++-3.8
 
 branches:
   only:
