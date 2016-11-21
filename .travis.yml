@@ -9,6 +9,8 @@
 
 sudo: required # if false then gcc-6 and clang++-3.8 not installed
 dist: trusty # newer version did not work: xenial 
+#os: osx # if [ $TRAVIS_OS_NAME == osx ];
+#osx_image: xcode8
 
 cache:
   ccache: true
@@ -29,6 +31,9 @@ matrix:
   - linux
   - osx # toolset=darwin
  include:
+   - os: linux
+     #dist: trusty
+     #sudo: required
  - compiler: gcc
    addons:
      apt:
@@ -45,6 +50,7 @@ matrix:
          - llvm-toolchain-precise-3.8
        packages:
          - clang++-3.8
+         - g++-6 # clang uses some headers from gcc
    env: CVER=3.8
 
 branches:
