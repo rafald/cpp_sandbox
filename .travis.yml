@@ -12,6 +12,7 @@ cache:
   directories:
   - boost
   - EIGEN
+  - GSL
   - $HOME/.ccache
 
 language: cpp
