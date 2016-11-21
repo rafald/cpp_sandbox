@@ -30,7 +30,7 @@ function create_user_config() {
           ${CXX} --version
           echo "using ${CC} : : /usr/bin/${CXX} ;" >> ${UCFILE}
        fi
-    endif
+    fi
     cat ${UCFILE}
 }
 
