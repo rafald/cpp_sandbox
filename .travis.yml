@@ -8,7 +8,7 @@
 #See https://docs.travis-ci.com/user/workers/container-based-infrastructure/ for details.
 
 sudo: required # TODO false
-dist: xenial # TODO trusty
+#dist: trusty # does not work xenial 
 os:
   - linux
   - osx # toolset=darwin
