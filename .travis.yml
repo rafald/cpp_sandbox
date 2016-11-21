@@ -20,46 +20,41 @@ env:
   global:
   - CTEST_OUTPUT_ON_FAILURE=1
 
-matrix:
- #fast_finish: true
- include:
-  - os: osx
-    osx_image: xcode8 # gcc 4.2.1
-    - compiler: clang
+
+matrix: 
+  fast_finish: true
+  include: 
+    - 
+      compiler: 
+        - clang
+        - gcc
+      os: osx
+      osx_image: xcode8
       sudo: false
-      #os: osx # toolset=darwin      if [ $TRAVIS_OS_NAME == osx ];
-      #osx_image: xcode8 # clang-darwin-4.2.1 Apple LLVM version 8.0.0 (clang-800.0.38)
-    - compiler: gcc
-      sudo: false
-      #os: osx # toolset=darwin      if [ $TRAVIS_OS_NAME == osx ];
-      #osx_image: xcode8 # gcc 4.2.1
-  - os: linux
-    dist: trusty
-    sudo: required
-    - compiler: gcc
-      #os: linux
-      #dist: trusty
-      #sudo: required
-      addons:
-        apt:
-          sources:
-            - ubuntu-toolchain-r-test
-          packages:
-            - g++-6
-      env: CVER=6
-    - compiler: clang
-      #os: linux
-      #dist: trusty
-      #sudo: required
-      addons:
-        apt:
-          sources:
-            - ubuntu-toolchain-r-test
-            - llvm-toolchain-precise-3.8
-          packages:
-            - clang++-3.8
-            - g++-6 # TODO: clang uses some headers from gcc
-      env: CVER=3.8
+    - 
+      compiler: 
+        clang: 
+          addons: 
+            apt: 
+              packages: 
+                - clang++-3.8
+                - g++-6
+              sources: 
+                - ubuntu-toolchain-r-test
+                - llvm-toolchain-precise-3.8
+          env: CVER=3.8
+        gcc: 
+          addons: 
+            apt: 
+              packages: 
+                - g++-6
+              sources: 
+                - ubuntu-toolchain-r-test
+          env: CVER=6
+      dist: trusty
+      os: linux
+      sudo: required
+            
 branches:
   only:
     - master
