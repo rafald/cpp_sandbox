@@ -25,33 +25,40 @@ matrix:
   fast_finish: true
   include: 
     - 
-      compiler: 
-        - clang
-        - gcc
+      compiler: clang
       os: osx
       osx_image: xcode8
       sudo: false
     - 
-      compiler: 
-        clang: 
-          addons: 
-            apt: 
-              packages: 
-                - clang++-3.8
-                - g++-6
-              sources: 
-                - ubuntu-toolchain-r-test
-                - llvm-toolchain-precise-3.8
-          env: CVER=3.8
-        gcc: 
-          addons: 
-            apt: 
-              packages: 
-                - g++-6
-              sources: 
-                - ubuntu-toolchain-r-test
-          env: CVER=6
+      compiler: gcc
+      env: CVER=4.8
+      os: osx
+      osx_image: xcode8
+      sudo: false
+    - 
+      addons: 
+        apt: 
+          packages: 
+            - clang++-3.8
+            - g++-6
+          sources: 
+            - ubuntu-toolchain-r-test
+            - llvm-toolchain-precise-3.8
+      compiler: clang
       dist: trusty
+      env: CVER=3.8
+      os: linux
+      sudo: required
+    - 
+      addons: 
+        apt: 
+          packages: 
+            - g++-6
+          sources: 
+            - ubuntu-toolchain-r-test
+      compiler: gcc
+      dist: trusty
+      env: CVER=6
       os: linux
       sudo: required
             
