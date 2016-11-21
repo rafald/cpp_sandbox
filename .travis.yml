@@ -7,7 +7,7 @@
 #If you require sudo, add 'sudo: required' to your .travis.yml
 #See https://docs.travis-ci.com/user/workers/container-based-infrastructure/ for details.
 
-sudo: required # if false then gcc-6 and clang++-3.8 not installed
+#sudo: required # if false then gcc-6 and clang++-3.8 not installed
 #dist: trusty # newer version did not work: xenial 
 #os:
 #  - linux
@@ -31,6 +31,7 @@ matrix:
  fast_finish: true
  include:
  - compiler: gcc
+   sudo: required
    os: linux
    dist: trusty
    env: CVER=6
@@ -41,6 +42,7 @@ matrix:
        packages:
          - g++-6
  - compiler: clang
+   sudo: required
    os: linux
    dist: trusty
    env: CVER=3.8
@@ -53,6 +55,7 @@ matrix:
          - clang++-3.8
          - g++-6 # TODO: clang uses some headers from gcc
  - compiler: clang
+   sudo: required
    os: osx # toolset=darwin      if [ $TRAVIS_OS_NAME == osx ];
    osx_image: xcode8 # xcode7.2
    env: CVER=3.8
