@@ -52,12 +52,12 @@ matrix:
       os: osx
       osx_image: xcode8.2
       sudo: false
-    - 
-      compiler: gcc
-      #env: CVER=4.8
-      os: osx
-      osx_image: xcode8.2
-      sudo: false
+#    - 
+#      compiler: gcc
+#      #env: CVER=4.8
+#      os: osx
+#      osx_image: xcode8.2
+#      sudo: false
     - 
       addons: 
         apt: 
@@ -102,7 +102,7 @@ script:
 after_success:
   - "echo 'RLD: SUCCESS'"
   - clang-tidy-3.8 src/* # TODO does not work
-  - BOOST_ROOT=./boost scan-build-3.8 ./boost/bjam -j8 toolset=clang variant=release 
+  - BOOST_ROOT=./boost scan-build-3.8 ./boost/bjam -j8 toolset=clang variant=release # assuming toolset=clang always present
   # produce coveralls data 
   - lcov --directory . --zerocounters
   - BOOST_ROOT=./boost ./boost/bjam -j8 toolset=clang variant=coverage
