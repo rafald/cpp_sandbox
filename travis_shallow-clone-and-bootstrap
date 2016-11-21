@@ -39,6 +39,7 @@ function create_user_config() {
     else
        echo -n "Empty ${UCFILE}. Query version: "
        ${CC} --version
+       ${CXX} --version
     fi
 
     cat ${UCFILE}
