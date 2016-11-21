@@ -21,7 +21,7 @@ function full_clone() {
 function create_user_config() {
     UCFILE=./tools/build/src/user-config.jam
     #if [ -n ${UCFILE} ] ; then
-       echo > ${UCFILE} # create brand new
+       #echo > ${UCFILE} # create brand new
        if [ -n "${1}" ] ; then
           echo "using ${CC} : ${1} : /usr/bin/${CXX}-${1} ;" >> ${UCFILE}
        else
