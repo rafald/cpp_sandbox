@@ -34,7 +34,8 @@ function create_user_config() {
     #fi
     #echo "using ${CC} : ${1} : /usr/bin/${CXX}-${1} ;" >> ${UCFILE}
     if [ -n "${1}" ] ; then
-       echo "using ${CC} : ${1} : /usr/bin/${CXX}-${1} ;" >> ${UCFILE}
+       echo "using ${CC} : ${1} : /usr/bin/${CXX}-${1} ;" > ${UCFILE}
+       cat ${UCFILE}
     fi
 
     cat ${UCFILE}
@@ -63,7 +64,7 @@ if [ ! -d ${3}/.git ] ; then
     echo "compiler: ${CXX} compiler version: ${4}"
     create_user_config ${4} 
     #TOOLSET=${CC}-${4}
-    TOOLSET=${CC}-${4}
+    TOOLSET=${CC}
     ./b2 toolset=${TOOLSET} headers
     ./b2 toolset=${TOOLSET} variant=debug chrono system unit_test_framework 
     

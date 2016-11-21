@@ -57,11 +57,13 @@ matrix:
  - compiler: clang
    sudo: false
    os: osx # toolset=darwin      if [ $TRAVIS_OS_NAME == osx ];
-   osx_image: xcode8 # xcode7.2
+   osx_image: xcode8 
+   # 8.0.0 (clang-800.0.38)
  - compiler: gcc
    sudo: false
    os: osx # toolset=darwin      if [ $TRAVIS_OS_NAME == osx ];
-   #osx_image: xcode8 # xcode7.2
+   osx_image: xcode8 
+   # 4.2.1
 
 branches:
   only:
