@@ -27,13 +27,13 @@ matrix:
     - 
       compiler: clang
       os: osx
-      osx_image: xcode8
+      osx_image: xcode8.2 # xcode8
       sudo: false
     - 
       compiler: gcc
-      env: CVER=4.8
+      #env: CVER=4.8
       os: osx
-      osx_image: xcode8
+      osx_image: xcode8.2 # xcode8 xcode7.3
       sudo: false
     - 
       addons: 
@@ -76,7 +76,6 @@ addons:
     sources:
     - ubuntu-toolchain-r-test
     - llvm-toolchain-precise-3.8 # TODO ${CLANG_VER}
-    #- llvm-toolchain-precise-3.9 # TODO ${CLANG_VER}
     packages: 
     - clang-format-3.8 # TODO ${CLANG_VER}
     - clang-tidy-3.8 # TODO ${CLANG_VER}
@@ -86,7 +85,6 @@ addons:
     - cmake-data
     - libopenmpi-dev
     - gcovr
-    #- python3.5
 
 before_install:
 
