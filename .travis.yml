@@ -27,14 +27,12 @@ env:
 
 matrix:
  fast_finish: true
- os:
-  - linux
-  - osx # toolset=darwin
  include:
-   - os: linux
-     #dist: trusty
-     #sudo: required
  - compiler: gcc
+   os:
+     - linux
+       dist: trusty
+       sudo: required
    addons:
      apt:
        sources:
@@ -43,6 +41,11 @@ matrix:
          - g++-6
    env: CVER=6
  - compiler: clang
+   os:
+     - linux
+       dist: trusty
+       sudo: required
+     - osx # toolset=darwin
    addons:
      apt:
        sources:
