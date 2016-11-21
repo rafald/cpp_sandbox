@@ -96,7 +96,7 @@ before_script:
   - ./travis_shallow-clone-and-bootstrap master https://github.com/boostorg/boost.git boost ${CVER}
   
 script:
-  - touch Jamroot
+  - if [ ! -f Jamroot ] ; then touch Jamroot ; fi
   - BOOST_ROOT=./boost ./boost/bjam -d2 -j8 toolset=${CC}
   
 
