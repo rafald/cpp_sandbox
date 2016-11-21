@@ -7,8 +7,8 @@
 #If you require sudo, add 'sudo: required' to your .travis.yml
 #See https://docs.travis-ci.com/user/workers/container-based-infrastructure/ for details.
 
-sudo: required # false
-dist: trusty
+sudo: required # TODO false
+dist: xenial # TODO trusty
 os:
   - linux
   - osx # toolset=darwin
