@@ -63,7 +63,6 @@ run strict_aliasing.c : <optimization>speed ;
 run tmpl_alias_overload.cpp : <toolset>clang ;  
 alias tmpl_alias_overload : : <toolset>gcc ; 
 alias tmpl_alias_overload : : <toolset>msvc ; 
-explicit tmpl_alias_overload ; # lcov - out of memory error
 
 alias agregate_initialization : : <toolset>clang ; 
 alias agregate_initialization : : <toolset>gcc ; 
@@ -98,7 +97,7 @@ run tmpl_inst.cpp
     : #args * 
     : #input-files * 
     : #requirements * 
-        <host-os>linux:<cxxflags>"`pkg-config --cflags dbus-1`"
+        <host-os>linux:<cxxflags>"`pkg-config --cflags dbus-1`" # unused
         <host-os>linux:<linkflags>"`pkg-config --libs dbus-1`"
     : #target-name ?
     : #default-build * 
