@@ -63,6 +63,7 @@ run strict_aliasing.c : <optimization>speed ;
 run tmpl_alias_overload.cpp : <toolset>clang ;  
 alias tmpl_alias_overload : : <toolset>gcc ; 
 alias tmpl_alias_overload : : <toolset>msvc ; 
+explicit tmpl_alias_overload ; # lcov - out of memory error
 
 alias agregate_initialization : : <toolset>clang ; 
 alias agregate_initialization : : <toolset>gcc ; 
