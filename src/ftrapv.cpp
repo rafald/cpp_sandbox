@@ -1,4 +1,5 @@
 #include <iostream>
+#include <limits>
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -40,7 +41,9 @@ static inline __uint128_t TO_UNSIGNED_LOW(__uint128_t x) { return x; }
 /* Doesn't evaluate x. Returns (int)0 or (int)1 indicating whether the value or
  * type x is unsigned.
  */
-#define is_unsigned(a) (((__typeof__(a))-1) > 0)
+//RLD #define is_unsigned(a) (((__typeof__(a))-1) > 0)
+#define is_unsigned(a) (std::numeric_limits<decltype(a)>::is_signed? 0: 1)
+
 
 /* Detect signed addition overflow, without executing a single overflowing
  * operation.
