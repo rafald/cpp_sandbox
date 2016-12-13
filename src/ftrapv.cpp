@@ -43,12 +43,14 @@ static inline __uint128_t TO_UNSIGNED_LOW(__uint128_t x) { return x; }
 /* Doesn't evaluate x. Returns (int)0 or (int)1 indicating whether the value or
  * type x is unsigned.
  */
-//RLD #define is_unsigned(a) (((__typeof__(a))-1) > 0)
-#define is_unsigned(a) (std::numeric_limits<decltype(a)>::is_signed? 0: 1)
-#if defined(_MSC_VER)
-#define __typeof__(a) (typename std::decay<decltype(a)>::type)
+#if !defined(_MSC_VER)
+   #define is_unsigned(a) (((__typeof__(a))-1) > 0)
+#else //RLD 
+   #define is_unsigned(a) (std::numeric_limits<decltype(a)>::is_signed? 0: 1)
+   #if defined(_MSC_VER)
+   #define __typeof__(a) (typename std::decay<decltype(a)>::type)
+   #endif
 #endif
-
 
 
 /* Detect signed addition overflow, without executing a single overflowing
@@ -98,7 +100,7 @@ static inline __uint128_t TO_UNSIGNED_LOW(__uint128_t x) { return x; }
 ////////////////////////////////////////////////////////////////////////////////
 //The following functions implement trapping arithmetic. These functions call the libc function abort upon signed arithmetic overflow.
 
-#define TRACE(a) std::cout << __FUNCTION__ << ":" << a << "\n"
+#define TRACE(a) //std::cout << __FUNCTION__ << ":" << a << "\n"
 #define TRACE2(a,b) //std::cout << __FUNCTION__ << ":" << a << "," << b << "\n"
 
 extern "C" int __absvsi2 (int a) { TRACE(a); return a<0? -a: a; }
