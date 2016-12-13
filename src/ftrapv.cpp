@@ -1,5 +1,7 @@
 #include <iostream>
 #include <limits>
+#include <type_traits>
+
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -43,6 +45,10 @@ static inline __uint128_t TO_UNSIGNED_LOW(__uint128_t x) { return x; }
  */
 //RLD #define is_unsigned(a) (((__typeof__(a))-1) > 0)
 #define is_unsigned(a) (std::numeric_limits<decltype(a)>::is_signed? 0: 1)
+#if defined(_MSC_VER)
+#define __typeof__(a) (typename std::decay<decltype(a)>::type)
+#endif
+
 
 
 /* Detect signed addition overflow, without executing a single overflowing
