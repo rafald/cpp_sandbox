@@ -237,4 +237,4 @@ exe core_dumps_and_SIGSEGV : core_dumps_and_SIGSEGV.cpp ;
 alias core_dumps_and_SIGSEGV  : : <toolset>msvc ;
 
 #alias fib ;
-run fib.cpp [ obj ftrapv : ftrapv.cpp ] : : : <optimization>speed <variant>release <cxxflags>"-ftrapv " ;
+run fib.cpp [ obj ftrapv : ftrapv.cpp ] : : : <optimization>speed <variant>release <toolset>gcc:<cxxflags>"-ftrapv " ;
