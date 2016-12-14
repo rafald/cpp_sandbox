@@ -73,5 +73,4 @@ main() {
       //std::cout << ex.what();
       std::exit(0);
    }
-   return 0;
 }
