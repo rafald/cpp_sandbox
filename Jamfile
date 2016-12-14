@@ -236,5 +236,6 @@ ECHO "You may want to run super-lint:      scan-build bjam" ;
 exe core_dumps_and_SIGSEGV : core_dumps_and_SIGSEGV.cpp ;
 alias core_dumps_and_SIGSEGV  : : <toolset>msvc ;
 
-#alias fib ;
-run fib.cpp [ obj ftrapv : ftrapv.cpp ] : : : <optimization>speed <variant>release <toolset>gcc:<cxxflags>"-ftrapv " ;
+obj ftrapv : ftrapv_gcc.cpp ; # fails /no best alternative/ if specified : <optimization>speed <variant>release
+alias ftrapv : : <toolset>msvc ;
+run fib.cpp ftrapv : : : <toolset>gcc:<cxxflags>"-ftrapv " <optimization>speed <variant>release ;

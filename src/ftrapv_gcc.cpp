@@ -2,7 +2,6 @@
 
 //#include <limits>
 //#include <type_traits>
-#if !defined(_MSC_VER)
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -130,5 +129,3 @@ extern "C" long __subvdi3 (long a, long b) { TRACE2(a,b); if(is_subtract_overflo
 //These functions return the difference between b and a; that is a - b.
 
 ////////////////////////////////////////////////////////////////////////////////
-
-#endif // !defined(_MSC_VER)

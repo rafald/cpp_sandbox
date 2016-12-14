@@ -9,9 +9,15 @@
 
 //using namespace std;
 
-extern "C" int subtract_overflow;
+extern "C" int subtract_overflow; //TODO header with destrctive read functions readr_add_overflows() read-reset
 extern "C" int int_add_overflow;
 extern "C" int long_add_overflow;
+#if defined(_MSC_VER)
+// dummy flags
+int subtract_overflow;
+int int_add_overflow;
+int long_add_overflow;
+#endif
 
 int
 main() {
