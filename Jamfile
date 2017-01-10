@@ -92,6 +92,7 @@ compile-fail test_GSL_span.cpp : <define>CONFIRM_COMPILATION_ERRORS ;
 
 compile void_param.cpp ;
 compile ct_random.cpp ;
+compile ct_random_maze_gen.cpp ;
 
 # run accepts multiply modules, the first one is the name of the target
 run ret_mult_values.cpp : <toolset>gcc-6 ; 
