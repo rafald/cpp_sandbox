@@ -53,6 +53,7 @@ test-suite  moja-swita
       [ run test_Eigen_QR.cpp ]
       [ run test_enum_bit_op.cpp ]
       [ run CRTP.cpp ]
+      [ run test_runtime_get.cpp ]
 ;
 
 run prototype_mystery.cpp ; # run is good for BOOST_UNIT_TEST - only ret code matters
