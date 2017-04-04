@@ -52,7 +52,7 @@ before_build:
   - cmd: copy /Y NUL Jamroot # ATTRIB -R filename.ext
 build_script:
   - echo %CD% %PATH% %BOOST_ROOT%
-  - bjam #toolset=msvc-14.0
+  - bjam toolset=msvc-14.0
 #build:
 #  parallel: true        # enable MSBuild parallel builds
 #  project: "Script"     # path to Visual Studio solution or project
