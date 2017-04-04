@@ -38,10 +38,10 @@ install:
   - ls -l && 7z x boost_*.7z > nul
   - del boost_*.7z > nul
   - ps: cd "${env:APPVEYOR_BUILD_FOLDER}/boost*/"
-  - ls -l "C:\Program Files (x86)"
   - ls -l "C:\Program Files\Microsoft SDKs"
-  - ps: call "C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin\SetEnv.cmd" /x64
-  - ps: call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x86_amd64
+  #- cmd: call "C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin\SetEnv.cmd" /x64
+  - ls -l "C:\Program Files (x86)"
+  #- cmd: call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x86_amd64
   - bootstrap.bat
   - b2 headers
   - set PATH=%PATH%;%CD% # TODO remove
