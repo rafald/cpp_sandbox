@@ -60,6 +60,7 @@ test-suite my_suite
       [ run test_Eigen.cpp ]
       [ run CRTP.cpp ]
       [ run test_runtime_get.cpp ]
+      [ compile ct_random.cpp ]
 ;
 explicit my_suite ; # ! explicit can be used without declaration - introduced first !
 
@@ -100,7 +101,6 @@ compile-fail test_GSL_bounds.cpp : <define>CONFIRM_COMPILATION_ERRORS ;
 compile-fail test_GSL_span.cpp : <define>CONFIRM_COMPILATION_ERRORS ;
 
 compile void_param.cpp ;
-compile ct_random.cpp ;
 compile ct_random_maze_gen.cpp ;
 
 # run accepts multiply modules, the first one is the name of the target
