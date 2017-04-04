@@ -1,6 +1,8 @@
 #ifndef CT_HASH_H
 #define CT_HASH_H
 
+#include <cstdint>
+
 namespace foonathan {
 namespace string_id {
 namespace detail {

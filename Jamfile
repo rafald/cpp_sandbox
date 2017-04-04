@@ -52,7 +52,6 @@ test-suite  moja-swita
       [ run quiz_aliasing.cpp ]
       [ run test_Eigen_QR.cpp ]
       [ run test_enum_bit_op.cpp ]
-      [ run CRTP.cpp ]
       [ run test_runtime_get.cpp ]
 ;
 
@@ -142,6 +141,7 @@ test-suite my_suite
 :
       [ run test_ct_hash.cpp ]
       [ run test_Eigen.cpp ]
+      [ run CRTP.cpp ]
 ;
 explicit my_suite ; # ! explicit can be used without declaration - introduced first !
 
