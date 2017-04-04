@@ -5,13 +5,14 @@
 #  - '%APPDATA%\npm-cache'             # npm cache
 #  - '%USERPROFILE%\.nuget\packages -> **\project.json'  # project.json cache
 
-#image: Visual Studio 2017
-version: 1.0.{build}-{branch}
-shallow_clone: true
-branches:
-  only:
-    - master
-    - develop
+image: Visual Studio 2017
+#version: 1.0.{build}-{branch}
+#shallow_clone: true
+#branches:
+#  only:
+#    - master
+#    - develop
+
 #   except:
 #   - coverity_scan
 environment:
