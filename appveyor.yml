@@ -36,9 +36,9 @@ install:
   - appveyor DownloadFile "https://dl.bintray.com/boostorg/beta/1.64.0.beta.2/source/boost_1_64_0_b2.7z"
   - ls -l && 7z x boost_*.7z > nul
   - del boost_*.7z > nul
-  - cmd: cd "${env:APPVEYOR_BUILD_FOLDER}/boost*/"
-  - cmd: call "C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin\SetEnv.cmd" /x64
-  - cmd: call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x86_amd64
+  - ps: cd "${env:APPVEYOR_BUILD_FOLDER}/boost*/"
+  - ps: call "C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin\SetEnv.cmd" /x64
+  - ps: call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x86_amd64
   - bootstrap.bat
   - b2 headers
   - set PATH=%PATH%;%CD% # TODO remove
