@@ -44,7 +44,7 @@ install:
   #- cmd: call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x86_amd64
   - ls -l "C:\Program Files (x86)\Microsoft Visual Studio"
   - ls -l "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.10.25017\bin\HostX64\x64"
-  - cmd: cl /?
+  - cl /?
   - bootstrap.bat
   - b2 headers
   - set PATH=%PATH%;%CD% # TODO remove
@@ -66,7 +66,7 @@ before_build:
   - cmd: copy /Y NUL Jamroot # ATTRIB -R filename.ext
 build_script:
   - echo %CD% %PATH% %BOOST_ROOT%
-  - bjam toolset=msvc-14
+  - bjam toolset=msvc-14.1
 #build:
 #  parallel: true        # enable MSBuild parallel builds
 #  project: "Script"     # path to Visual Studio solution or project
