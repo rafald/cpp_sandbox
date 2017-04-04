@@ -1,29 +1,6 @@
 #include <iostream>
 #include <type_traits>
 
-#if 0
-template <typename N, template <typename...> class... CRTPs> 
-class Number : public CRTPs<Number<N, CRTPs...>>... { 
-public: 
-  //using S = std::decay_t<std::underlying_arithmetic_type_t<N>>; 
-  //using S = std::decay_t<std::underlying_type_t<N>>; 
-  using S = std::decay_t<N>;
-
-  constexpr Number() // note: intentionally uninitialized 
-{} 
-  constexpr Number(S value) 
-: value_(value) {} 
-
-  constexpr S value() const 
-{ return value_; } 
-
-  constexpr void set_value(S a) 
-{ value_ = a; } 
-
-private: 
-  N value_; 
-};
-#else
 template <typename N, template <typename...> class... CRTPs> 
 class Number : public CRTPs<Number<N, CRTPs...>>... { 
 public: 
@@ -62,9 +39,8 @@ static_assert(is_sl, "Number is not standard layout");
   } 
   N value_; 
 };
-#endif
 
-/////////////////////////////
+////////////////////////////////////////////////////////////////////////
 
 template <typename T> 
 class Stream_i { 
@@ -88,23 +64,38 @@ class Eq_i {
 { return a.value() != b.value(); } 
 };
 
+// Bit_i
 
-
-
-
-
+////////////////////////////////////////////////////////////////////////
+#if 1
+template <typename T> 
+class write_only { 
+public: 
+    write_only() {} 
+    write_only(T const &v) : m_(v) {} 
+    void operator =(T const &v) { m_ = v; } 
+    write_only(write_only const &) = delete; 
+    write_only &operator =(write_only const &) = delete; 
+private: 
+    T m_; 
+}; 
+//read_only
+//unused
+#endif
+////////////////////////////////////////////////////////////////////////
 
 int
 main() {
   //using restricted_int = Number<int, Eq_i, Rel_i, Add_i, Stream_i>; 
   using restricted_int = Number<int, Eq_i, Stream_i, Shift_i>; 
-  restricted_int ri;
-  std::cout << ri;
+  restricted_int ri(7);
+  std::cout << ri << "\n";
 
+  using hw_register = unsigned volatile;
   //using status_register = Number<hw_register, Bit_i>;
-  using status_register = Number<int, Shift_i>;
-  status_register si;
-  std::cout << (si >> 2).value();
+  using status_register = Number<hw_register, Shift_i>;
+  status_register si(23);
+  std::cout << (si >> 2).value() << "\n";
 
   return 0;
 }
