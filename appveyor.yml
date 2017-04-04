@@ -5,7 +5,7 @@
 #  - '%APPDATA%\npm-cache'             # npm cache
 #  - '%USERPROFILE%\.nuget\packages -> **\project.json'  # project.json cache
 
-#image: Visual Studio 2017
+image: Visual Studio 2017
 version: 1.0.{build}-{branch}
 #shallow_clone: true
 branches:
@@ -31,6 +31,8 @@ install:
   - ls -l && 7z x boost_*.7z > nul
   - del boost_*.7z > nul
   - ps: cd "${env:APPVEYOR_BUILD_FOLDER}/boost*/"
+  - call "C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin\SetEnv.cmd" /x64
+  - call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x86_amd64
   - bootstrap.bat
   - b2 headers
   - set PATH=%PATH%;%CD% # TODO remove
@@ -52,7 +54,7 @@ before_build:
   - cmd: copy /Y NUL Jamroot # ATTRIB -R filename.ext
 build_script:
   - echo %CD% %PATH% %BOOST_ROOT%
-  - bjam toolset=msvc-14.0
+  - bjam #toolset=msvc-14.0
 #build:
 #  parallel: true        # enable MSBuild parallel builds
 #  project: "Script"     # path to Visual Studio solution or project
