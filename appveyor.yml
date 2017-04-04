@@ -5,6 +5,7 @@
 #  - '%APPDATA%\npm-cache'             # npm cache
 #  - '%USERPROFILE%\.nuget\packages -> **\project.json'  # project.json cache
 
+#image: Visual Studio 2017
 version: 1.0.{build}-{branch}
 shallow_clone: true
 branches:
@@ -17,7 +18,7 @@ environment:
   fast_finish: true
   matrix:
   - platform: x86
-    os: Visual Studio 2015
+    os: Visual Studio 2017
     env: BS=bjam GENERATOR="MinGW Makefiles" MEMCHECK=DRMEMORY PLATFROM=x86
     configuration:  Release
     PROJECT_BASE: "C:/projects/cpp_sandbox"
@@ -50,7 +51,7 @@ before_build:
   - cmd: copy /Y NUL Jamroot # ATTRIB -R filename.ext
 build_script:
   - echo %CD% %PATH% %BOOST_ROOT%
-  - bjam toolset=msvc-15.0
+  - bjam #toolset=msvc-14.0
 #build:
 #  parallel: true        # enable MSBuild parallel builds
 #  project: "Script"     # path to Visual Studio solution or project
