@@ -2,7 +2,7 @@
 #include <vector>
 
 #define GSL_THROW_ON_CONTRACT_VIOLATION //GSL_TERMINATE_ON_CONTRACT_VIOLATION
-#include "gsl"
+#include "gsl/gsl"
 
 #define BOOST_TEST_MAIN
 #include <boost/test/unit_test.hpp>

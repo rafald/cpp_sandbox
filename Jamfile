@@ -34,7 +34,7 @@ project
                 <host-os>linux:<cxxflags>"-std=c++1z " 
                 <host-os>windows:<cxxflags>"-std=c++1z " 
                 <host-os>darwin:<cxxflags>"-std=c++1y "
-                <include>EIGEN <include>GSL/gsl
+                <include>EIGEN <include>GSL/include
                 #<linkflags>"-lcholmod -lmetis -lamd -lcamd -lccolamd -lcolamd -llapack -lgfortran -lblas "
         #<cxxflags>"-fsanitize=float-cast-overflow "
         :
