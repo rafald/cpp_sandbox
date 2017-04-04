@@ -27,7 +27,7 @@ environment:
 install:
   #- C:\"Program Files (x86)"\"Microsoft Visual Studio 14.0"\VC\vcvarsall.bat %PLATFORM%
   - ps: cd "${env:APPVEYOR_BUILD_FOLDER}"
-  - appveyor DownloadFile "https://dl.bintray.com/boostorg/beta/1.64.0.beta.2/source/:boost_1_64_0_b2.7z"
+  - appveyor DownloadFile "https://dl.bintray.com/boostorg/beta/1.64.0.beta.2/source/boost_1_64_0_b2.7z"
   - ls -l && 7z x boost_*.7z > nul
   - del boost_*.7z > nul
   - ps: cd "${env:APPVEYOR_BUILD_FOLDER}/boost*/"
