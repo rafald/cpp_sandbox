@@ -52,8 +52,16 @@ test-suite  moja-swita
       [ run quiz_aliasing.cpp ]
       [ run test_Eigen_QR.cpp ]
       [ run test_enum_bit_op.cpp ]
+;
+
+test-suite my_suite
+:
+      [ run test_ct_hash.cpp ]
+      [ run test_Eigen.cpp ]
+      [ run CRTP.cpp ]
       [ run test_runtime_get.cpp ]
 ;
+explicit my_suite ; # ! explicit can be used without declaration - introduced first !
 
 run prototype_mystery.cpp ; # run is good for BOOST_UNIT_TEST - only ret code matters
 #alias simple_match : : : :  <include>../c++/simple_match/include ;
@@ -128,6 +136,7 @@ alias cpp17tests : : <toolset>gcc ;
 alias cpp17tests : : <toolset>clang ;
 alias cpp17tests : : <toolset>msvc ;
 
+
 rule explicit-unit-test ( target : source : properties * )
 {
     unit-test $(target) : $(source) : $(properties) ;
@@ -137,22 +146,7 @@ explicit-unit-test test_bind : test_bind.cpp
     : <testing.launcher>"valgrind --leak-check=full --show-leak-kinds=all " # -v 
 ;
 
-test-suite my_suite
-:
-      [ run test_ct_hash.cpp ]
-      [ run test_Eigen.cpp ]
-      [ run CRTP.cpp ]
-;
-explicit my_suite ; # ! explicit can be used without declaration - introduced first !
-
-
-
-
-
-
 # The six rules ALWAYS, LEAVES, NOCARE, NOTFILE, NOUPDATE, and TEMPORARY modify the dependency graph so that bjam treats the targets differently during its target binding phase.
-
-
 
 
 # This Jamfile requires boost-build v2 to build.
