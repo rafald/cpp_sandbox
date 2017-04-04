@@ -103,7 +103,7 @@ script:
   
 
 after_success:
-  - "echo 'RLD: SUCCESS'"
+  - "echo 'From .travis script: SUCCESS'"
   - clang-tidy-3.8 src/* # TODO does not work
   - BOOST_ROOT=./boost scan-build-3.8 ./boost/bjam -j8 toolset=${CC} variant=release 
   # produce coveralls data 
@@ -115,10 +115,9 @@ after_success:
   - coveralls-lcov coverage.info # uploads to coveralls  # --repo-token ${COVERALLS_TOKEN}
 
 after_failure:
-  - bash -c "echo 'RLD: failed\!'"
+  - bash -c "echo 'From .travis script: failed\!'"
   
 notifications:
   email:
     on_success: change
     on_failure: change # always
-
