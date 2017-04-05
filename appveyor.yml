@@ -69,7 +69,7 @@ before_build:
 
 build_script:
   - echo %CD% %PATH% %BOOST_ROOT%
-  - bjam toolset=msvc /boost//unit_test_framework # toolset=msvc-14.1
+  #- bjam toolset=msvc /boost//unit_test_framework # toolset=msvc-14.1
   - bjam toolset=msvc 
 
 #build:
