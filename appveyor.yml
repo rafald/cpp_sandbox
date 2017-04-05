@@ -47,6 +47,7 @@ install:
   #- cl.exe /?
   - bootstrap.bat
   - b2 headers
+  - cat "C:\Users\appveyor\AppData\Local\Temp\1\b2_msvc_14.10.25017_vcvarsx86_amd64_.cmd"
   - set PATH=%PATH%;%CD% # TODO remove
   - set BOOST_ROOT=%CD% 
   - cmd: echo import boost ; > tools/build/src/user-config.jam
@@ -61,12 +62,15 @@ install:
   #- appveyor DownloadFile http://downloads.sourceforge.net/mingw-w64/x86_64-5.2.0-release-posix-seh-rt_v4-rev1.7z
   #- 7z x x86_64-5.2.0-release-posix-seh-rt_v4-rev1.7z > nul
   - set PATH=%PATH%;mingw64\bin  
+
 before_build:
   - ps: cd "${env:APPVEYOR_BUILD_FOLDER}"
   - cmd: copy /Y NUL Jamroot # ATTRIB -R filename.ext
+
 build_script:
   - echo %CD% %PATH% %BOOST_ROOT%
-  - bjam toolset=msvc-14.1
+  - bjam # toolset=msvc-14.1
+
 #build:
 #  parallel: true        # enable MSBuild parallel builds
 #  project: "Script"     # path to Visual Studio solution or project
@@ -77,8 +81,10 @@ test_script:
   - echo This is my custom test script
 # to disable automatic tests 
 test: off
+
 # run custom scripts before tests
 before_test:
+
 # run custom scripts after tests
 after_test:
   
