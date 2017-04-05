@@ -54,7 +54,7 @@ install:
   - cmd: echo boost.use-project ; >> tools/build/src/user-config.jam
   #- cmd: echo using msvc ; >> tools/build/src/user-config.jam
   #- cmd: echo using python ; >> tools/build/src/user-config.jam
-  - cat too./bui	ls/build/src/user-config.jam
+  - cat tools/build/src/user-config.jam
   - cmd: cd ..
   - hg clone https://bitbucket.org/eigen/eigen -r 3.2.8 EIGEN
   - git clone https://github.com/Microsoft/GSL.git GSL
