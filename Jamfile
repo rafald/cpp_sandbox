@@ -73,6 +73,7 @@ test-suite  moja-swita
       [ unit-test test_dispatcher : test_dispatcher.cpp auto_tie.cpp ] # /site-config//zlib /site-config//librt /site-config//crypto /site-config//ssl
 
       [ run interview/quicksort.cpp ]
+      [ run interview/selection_sort.cpp ]
 ;
 
 test-suite my_suite
