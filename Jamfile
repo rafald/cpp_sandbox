@@ -74,6 +74,7 @@ test-suite  moja-swita
 
       [ run interview/quicksort.cpp ]
       [ run interview/selection_sort.cpp ]
+      [ run interview/insertion_sort.cpp ]
 ;
 
 test-suite my_suite
