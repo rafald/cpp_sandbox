@@ -30,7 +30,7 @@ constexpr typename std::tuple_element<
     0, typename std::remove_reference<Tuple>::type>::type &
 runtime_get(Tuple &&t, size_t index) {
   using tuple_type = typename std::remove_reference<Tuple>::type;
-  if (index >= std::tuple_size<tuple_type>::value)
+  if (index >= std::tuple_size<tuple_type>::value) // clang 3.8: error: exception specifications are not allowed in type aliases
     throw std::runtime_error("Out of range");
   return runtime_get_func_table<tuple_type>::table[index](t);
 }

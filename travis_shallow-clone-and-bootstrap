@@ -1,8 +1,8 @@
 #!/bin/bash
 
-# $1: master 
+# $1: master - boost branch
 # $2: https://github.com/boostorg/boost.git 
-# $3: boost 
+# $3: boost - directory name
 # $4: CLANG_VER
 # $5: optional GCC_VER
 

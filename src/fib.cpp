@@ -64,12 +64,16 @@ main() {
      }
      return j;
   }; 
+
+  auto dnext_fib = [i = 0.0L, j = 1.0L]() mutable {
+     return i = std::exchange(j, i + j);
+  }; 
   
   for(int i = 0; i!=99 ; ++i) {
      auto const fib = next_fib();
      auto const fib3 = next_fib3();
-     std::cout << boost::format("%3s %25s %25s %25s %25s %8s\n") 
-         % i % fib % unext_fib() % fib3 % unext_fib3() % (fib? (fib3/fib): 0);
+     std::cout << boost::format("%3s %18s %22s %30.1f %25s %25s %8s\n") 
+         % i % fib % unext_fib() % dnext_fib() % fib3 % unext_fib3() %  (fib? (fib3/fib): 0);
   }
   
   //std::cout << "add_overflow: " << add_overflow << "\n";

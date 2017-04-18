@@ -15,10 +15,11 @@ test() {
   f( (void(), 4) );
   //f( (void, 4) );
   f( (void_fun(), 4) );
-  // void value is reduced, just regular comma operator !!!!!!
+  // just regular comma operator kicks off here !!!!!!
   // we can overload this comma operator
-  // but it will be not defined for void type !!!! there is no such thing like normal void input argument type
-  // OK function can have void input type but it is only for single arg type
+  // but it will be not defined for void type !!!! 
+  // there is no such thing like void input argument type
+  // unless this is the only arg of function
   return 0;
 }
 
@@ -37,7 +38,7 @@ inline void Process(const VoidParam&)
 }
 
 // NOTE T == void instantiation is automatically removed
-// but in case of in arg type: const T* t  it is NOT REMOVED!!!
+// but in case of in arg type like: const T* t  it is NOT REMOVED!!!
 template <typename T>
 T operator , (const T& t, const VoidParam&) { return t; }
 
