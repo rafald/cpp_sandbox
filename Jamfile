@@ -77,6 +77,7 @@ test-suite  moja-swita
       [ run interview/insertion_sort.cpp ]
       [ run interview/merge_sort.cpp ]
       [ run interview/median.cpp ]
+      [ compile interview/nth_element_impl.cpp ]
 ;
 
 test-suite my_suite
