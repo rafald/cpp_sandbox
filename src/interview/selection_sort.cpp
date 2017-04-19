@@ -1,3 +1,5 @@
+// http://en.cppreference.com/w/cpp/algorithm/iter_swap
+
 #include <random>
 #include <vector>
 #include <iostream>

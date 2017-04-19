@@ -1,3 +1,5 @@
+// http://en.cppreference.com/w/cpp/algorithm/partition
+
 #include <algorithm>
 #include <iostream>
 #include <iterator>
