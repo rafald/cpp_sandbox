@@ -77,7 +77,14 @@ test-suite  moja-swita
       [ run interview/insertion_sort.cpp ]
       [ run interview/merge_sort.cpp ]
       [ run interview/median.cpp ]
+      #[ run interview/Dijkstra_s_Algorithm.cpp : <toolset>clang-4.0 ]
       [ compile interview/nth_element_impl.cpp ]
+;
+
+test-suite hackerrank :
+  [ run hr/ctci-array-left-rotation.cpp : #args * 
+    : #input-files * 
+      hr/ctci-array-left-rotation.in ]
 ;
 
 test-suite my_suite
