@@ -6,7 +6,14 @@ import Control.Monad
 import System.IO
 
 
+rotate :: Int -> [a] -> [a]
 rotate n xs = bs ++ as where (as, bs) = splitAt n xs
+
+-- rotate n xs = take (length xs) (drop n (cycle xs))
+--             = take (length xs) . drop n . cycle $ xs
+-- rotate n xs = iterate rot xs !! n
+--   where
+--     rot xs = last xs : init xs
 
 main :: IO ()
 main = do
@@ -16,7 +23,7 @@ main = do
     let k = read $ n_t!!1 :: Int
     a_temp <- getLine
     let xsi = map read $ words a_temp :: [Int]
-    -- let (,) l1 l2 = splitAt k xsi
+--  print $ let (,) l1 l2 = splitAt (k `mod` n) xsi in l2 ++ l1
     print $ rotate ( mod k n ) xsi
 
 getMultipleLines :: Int -> IO [String]

@@ -29,6 +29,7 @@
 using namespace std;
 
 vector<int> array_left_rotation(vector<int> a, int n, int k) {
+    k %= n;
     auto first = a.begin();
     assert(first+n <= a.end());
     rotate(first,first+k,first+n);
