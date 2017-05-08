@@ -36,10 +36,10 @@ int number_needed(string a, string b) {
 }
 
 int main(int argn, char const * argv[]){
-        if(argn>1) {
-                static ifstream ifs{argv[1]};
-                cin.rdbuf(ifs.rdbuf());
-        }
+    if(argn>1) {
+        static ifstream ifs{argv[1]};
+        cin.rdbuf(ifs.rdbuf());
+    }
     string a;
     cin >> a;
     string b;
@@ -48,3 +48,11 @@ int main(int argn, char const * argv[]){
     return 0;
 }
 
+/*
+from collections import Counter
+
+def number_needed(a, b):
+    freq_a, freq_b = Counter(a), Counter(b)
+    freq_a.subtract(freq_b)
+    return sum([abs(x) for x in freq_a.values()])
+*/
