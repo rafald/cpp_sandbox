@@ -84,8 +84,9 @@ test-suite  moja-swita
 test-suite hackerrank :
   [ run hr/ctci-array-left-rotation.cpp : #args * 
     : #input-files * 
-      hr/ctci-array-left-rotation.in ]
+      hr/ctci-array-left-rotation.in2 ]
   [ run hr/ctci-making-anagrams.cpp : : hr/ctci-making-anagrams.in ]
+  [ run hr/ctci-ransom-note.cpp : : hr/ctci-ransom-note.in ]
 ;
 
 test-suite my_suite
