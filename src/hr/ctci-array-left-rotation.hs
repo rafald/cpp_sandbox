@@ -24,7 +24,9 @@ main = do
     a_temp <- getLine
     let xsi = map read $ words a_temp :: [Int]
 --  print $ let (,) l1 l2 = splitAt (k `mod` n) xsi in l2 ++ l1
-    print $ rotate ( mod k n ) xsi
+--  print $ rotate ( mod k n ) xsi
+    let result = rotate ( mod k n ) xsi
+    forM_ result $ putStr . fmt1 where fmt1 i = show i ++ " "
 
 getMultipleLines :: Int -> IO [String]
 
