@@ -71,14 +71,6 @@ test-suite  moja-swita
       ]
 
       [ unit-test test_dispatcher : test_dispatcher.cpp auto_tie.cpp ] # /site-config//zlib /site-config//librt /site-config//crypto /site-config//ssl
-
-      [ run interview/quicksort.cpp ]
-      [ run interview/selection_sort.cpp ]
-      [ run interview/insertion_sort.cpp ]
-      [ run interview/merge_sort.cpp ]
-      [ run interview/median.cpp ]
-      #[ run interview/Dijkstra_s_Algorithm.cpp : <toolset>clang-4.0 ]
-      [ compile interview/nth_element_impl.cpp ]
 ;
 
 test-suite hackerrank :

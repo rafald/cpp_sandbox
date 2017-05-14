@@ -11,3 +11,6 @@ run_unconditional_action
 GSL
 *.swp
 *.pch
+*.hi
+*.o
+a.out
