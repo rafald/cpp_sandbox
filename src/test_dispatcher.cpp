@@ -1,7 +1,7 @@
-#include <algorithm>
-#include <iostream>
-
 #include "dispatcher.h"
+
+//#include <algorithm>
+#include <iostream>
 
 #if 1
 
@@ -18,14 +18,13 @@
 using namespace std;
 
 BOOST_AUTO_TEST_CASE(instantiate_dispatcher) {
-  OptimisticDispatcher<function<void(uint32_t, string)>> event;
+   OptimisticDispatcher<function<void(uint32_t, string)>> event;
 
-  auto subscriber = event.add([](auto number, auto text) {
-    cout << "Number was " << number << " and text was " << text << endl;
-  });
+   auto subscriber =
+       event.add([](auto number, auto text) { cout << "Number was " << number << " and text was " << text << endl; });
 
-  event.invoke(42, "Hello Universe!");
+   event.invoke(42, "Hello Universe!");
 
-  // the subscriber is removed from event here automatically
-  // BOOST_CHECK( test_object.is_valid() );
+   // the subscriber is removed from event here automatically
+   // BOOST_CHECK( test_object.is_valid() );
 }

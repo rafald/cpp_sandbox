@@ -2,8 +2,10 @@
 #include <boost/test/unit_test.hpp>
 
 namespace a::b::c::dd {
-   struct XY { int i ; };
-}
+struct XY {
+   int i;
+};
+}  // namespace a::b::c::dd
 
 BOOST_AUTO_TEST_CASE(test_nested_ns) {
    a::b::c::dd::XY xy = {};

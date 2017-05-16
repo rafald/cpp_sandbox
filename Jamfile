@@ -28,6 +28,7 @@ project
                 <implicit-dependency>/boost//headers
                 #TODO <host-os>darwin:<cxxflags>"-std=c++1y "
         : requirements
+        #<toolset>clang:<cxxflags>-fcolor-diagnostics
         <library>/boost//unit_test_framework
         #        <dependency>/boost//headers # <= THIS _ALWAYS_ REBUILDS TARGETS even if up to date
         <implicit-dependency>/boost//headers

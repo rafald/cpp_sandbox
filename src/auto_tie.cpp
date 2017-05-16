@@ -1,22 +1,21 @@
-#include <tuple>
-#include <string>
-//#include <iostream>
+#include "auto_tie.h"
 
-#include <boost/preprocessor/tuple/elem.hpp>
-#include <boost/preprocessor/tuple/eat.hpp>
-#include <boost/preprocessor/tuple/rem.hpp>
-#include <boost/preprocessor/seq/seq.hpp>
-#include <boost/preprocessor/seq/size.hpp>
-#include <boost/preprocessor/repetition/for.hpp>
 #include <boost/preprocessor/arithmetic/inc.hpp>
 #include <boost/preprocessor/control/iif.hpp>
 #include <boost/preprocessor/facilities/is_empty.hpp>
+#include <boost/preprocessor/repetition/for.hpp>
+#include <boost/preprocessor/seq/seq.hpp>
+#include <boost/preprocessor/seq/size.hpp>
+#include <boost/preprocessor/tuple/eat.hpp>
+#include <boost/preprocessor/tuple/elem.hpp>
+#include <boost/preprocessor/tuple/rem.hpp>
 
 //#define BOOST_TEST_MAIN
 #include <boost/test/unit_test.hpp>
 
-#include "auto_tie.h"
-
+#include <string>
+#include <tuple>
+//#include <iostream>
 
 /*
 #define AUTO_TIE_HELPER1(r, data, i, elem) BOOST_PP_COMMA_IF(i) auto BOOST_PP_CAT(elem,_)
@@ -75,27 +74,26 @@ TODO define std::tuple_element_t<I, S > like
 std::tuple_element_t<I, std::pair<T1,T2> >
 or constexpr std::variant_alternative_t<
   I, std::variant<Types...>
-> const&& get(const std::variant<Types...>&& v); 
+> const&& get(const std::variant<Types...>&& v);
 }
 */
 namespace {
-   
+
 BOOST_AUTO_TEST_CASE(test_auto_tie) {
-   auto r = AUTO_TIE(x,y,z) = std::make_tuple(2, 3.3, std::string("ala ma kota"));
+   auto r = AUTO_TIE(x, y, z) = std::make_tuple(2, 3.3, std::string("ala ma kota"));
    BOOST_CHECK_EQUAL(r.x, 2);
    BOOST_CHECK_EQUAL(r.y, 3.3);
    BOOST_CHECK_EQUAL(r.z, std::string("ala ma kota"));
-{
-   auto r = AUTO_TIE(x,y) = std::make_pair(std::string("ala ma kota"), 23U);
-   BOOST_CHECK_EQUAL(r.x, std::string("ala ma kota"));
-   BOOST_CHECK_EQUAL(r.y, 23U);
-}   
-{/*
-   auto r = AUTO_TIE(x,y) = S();
-   BOOST_CHECK_EQUAL(r.x, std::string("ala ma kota"));
-   BOOST_CHECK_EQUAL(r.y, 23U);*/
-}   
+   {
+      auto r = AUTO_TIE(x, y) = std::make_pair(std::string("ala ma kota"), 23U);
+      BOOST_CHECK_EQUAL(r.x, std::string("ala ma kota"));
+      BOOST_CHECK_EQUAL(r.y, 23U);
+   }
+   { /*
+       auto r = AUTO_TIE(x,y) = S();
+       BOOST_CHECK_EQUAL(r.x, std::string("ala ma kota"));
+       BOOST_CHECK_EQUAL(r.y, 23U);*/
+   }
 }
 
-
-}
+}  // namespace
