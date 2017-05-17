@@ -1,0 +1,5 @@
+-I.
+-IGSL/include
+-IEIGEN
+-std=c++1z
+
