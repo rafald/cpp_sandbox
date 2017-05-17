@@ -31,7 +31,7 @@ is_scope_exit(char scope_enter, char scope_exit) {
        {'{', '}'}, {'(', ')'}, {'[', ']'},
    };
    auto const found = enter_exit.find(scope_enter);
-   return enter_exit.end() != found and scope_exit == found->second;
+   return enter_exit.end() != found && scope_exit == found->second;
 };
 
 bool

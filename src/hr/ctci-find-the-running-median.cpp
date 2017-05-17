@@ -4,6 +4,7 @@
 #include <iostream>
 #include <vector>
 #include <fstream>
+#include <functional> // greater
 #include <iomanip>
 
 #include <cassert>
@@ -37,11 +38,11 @@ class running_median {
    void
    push_upper(int v) {
       min_upper.push_back(v);
-      push_heap(min_upper.begin(), min_upper.end(), greater<int>());
+      push_heap(min_upper.begin(), min_upper.end(), std::greater<int>());
    }
    void
    pop_upper() {
-      pop_heap(min_upper.begin(), min_upper.end(), greater<int>());
+      pop_heap(min_upper.begin(), min_upper.end(), std::greater<int>());
       min_upper.resize(min_upper.size() - 1);
    }
 
