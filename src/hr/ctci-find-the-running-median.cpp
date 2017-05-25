@@ -84,7 +84,7 @@ class running_median {
    median() const {
       auto const lsize = max_lower.size();  // dump(max_lower);
       auto const rsize = min_upper.size();  // dump(min_upper);
-      assert(lsize == rsize or lsize == rsize + 1 or lsize + 1 == rsize);
+      assert(lsize == rsize || lsize == rsize + 1 || lsize + 1 == rsize);
       if (lsize == rsize) {
          return (max_lower.front() + min_upper.front()) / 2.0;
       } else {
