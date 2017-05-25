@@ -53,7 +53,12 @@ is_balanced(string expression) {
 }
 
 int
-main() {
+main(int argn, char const* argv[]) {
+   if (argn > 1) {
+      static ifstream ifs{argv[1]};
+      cin.rdbuf(ifs.rdbuf());
+   }
+
    int t;
    cin >> t;
    for (int a0 = 0; a0 < t; a0++) {

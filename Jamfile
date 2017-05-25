@@ -80,7 +80,7 @@ test-suite hackerrank :
       hr/ctci-array-left-rotation.in2 ]
   [ run hr/ctci-making-anagrams.cpp : : hr/ctci-making-anagrams.in ]
   [ run hr/ctci-ransom-note.cpp : : hr/ctci-ransom-note.in ]
-  #tmp comment out - err on W$ [ run hr/ctci-balanced-brackets.cpp : : hr/ctci-balanced-brackets.in ]
+  [ run hr/ctci-balanced-brackets.cpp : : hr/ctci-balanced-brackets.in ]
   [ run hr/ctci-find-the-running-median.cpp : : hr/ctci-find-the-running-median.in ]
 ;
 
