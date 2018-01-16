@@ -84,6 +84,12 @@ test-suite hackerrank :
   [ run hr/ctci-find-the-running-median.cpp : : hr/ctci-find-the-running-median.in ]
 ;
 
+test-suite codility :
+  [ run codility/missing_integer.cpp : #args * 
+    : #input-files * 
+      codility/missing_integer.in ]
+;
+
 test-suite my_suite
 :
       [ run test_ct_hash.cpp ]
@@ -156,6 +162,11 @@ alias cpp17tests : : <toolset>gcc ;
 alias cpp17tests : : <toolset>clang ;
 alias cpp17tests : : <toolset>msvc ;
 
+exe hp : 14/hana_parser.cpp ;
+exe hda : 14/hana_dim_analysis.cpp ;
+exe hsb : 14/hana_structured_binding.cpp ;
+exe he : 14/hana_events.cpp ;
+#run 14/hana_events.cpp ;
 
 # The six rules ALWAYS, LEAVES, NOCARE, NOTFILE, NOUPDATE, and TEMPORARY modify the dependency graph so that bjam treats the targets differently during its target binding phase.
 
