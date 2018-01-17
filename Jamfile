@@ -90,6 +90,11 @@ test-suite codility :
       codility/missing_integer.in ]
 ;
 
+test-suite interview_Q :
+  [ run interview_Q/largest_subarray_sum.cpp : #args * 
+    : #input-files * 
+      interview_Q/largest_subarray_sum.in ]
+;
 test-suite my_suite
 :
       [ run test_ct_hash.cpp ]
@@ -166,6 +171,7 @@ exe hp : 14/hana_parser.cpp ;
 exe hda : 14/hana_dim_analysis.cpp ;
 exe hsb : 14/hana_structured_binding.cpp ;
 exe he : 14/hana_events.cpp ;
+explicit hsb he hp hda ; 
 #run 14/hana_events.cpp ;
 
 # The six rules ALWAYS, LEAVES, NOCARE, NOTFILE, NOUPDATE, and TEMPORARY modify the dependency graph so that bjam treats the targets differently during its target binding phase.
