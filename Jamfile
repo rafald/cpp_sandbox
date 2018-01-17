@@ -94,6 +94,7 @@ test-suite interview_Q :
   [ run interview_Q/largest_subarray_sum.cpp : #args * 
     : #input-files * 
       interview_Q/largest_subarray_sum.in ]
+    : <toolset>msvc:<cxxflags>"/std:c++17 "
 ;
 test-suite my_suite
 :
@@ -157,16 +158,17 @@ alias cpp17clang : : <toolset>gcc ;
 alias cpp17clang : : <toolset>clang ; 
 
 unit-test cpp17tests : 
-  cpp17tests.cpp 17/nested_ns.cpp 17/fold.cpp 17/lambda_utils.cpp 
+  cpp17tests.cpp 17/nested_ns.cpp 17/lambda_utils.cpp 
   #17/if_and_switch_Init.cpp 
   17/constexpr_if.cpp 
   # 17/clamp.cpp
- : #<cxxflags>"-fconcepts " #<toolset>gcc-6 #reqs
+ : <toolset>msvc:<cxxflags>"/std:c++17 " #"-fconcepts " #<toolset>gcc-6 #reqs
 ;
 #alias cpp17tests : : <toolset>gcc ;
 #alias cpp17tests : : <toolset>clang ;
 #alias cpp17tests : : <toolset>msvc ;
 unit-test ctregex.cpp : 17/ctregex.cpp ;
+explicit-unit-test fold.cpp : 17/fold.cpp ;
 explicit-unit-test ctprintf : 17/ctprintf.cpp ;
 explicit-unit-test concept : 17/concept.cpp : <cxxflags>"-fconcepts " ;
 
