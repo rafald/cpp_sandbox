@@ -166,6 +166,7 @@ unit-test cpp17tests :
 alias cpp17tests : : <toolset>gcc ;
 alias cpp17tests : : <toolset>clang ;
 alias cpp17tests : : <toolset>msvc ;
+explicit cpp17tests ;
 
 exe hp : 14/hana_parser.cpp ;
 exe hda : 14/hana_dim_analysis.cpp ;
