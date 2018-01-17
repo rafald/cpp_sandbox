@@ -47,7 +47,8 @@ auto get_max_sum(It b, It const e) -> std::tuple<int,It,It>
         }
     }
 
-    return {best_sum,best_start,best_end};
+    return std::tuple{best_sum,best_start,best_end};
+    //return {best_sum,best_start,best_end};
 }
 
 template <class It>
