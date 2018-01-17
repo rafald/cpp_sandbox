@@ -159,14 +159,14 @@ alias cpp17clang : : <toolset>clang ;
 unit-test cpp17tests : 
   cpp17tests.cpp 17/nested_ns.cpp 17/fold.cpp 17/lambda_utils.cpp  17/concept.cpp
   #17/if_and_switch_Init.cpp 
-  17/constexpr_if.cpp 17/ctregex.cpp 17/ctprintf.cpp
+  17/constexpr_if.cpp 17/ctregex.cpp 
   # 17/clamp.cpp
  : <cxxflags>"-fconcepts " <toolset>gcc-6 #reqs
 ;
 alias cpp17tests : : <toolset>gcc ;
 alias cpp17tests : : <toolset>clang ;
 alias cpp17tests : : <toolset>msvc ;
-explicit cpp17tests ;
+explicit-unit-test ctprintf : 17/ctprintf.cpp ;
 
 exe hp : 14/hana_parser.cpp ;
 exe hda : 14/hana_dim_analysis.cpp ;
