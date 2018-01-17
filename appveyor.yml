@@ -43,7 +43,9 @@ install:
   - ls -l "C:\Program Files (x86)"
   #- cmd: call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x86_amd64
   - ls -l "C:\Program Files (x86)\Microsoft Visual Studio"
-  - ls -l "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.10.25017\bin\HostX64\x64"
+  - ls -l "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC"
+  #- ls -l "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.10.25017\bin\HostX64\x64"
+  - ls -l "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\1?.*\bin\HostX64\x64"
   #- cl.exe /?
   - bootstrap.bat
   - b2 headers
