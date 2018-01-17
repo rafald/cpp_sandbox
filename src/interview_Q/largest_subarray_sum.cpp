@@ -33,9 +33,9 @@ auto get_max_sum(It b, It const e) -> std::tuple<int,It,It>
     for(; b != e; ++b)
     {
         candidate_sum += *b;
-        if(candidate_sum > best_sum ||
+        if(candidate_sum > best_sum or
         // if the sum is equal, choose the one with more elements
-        (candidate_sum == best_sum && std::distance(best_start,best_end) < std::distance(candidate_start, b+1)))
+        (candidate_sum == best_sum and std::distance(best_start,best_end) < std::distance(candidate_start, b+1)))
         {
             best_sum = candidate_sum;
             best_start = candidate_start;

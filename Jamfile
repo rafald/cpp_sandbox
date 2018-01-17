@@ -33,8 +33,9 @@ project
         #        <dependency>/boost//headers # <= THIS _ALWAYS_ REBUILDS TARGETS even if up to date
         <implicit-dependency>/boost//headers
                 <host-os>linux:<cxxflags>"-std=c++1z " 
-                <host-os>windows:<cxxflags>"-std=c++1z " 
+                #<host-os>windows:<cxxflags>"-std=c++1z " 
                 <host-os>darwin:<cxxflags>"-std=c++1y "
+                <toolset>msvc:<cxxflags>"/std:c++17 "
                 <include>EIGEN <include>GSL/include
                 #<linkflags>"-lcholmod -lmetis -lamd -lcamd -lccolamd -lcolamd -llapack -lgfortran -lblas "
         #<cxxflags>"-fsanitize=float-cast-overflow "
@@ -94,7 +95,6 @@ test-suite interview_Q :
   [ run interview_Q/largest_subarray_sum.cpp : #args * 
     : #input-files * 
       interview_Q/largest_subarray_sum.in ]
-    : <toolset>msvc:<cxxflags>"/std:c++17 "
 ;
 test-suite my_suite
 :
@@ -162,7 +162,7 @@ unit-test cpp17tests :
   #17/if_and_switch_Init.cpp 
   17/constexpr_if.cpp 
   # 17/clamp.cpp
- : <toolset>msvc:<cxxflags>"/std:c++17 " #"-fconcepts " #<toolset>gcc-6 #reqs
+ : #<toolset>msvc:<cxxflags>"/std:c++17 " #"-fconcepts " #<toolset>gcc-6 #reqs
 ;
 #alias cpp17tests : : <toolset>gcc ;
 #alias cpp17tests : : <toolset>clang ;
