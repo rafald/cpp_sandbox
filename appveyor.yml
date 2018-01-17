@@ -49,8 +49,8 @@ install:
   #- cl.exe /?
   - bootstrap.bat
   - b2 headers
-    #- cat "C:\Users\appveyor\AppData\Local\Temp\1\b2_msvc_14.10.25017_vcvarsx86_amd64_.cmd"
-  - cat "C:\Users\appveyor\AppData\Local\Temp\1\b2_msvc_14.12.25827_vcvarsx86_amd64_.cmd"
+  #- cat "C:\Users\appveyor\AppData\Local\Temp\1\b2_msvc_14.10.25017_vcvarsx86_amd64_.cmd"
+  #- cat "C:\Users\appveyor\AppData\Local\Temp\1\b2_msvc_14.12.25827_vcvarsx86_amd64_.cmd"
   - set PATH=%PATH%;%CD% # TODO remove
   - set BOOST_ROOT=%CD% 
   - cmd: echo import boost ; > tools/build/src/user-config.jam
