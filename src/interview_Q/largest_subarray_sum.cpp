@@ -1,42 +1,87 @@
 // https://stackoverflow.com/questions/7159342/given-an-array-of-integers-find-the-largest-subarray-with-the-maximum-sum#7159452
+// https://en.wikipedia.org/wiki/Maximum_subarray_problem
 
 #include <climits>
 #include <tuple>
 
+/*
+sum[0] = max(0, A[0])
+sum[j] = max(0, sum[j-1] + A[j])
+
+?
+sum[0] = A[0]
+sum[j] = max(A[j], sum[j-1] + A[j])
+
+def max_subarray(A):
+     max_ending_here = max_so_far = A[0]
+     for x in A[1:]:
+         max_ending_here = max(x, max_ending_here + x)
+         max_so_far = max(max_so_far, max_ending_here)
+     return max_so_far
+ */
 template <class It>
 auto get_max_sum(It b, It const e) -> std::tuple<int,It,It>
 {
    if(b==e) return {0,b,e};
 
-   auto array = b;
-   //auto len = std::distance(b,e);
-
-    int max_sum = INT_MIN, candidate_sum = 0;
+    int best_sum = INT_MIN, candidate_sum = 0;
     auto candidate_start = b;
 
-    It start = b;
-    It end = b;
-    //for(int i = 0; i != len; ++i)
+    It best_start = b;
+    It best_end = b;
     for(; b != e; ++b)
     {
         candidate_sum += *b;
+        if(candidate_sum > best_sum or
         // if the sum is equal, choose the one with more elements
-        if(candidate_sum > max_sum or (candidate_sum == max_sum and std::distance(start,end) < std::distance(candidate_start, b+1)))
+        (candidate_sum == best_sum and std::distance(best_start,best_end) < std::distance(candidate_start, b+1)))
         {
-            max_sum = candidate_sum;
-            start = candidate_start;
-            end = b + 1;
+            best_sum = candidate_sum;
+            best_start = candidate_start;
+            best_end = b + 1;
         }
-        if(candidate_sum < 0)
+        if(candidate_sum < 0)//????
         {
             candidate_sum = 0;
             candidate_start = b + 1;
         }
     }
 
-    return {max_sum,start,end};
+    return {best_sum,best_start,best_end};
 }
 
+template <class It>
+auto get_max_sum2(It b, It const e) -> int
+{
+   auto max_ending_here = *b;
+   auto max_so_far = max_ending_here;
+   for(++b;b!=e;++b) {
+      max_ending_here = max(*b, max_ending_here + *b);
+      max_so_far = max(max_so_far, max_ending_here);
+   }
+   return max_so_far;
+}
+
+// D & C
+// Sequential and Parallel Algorithms for the
+// Generalized Maximum Subarray Problem
+// https://pdfs.semanticscholar.org/bea4/1795adaf240b9db4195b9dc511bd8d46bff1.pdf
+/*
+   procedure MaxSum(f,t) begin
+   //Finds maximum sum in a[f..t]
+      if f = t then return (a[f], sum[f − 1], sum[f]) //One-element array
+      c ← (f + t − 1)/2 //Halves array. left is a[f..c], right is a[c+1..t]
+      (mLeft, minPLeft, maxPLeft) ← MaxSum(f,c)
+      (mRight, minPRight, maxPRight) ← MaxSum(c + 1,t)
+      minP ← MIN {minPLeft, minPRight} //Min prefix sum in sum[f−1..t−1]
+      maxP ← MAX {maxPLeft, maxPRight} //Max prefix sum in sum[f..t]
+      mCenter ← maxPRight − minPLeft //Solution for the center problem
+      M ← MAX {mLeft, mRight, mCenter}
+      return (M, minP, maxP)
+   end
+
+T(n)= 2T(n/2) + O(1), T(1) = O(1)
+*/
 
 #include <iostream>
 #include <fstream>
