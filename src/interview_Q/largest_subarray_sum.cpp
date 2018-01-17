@@ -22,7 +22,8 @@ def max_subarray(A):
 template <class It>
 auto get_max_sum(It b, It const e) -> std::tuple<int,It,It>
 {
-   if(b==e) return {0,b,e};
+   using RT = std::tuple<int,It,It>;
+   if(b==e) return RT{0,b,e};
 
     int best_sum = INT_MIN, candidate_sum = 0;
     auto candidate_start = b;
@@ -32,9 +33,9 @@ auto get_max_sum(It b, It const e) -> std::tuple<int,It,It>
     for(; b != e; ++b)
     {
         candidate_sum += *b;
-        if(candidate_sum > best_sum or
+        if(candidate_sum > best_sum ||
         // if the sum is equal, choose the one with more elements
-        (candidate_sum == best_sum and std::distance(best_start,best_end) < std::distance(candidate_start, b+1)))
+        (candidate_sum == best_sum && std::distance(best_start,best_end) < std::distance(candidate_start, b+1)))
         {
             best_sum = candidate_sum;
             best_start = candidate_start;
@@ -47,7 +48,7 @@ auto get_max_sum(It b, It const e) -> std::tuple<int,It,It>
         }
     }
 
-    return std::tuple<int,It,It>{best_sum,best_start,best_end};
+    return RT{best_sum,best_start,best_end};
     //return {best_sum,best_start,best_end};
 }
 
