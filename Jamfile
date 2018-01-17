@@ -157,12 +157,13 @@ alias cpp17clang : : <toolset>msvc ;
 alias cpp17clang : : <toolset>gcc ; 
 alias cpp17clang : : <toolset>clang ; 
 
+#unit-test nested_ns : 17/nested_ns.cpp : ;
 unit-test cpp17tests : 
-  cpp17tests.cpp 17/nested_ns.cpp 17/lambda_utils.cpp 
+  cpp17tests.cpp 17/lambda_utils.cpp 17/nested_ns.cpp
   #17/if_and_switch_Init.cpp 
   17/constexpr_if.cpp 
   # 17/clamp.cpp
- : #<toolset>msvc:<cxxflags>"/std:c++17 " #"-fconcepts " #<toolset>gcc-6 #reqs
+ : <toolset>msvc:<cxxflags>"/std:c++17 " #"-fconcepts " #<toolset>gcc-6 #reqs
 ;
 #alias cpp17tests : : <toolset>gcc ;
 #alias cpp17tests : : <toolset>clang ;
