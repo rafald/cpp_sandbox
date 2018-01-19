@@ -37,6 +37,8 @@ matrix:
       compiler: clang
       os: osx
       osx_image: xcode9.1 # xcode8.3 xcode9 
+      #$ clang --version
+      #Apple LLVM version 9.0.0 (clang-900.0.38)
       sudo: false
 #    - 
 #      compiler: gcc

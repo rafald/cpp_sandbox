@@ -3,6 +3,7 @@
 
 #include <climits>
 #include <tuple>
+#include <iterator> // distance
 
 /*
 sum[0] = max(0, A[0])
