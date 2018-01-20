@@ -1,5 +1,7 @@
 
 #define GSL_THROW_ON_CONTRACT_VIOLATION  // GSL_TERMINATE_ON_CONTRACT_VIOLATION
+// to fix clang-5 error                       
+#include <cstddef> // should define std::byte
 #include "gsl/gsl"
 
 #define BOOST_TEST_MAIN

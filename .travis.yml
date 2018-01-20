@@ -53,8 +53,7 @@ matrix:
       osx_image: xcode8.3
       compiler: clang
 
-    # compiler: gcc
-    - os: osx
+    - os: osx # compiler: gcc
       osx_image: xcode9.1
       env:
         - MATRIX_EVAL="brew install gcc5 && CC=gcc-5 && CXX=g++-5"
@@ -120,7 +119,7 @@ matrix:
             - llvm-toolchain-trusty-5.0
             - ubuntu-toolchain-r-test
           packages: [ "clang-5.0",
-                      "g++-6",
+                      "g++-7",
                       # GSL/include/gsl/gsl_byte:65:12: error: no member named 'byte' in namespace 'std'     using std::byte;
                       "llvm-dev", "lcov", "valgrind", "cmake", "cmake-data", "libopenmpi-dev", "gcovr"]
       env:
