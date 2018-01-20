@@ -14,6 +14,8 @@ branches:
     - develop
 
 language: cpp
+sudo: required
+dist: trusty
 
 env:
   global:
@@ -26,6 +28,7 @@ cache:
   - EIGEN
   - GSL
   - $HOME/.ccache
+
 
 # List of whitelisted in travis packages for ubuntu-trusty can be found here:
 #   https://github.com/travis-ci/apt-package-whitelist/blob/master/ubuntu-trusty
@@ -46,8 +49,6 @@ matrix:
       os: linux
       compiler: clang
       env: CVER=5.0
-      dist: trusty
-      sudo: required
       addons:
         apt:
           sources:
@@ -64,36 +65,70 @@ matrix:
            - libopenmpi-dev
            - gcovr
            - g++-7
-    -
-      os: linux
-      compiler: gcc
-      env: CVER=7
-      dist: trusty
-      sudo: required
+    - os: linux
+      #compiler: gcc
       addons:
         apt:
           sources:
             - ubuntu-toolchain-r-test
             - llvm-toolchain-trusty-5.0
           packages:
-           - g++-7
-           - clang-format-5.0
-           - clang-tidy-5.0
-           - lcov
-           - valgrind
-           - cmake
-           - cmake-data
-           - libopenmpi-dev
-           - gcovr
+            - g++-5
+            - clang-format-5.0
+            - clang-tidy-5.0
+            - lcov
+            - valgrind
+            - cmake
+            - cmake-data
+            - libopenmpi-dev
+            - gcovr
+      env:
+         - MATRIX_EVAL="CC=gcc-5 && CXX=g++-5"
+    - os: linux
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+            - llvm-toolchain-trusty-5.0
+          packages:
+            - g++-6
+            - clang-format-5.0
+            - clang-tidy-5.0
+            - lcov
+            - valgrind
+            - cmake
+            - cmake-data
+            - libopenmpi-dev
+            - gcovr
+      env:
+        - MATRIX_EVAL="CC=gcc-6 && CXX=g++-6"
+    - os: linux
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+            - llvm-toolchain-trusty-5.0
+          packages:
+            - g++-7
+            - clang-format-5.0
+            - clang-tidy-5.0
+            - lcov
+            - valgrind
+            - cmake
+            - cmake-data
+            - libopenmpi-dev
+            - gcovr
+      env:
+        - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
 
-before_install:
-
+before_install: # why not    env: CVER=5.0      CC CXX
+    - eval "${MATRIX_EVAL}"
 install:
   # install lcov to coveralls conversion + upload tool
   - gem install coveralls-lcov
 
 before_script:
-  - ./travis_shallow-clone-and-bootstrap master https://github.com/boostorg/boost.git boost ${CVER}
+  - ./travis_shallow-clone-and-bootstrap master https://github.com/boostorg/boost.git boost ${CC} #${CVER}
 
 script:
   - if [ ! -f Jamroot ] ; then touch Jamroot ; fi

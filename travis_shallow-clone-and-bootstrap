@@ -20,16 +20,24 @@ function full_clone() {
 # $1: version of compiler
 function create_user_config() {
     UCFILE=./tools/build/src/user-config.jam
+    # parse version and generic compiler name from gcc-6 /CC string/
+    #string="abc@hotmail.com;xyz@gmail.com;uvw@yahoo.com"
+    #str1=${string%%;*}
+    #str3=${string##*;}
+    #temp=${string#$str1;}
+    #str2=${temp#;$str3}
+    COMP=${1%-*}    # $1 is $CC
+    VERSION=${1##*-}
     # more tests to avoid nop update (to profit from caching)
-    if ! grep -w ${CC} ${UCFILE} ; then
+    if ! grep -w ${COMP} ${UCFILE} ; then
        #echo > ${UCFILE} # create brand new
-       if [ -n "${1}" ] ; then
-          echo "using ${CC} : ${1} : /usr/bin/${CXX}-${1} ;" >> ${UCFILE}
+       if [ -n "${VERSION}" ] ; then
+          echo "using ${COMP} : ${VERSION} : /usr/bin/${CXX} ;" >> ${UCFILE}
        else
           echo -n "Empty ${UCFILE}. Query version: "
           ${CC} --version
           ${CXX} --version
-          echo "using ${CC} : : /usr/bin/${CXX} ;" >> ${UCFILE}
+          echo "using ${COMP} : : /usr/bin/${CXX} ;" >> ${UCFILE}
        fi
     fi
     cat ${UCFILE}
