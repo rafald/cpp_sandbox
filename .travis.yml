@@ -38,7 +38,7 @@ matrix:
   include:
     -
       os: osx
-      osx_image: xcode9.1 # xcode8.3 xcode9
+      osx_image: xcode9.1
       #On OS X, the version of clang is controlled by the choice of osx_image.
       compiler: clang
       #$ clang --version
@@ -57,16 +57,16 @@ matrix:
       osx_image: xcode8.3
       compiler: clang
 
-    - os: linux
-      #compiler: clang
+    - os: linux #compiler: clang
       addons:
         apt:
           sources:
+            # llvm-toolchain-trusty-3.8 not accepted
             - llvm-toolchain-precise-3.8
-            #not accepted - llvm-toolchain-trusty-3.8
             - ubuntu-toolchain-r-test
           packages:
             - clang-3.8
+            - g++-5
             - llvm-dev
             - lcov
             - valgrind
@@ -74,11 +74,9 @@ matrix:
             - cmake-data
             - libopenmpi-dev
             - gcovr
-            - g++-5
       env:
         - MATRIX_EVAL="CC=clang-3.8 && CXX=clang++-3.8"
 
-    # works on Trusty
     - os: linux
       addons:
         apt:
@@ -86,7 +84,8 @@ matrix:
             - llvm-toolchain-trusty-3.9
             - ubuntu-toolchain-r-test
           packages: [ "clang-3.9",
-                      "g++-5", "llvm-dev", "lcov", "valgrind", "cmake", "cmake-data", "libopenmpi-dev", "gcovr"]
+                      "g++-5",
+                      "llvm-dev", "lcov", "valgrind", "cmake", "cmake-data", "libopenmpi-dev", "gcovr"]
       env:
         - MATRIX_EVAL="CC=clang-3.9 && CXX=clang++-3.9"
 
@@ -97,7 +96,8 @@ matrix:
             - llvm-toolchain-trusty-4.0
             - ubuntu-toolchain-r-test
           packages: [ "clang-4.0",
-                      "g++-5", "llvm-dev", "lcov", "valgrind", "cmake", "cmake-data", "libopenmpi-dev", "gcovr"]
+                      "g++-5",
+                      "llvm-dev", "lcov", "valgrind", "cmake", "cmake-data", "libopenmpi-dev", "gcovr"]
       env:
         - MATRIX_EVAL="CC=clang-4.0 && CXX=clang++-4.0"
 
@@ -108,12 +108,12 @@ matrix:
             - llvm-toolchain-trusty-5.0
             - ubuntu-toolchain-r-test
           packages: [ "clang-5.0",
-                      "g++-5", "llvm-dev", "lcov", "valgrind", "cmake", "cmake-data", "libopenmpi-dev", "gcovr"]
+                      "g++-5",
+                      "llvm-dev", "lcov", "valgrind", "cmake", "cmake-data", "libopenmpi-dev", "gcovr"]
       env:
         - MATRIX_EVAL="CC=clang-5.0 && CXX=clang++-5.0"
 
-    - os: linux
-      #compiler: gcc
+    - os: linux #compiler: gcc
       addons:
         apt:
           sources:
@@ -146,7 +146,7 @@ matrix:
       env:
         - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
 
-before_install: # why not    env: CVER=5.0      CC CXX
+before_install: # ?why not    env: CC=gcc-6 CXX=g++-6
     - eval "${MATRIX_EVAL}"
 install:
   # install lcov to coveralls conversion + upload tool
@@ -162,9 +162,8 @@ script:
 
 after_success:
   - "echo 'From .travis script: SUCCESS'"
-  #- clang-tidy-5.0 src/* # TODO does not work
-  - clang-tidy src/* # TODO does not work
-  #- BOOST_ROOT=./boost scan-build-5.0 ./boost/bjam -j8 toolset=${CC} variant=release
+  - clang-tidy src/*
+  # TODO ^ does not work
   - BOOST_ROOT=./boost scan-build ./boost/bjam -j8 toolset=${CC} variant=release
   # produce coveralls data
   - lcov --directory . --zerocounters

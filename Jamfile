@@ -21,35 +21,37 @@ variant my_profile : debug : <optimization>speed <inlining>on <profiling>on ;
 
 import boost ;
 boost.use-project ;
-  
-project 
-        : usage-requirements 
-                <include>.
+
+project
+        : usage-requirements
                 <implicit-dependency>/boost//headers
-                #TODO <host-os>darwin:<cxxflags>"-std=c++1y "
+                <include>.
         : requirements
-        #<toolset>clang:<cxxflags>-fcolor-diagnostics
-        <library>/boost//unit_test_framework
-        #        <dependency>/boost//headers # <= THIS _ALWAYS_ REBUILDS TARGETS even if up to date
-        <implicit-dependency>/boost//headers
-                <host-os>linux:<cxxflags>"-std=c++1z " 
-                #<host-os>windows:<cxxflags>"-std=c++1z " 
-                <host-os>darwin:<cxxflags>"-std=c++1y "
-                <toolset>msvc:<cxxflags>"/std:c++14 " # "/std:c++17 "
+                <implicit-dependency>/boost//headers  # <= THIS _ALWAYS_ REBUILDS TARGETS even if up to date
+                <library>/boost//unit_test_framework
                 <include>EIGEN <include>GSL/include
+
+                <host-os>linux:<cxxflags>"-std=c++1z "
+                #<host-os>windows:<cxxflags>"/std:c++14 "
+                <host-os>darwin:<cxxflags>"-std=c++1y "
+
+                #<toolset>clang:<cxxflags>"-stdlib=libc++ "
+                #<toolset>clang:<linkflags>"-stdlib=libc++ "
+                <toolset>clang-5.0:<cxxflags>"-ferror-limit=100 "
+                <toolset>msvc:<cxxflags>"/std:c++14 "
                 #<linkflags>"-lcholmod -lmetis -lamd -lcamd -lccolamd -lcolamd -llapack -lgfortran -lblas "
         #<cxxflags>"-fsanitize=float-cast-overflow "
         :
-                source-location src 
+                source-location src
 ;
 
 if $(UNIX)
 {
-	Echo [ SHELL "date +'%D %T'" ] ;
+   Echo [ SHELL "date +'%D %T'" ] ;
 }
 
 test-suite  moja-swita
-    : 
+    :
       [ run multidim_ball_corners.cpp ]
       [ run quiz_aliasing.cpp ]
       [ run test_Eigen_QR.cpp ]
@@ -61,23 +63,23 @@ test-suite  moja-swita
 
       [ compile-fail test_GSL_bounds.cpp : <define>CONFIRM_COMPILATION_ERRORS ]
       [ compile-fail test_GSL_span.cpp : <define>CONFIRM_COMPILATION_ERRORS ]
-      
-      [ run tmpl_inst.cpp 
-    : #args * 
-    : #input-files * 
-    : #requirements * 
+
+      [ run tmpl_inst.cpp
+    : #args *
+    : #input-files *
+    : #requirements *
         <host-os>linux:<cxxflags>"`pkg-config --cflags dbus-1`" # unused
         <host-os>linux:<linkflags>"`pkg-config --libs dbus-1`"
     : #target-name ?
-    : #default-build * 
+    : #default-build *
       ]
 
       [ unit-test test_dispatcher : test_dispatcher.cpp auto_tie.cpp ] # /site-config//zlib /site-config//librt /site-config//crypto /site-config//ssl
 ;
 
 test-suite hackerrank :
-  [ run hr/ctci-array-left-rotation.cpp : #args * 
-    : #input-files * 
+  [ run hr/ctci-array-left-rotation.cpp : #args *
+    : #input-files *
       hr/ctci-array-left-rotation.in2 ]
   [ run hr/ctci-making-anagrams.cpp : : hr/ctci-making-anagrams.in ]
   [ run hr/ctci-ransom-note.cpp : : hr/ctci-ransom-note.in ]
@@ -86,14 +88,14 @@ test-suite hackerrank :
 ;
 
 test-suite codility :
-  [ run codility/missing_integer.cpp : #args * 
-    : #input-files * 
+  [ run codility/missing_integer.cpp : #args *
+    : #input-files *
       codility/missing_integer.in ]
 ;
 
 test-suite interview_Q :
-  [ run interview_Q/largest_subarray_sum.cpp : #args * 
-    : #input-files * 
+  [ run interview_Q/largest_subarray_sum.cpp : #args *
+    : #input-files *
       interview_Q/largest_subarray_sum.in ]
 ;
 test-suite my_suite
@@ -112,8 +114,8 @@ rule explicit-unit-test ( target : source : properties * )
     unit-test $(target) : $(source) : $(properties) ;
     explicit $(target) ;
 }
-explicit-unit-test test_bind : test_bind.cpp 
-    : <testing.launcher>"valgrind --leak-check=full --show-leak-kinds=all " # -v 
+explicit-unit-test test_bind : test_bind.cpp
+    : <testing.launcher>"valgrind --leak-check=full --show-leak-kinds=all " # -v
 ;
 
 #alias simple_match : : : :  <include>../c++/simple_match/include ;
@@ -121,52 +123,54 @@ explicit-unit-test test_bind : test_bind.cpp
 
 
 # different alternatives/rules for different toolsets
-run tmpl_alias_overload.cpp : <toolset>clang ;  
-alias tmpl_alias_overload : : <toolset>gcc ; 
-alias tmpl_alias_overload : : <toolset>msvc ; 
+run   tmpl_alias_overload.cpp : : : <toolset>clang ;
+alias tmpl_alias_overload     : : <toolset>gcc ;
+alias tmpl_alias_overload     : : <toolset>msvc ;
 
-alias agregate_initialization : : <toolset>clang ; 
-alias agregate_initialization : : <toolset>gcc ; 
-alias agregate_initialization : : <toolset>msvc ; 
-run agregate_initialization.cpp : <toolset>clang-3.9 ; 
-run agregate_initialization.cpp : <toolset>clang-4.0 ; 
+alias agregate_initialization     : : <toolset>clang ;
+alias agregate_initialization     : : <toolset>gcc ;
+alias agregate_initialization     : : <toolset>msvc ;
+run   agregate_initialization.cpp : : : <toolset>clang-3.9 ;
+run   agregate_initialization.cpp : : : <toolset>clang-4.0 ;
 
 
-alias test_concepts : : <toolset>clang ; 
-alias test_concepts : : <toolset>msvc ; 
-alias test_concepts : : <toolset>gcc ; 
-run test_concepts.cpp : <cxxflags>"-fconcepts " <toolset>gcc-6 ; 
+alias test_concepts     : : <toolset>clang ;
+alias test_concepts     : : <toolset>msvc ;
+run   test_concepts.cpp : : : <toolset>gcc <cxxflags>"-fconcepts " ;
+alias test_concepts     : : <toolset>gcc-5 ;
 
-#alias test_auto_cpp17 : : <toolset>msvc ;
-run test_auto_cpp17.cpp : <toolset>gcc ; 
-alias test_auto_cpp17 : : <toolset>msvc ;
-alias test_auto_cpp17 : : <toolset>clang ;
+run   test_auto_cpp17.cpp : : : <toolset>gcc ;
+alias test_auto_cpp17     : : <toolset>msvc ;
+alias test_auto_cpp17     : : <toolset>clang ;
 
 #TODO run test_GSL.cpp test_GSL_bounds.cpp test_GSL_span.cpp ;
-unit-test test_GSL : test_GSL.cpp : <toolset>msvc ;
+unit-test test_GSL : test_GSL.cpp                     : <toolset>msvc ;
 unit-test test_GSL : test_GSL.cpp test_GSL_bounds.cpp : <toolset>gcc ;
 unit-test test_GSL : test_GSL.cpp test_GSL_bounds.cpp : <toolset>clang ;
 
 # run accepts multiply modules, the first one is the name of the target
-run ret_mult_values.cpp : <toolset>gcc-6 ; 
-alias ret_mult_values : : <toolset>clang ; 
-alias ret_mult_values : : <toolset>msvc ; 
+run   ret_mult_values.cpp : : : <toolset>gcc-6 ;
+run   ret_mult_values.cpp : : : <toolset>gcc-7 ;
+alias ret_mult_values     : : <toolset>clang ;
+alias ret_mult_values     : : <toolset>msvc ;
 
-unit-test cpp17clang :  cpp17tests.cpp 17/structured_bindings.cpp : <toolset>clang-4.0 ;
-alias cpp17clang : : <toolset>msvc ; 
-alias cpp17clang : : <toolset>gcc ; 
-alias cpp17clang : : <toolset>clang ; 
+#unit-test cpp17clang :  cpp17tests.cpp                            : <toolset>clang-3.8 ;
+alias     cpp17clang :                                            : <toolset>clang-3.8 ;
+unit-test cpp17clang :  cpp17tests.cpp 17/structured_bindings.cpp : <toolset>clang ;
+alias     cpp17clang :                                            : <toolset>msvc ;
+alias     cpp17clang :                                            : <toolset>gcc ;
 
-# install install_main_$(project-name)i :
+#TODO make generic via $(project-name)
+# install install_main_$(project-name) :
 explicit install_main_$(project-name) main_$(project-name) $(project-name).o ;
 
 compile 17/nested_ns.cpp ;
-explicit nested_ns ;
+explicit nested_ns ; #TODO does not work: bjam nested_ns
 
-unit-test cpp17tests : 
+unit-test cpp17tests :
   cpp17tests.cpp 17/lambda_utils.cpp #17/nested_ns.cpp
-  #17/if_and_switch_Init.cpp 
-  17/constexpr_if.cpp 
+  #17/if_and_switch_Init.cpp
+  17/constexpr_if.cpp
   # 17/clamp.cpp
  : <toolset>msvc:<cxxflags>"/std:c++17 " #"-fconcepts " #<toolset>gcc-6 #reqs
 ;
@@ -176,13 +180,13 @@ unit-test cpp17tests :
 unit-test ctregex.cpp : 17/ctregex.cpp ;
 explicit-unit-test fold.cpp : 17/fold.cpp ;
 explicit-unit-test ctprintf : 17/ctprintf.cpp ;
-explicit-unit-test concept : 17/concept.cpp : <cxxflags>"-fconcepts " ;
+explicit-unit-test concept  : 17/concept.cpp : <cxxflags>"-fconcepts " ;
 
 exe hp : 14/hana_parser.cpp ;
 exe hda : 14/hana_dim_analysis.cpp ;
 exe hsb : 14/hana_structured_binding.cpp ;
 exe he : 14/hana_events.cpp ;
-explicit hsb he hp hda ; 
+explicit hsb he hp hda ;
 #run 14/hana_events.cpp ;
 
 # The six rules ALWAYS, LEAVES, NOCARE, NOTFILE, NOUPDATE, and TEMPORARY modify the dependency graph so that bjam treats the targets differently during its target binding phase.
@@ -232,7 +236,7 @@ install install-app : test_dispatcher : <location>install_dir ;
 notfile . : @unconditional-post-install : install-app ;
 actions unconditional-post-install
 {
-    echo Unconditional post install run. Install is now done. 
+    echo Unconditional post install run. Install is now done.
     echo "$(<) $(>) "
 }
 
@@ -241,7 +245,7 @@ actions unconditional-post-install
 make file.out : test_dispatcher : @in2out ;
 actions in2out
 {
-    echo in2out $(<) $(>) 
+    echo in2out $(<) $(>)
     touch $(<)
 }
 
