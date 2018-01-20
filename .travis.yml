@@ -45,26 +45,64 @@ matrix:
       #$ clang --version
       #Apple LLVM version 9.0.0 (clang-900.0.38)
       sudo: false
-    -
-      os: linux
-      compiler: clang
-      env: CVER=5.0
+
+    - os: linux
+      #compiler: clang
       addons:
         apt:
           sources:
+            #- llvm-toolchain-precise-3.8
+            - llvm-toolchain-trusty-3.8
             - ubuntu-toolchain-r-test
-            - llvm-toolchain-trusty-5.0
           packages:
-           - clang-5.0
-           - clang-format-5.0
-           - clang-tidy-5.0
-           - lcov
-           - valgrind
-           - cmake
-           - cmake-data
-           - libopenmpi-dev
-           - gcovr
-           - g++-7
+            - clang-3.8
+            - clang-format #-5.0
+            - clang-tidy #-5.0
+            - lcov
+            - valgrind
+            - cmake
+            - cmake-data
+            - libopenmpi-dev
+            - gcovr
+            - g++ #-7
+      env:
+        - MATRIX_EVAL="CC=clang-3.8 && CXX=clang++-3.8"
+
+    # works on Trusty
+    - os: linux
+      addons:
+        apt:
+          sources:
+            - llvm-toolchain-trusty-3.9
+            - ubuntu-toolchain-r-test
+          packages:
+            - clang-3.9
+      env:
+        - MATRIX_EVAL="CC=clang-3.9 && CXX=clang++-3.9"
+
+    # works on Trusty
+    - os: linux
+      addons:
+        apt:
+          sources:
+            - llvm-toolchain-trusty-4.0
+            - ubuntu-toolchain-r-test
+          packages:
+            - clang-4.0
+      env:
+        - MATRIX_EVAL="CC=clang-4.0 && CXX=clang++-4.0"
+
+    # works on Trusty
+    - os: linux
+      addons:
+        apt:
+          sources:
+            - llvm-toolchain-trusty-5.0
+            - ubuntu-toolchain-r-test
+          packages:
+            - clang-5.0
+      env:
+        - MATRIX_EVAL="CC=clang-5.0 && CXX=clang++-5.0"
     - os: linux
       #compiler: gcc
       addons:
@@ -137,8 +175,10 @@ script:
 
 after_success:
   - "echo 'From .travis script: SUCCESS'"
-  - clang-tidy-5.0 src/* # TODO does not work
-  - BOOST_ROOT=./boost scan-build-5.0 ./boost/bjam -j8 toolset=${CC} variant=release
+  #- clang-tidy-5.0 src/* # TODO does not work
+  - clang-tidy src/* # TODO does not work
+  #- BOOST_ROOT=./boost scan-build-5.0 ./boost/bjam -j8 toolset=${CC} variant=release
+  - BOOST_ROOT=./boost scan-build ./boost/bjam -j8 toolset=${CC} variant=release
   # produce coveralls data
   - lcov --directory . --zerocounters
   - BOOST_ROOT=./boost ./boost/bjam -j8 toolset=${CC} variant=coverage
