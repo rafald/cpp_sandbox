@@ -30,85 +30,80 @@ cache:
 #   https://github.com/travis-ci/apt-package-whitelist/blob/master/ubuntu-precise
 # List of whitelisted in travis apt-sources:
 #   https://github.com/travis-ci/apt-source-whitelist/blob/master/ubuntu.json
-matrix: 
+matrix:
   fast_finish: true
-  include: 
-    - 
-      compiler: clang
+  include:
+    -
       os: osx
-      osx_image: xcode9.1 # xcode8.3 xcode9 
+      osx_image: xcode9.1 # xcode8.3 xcode9
+      #On OS X, the version of clang is controlled by the choice of osx_image.
+      compiler: clang
       #$ clang --version
       #Apple LLVM version 9.0.0 (clang-900.0.38)
       sudo: false
-#    - 
-#      compiler: gcc
-#      #env: CVER=4.8
-#      os: osx
-#      osx_image: xcode8.2
-#      sudo: false
-    - 
-      addons: 
-        apt: 
-          packages: 
-           - clang++-5.0
-           - g++-7
-           - clang-format-3.8
-           - clang-tidy-3.8
-           - lcov
-           - valgrind
-           - cmake
-           - cmake-data
-           - libopenmpi-dev
-           - gcovr
-          sources: 
+    -
+      os: linux
+      compiler: clang
+      env: CVER=5.0
+      dist: trusty
+      sudo: required
+      addons:
+        apt:
+          sources:
             - ubuntu-toolchain-r-test
             - llvm-toolchain-precise-5.0
-      compiler: clang
-      dist: trusty
-      env: CVER=5.0
-      os: linux
-      sudo: required
-    - 
-      addons: 
-        apt: 
-          packages: 
-           - g++-7
-           - clang-format-3.8
-           - clang-tidy-3.8
+          packages:
+           - clang++-5.0
+           - clang-format-5.0
+           - clang-tidy-5.0
            - lcov
            - valgrind
            - cmake
            - cmake-data
            - libopenmpi-dev
            - gcovr
-          sources: 
-            - ubuntu-toolchain-r-test
-            - llvm-toolchain-precise-3.8
-      compiler: gcc
-      dist: trusty
-      env: CVER=7
+           - g++-7
+    -
       os: linux
+      compiler: gcc
+      env: CVER=7
+      dist: trusty
       sudo: required
-      
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+            - llvm-toolchain-precise-5.0
+          packages:
+           - g++-7
+           - clang-format-5.0
+           - clang-tidy-5.0
+           - lcov
+           - valgrind
+           - cmake
+           - cmake-data
+           - libopenmpi-dev
+           - gcovr
+
 before_install:
 
-install: 
+install:
   # install lcov to coveralls conversion + upload tool
   - gem install coveralls-lcov
 
 before_script:
   - ./travis_shallow-clone-and-bootstrap master https://github.com/boostorg/boost.git boost ${CVER}
-  
+
 script:
   - if [ ! -f Jamroot ] ; then touch Jamroot ; fi
   - BOOST_ROOT=./boost ./boost/bjam -d2 -j8 toolset=${CC}
-  
+
 
 after_success:
   - "echo 'From .travis script: SUCCESS'"
-  - clang-tidy-3.8 src/* # TODO does not work
-  - BOOST_ROOT=./boost scan-build-3.8 ./boost/bjam -j8 toolset=${CC} variant=release 
-  # produce coveralls data 
+  - clang-tidy-5.0 src/* # TODO does not work
+  - BOOST_ROOT=./boost scan-build-5.0 ./boost/bjam -j8 toolset=${CC} variant=release
+  # produce coveralls data
   - lcov --directory . --zerocounters
   - BOOST_ROOT=./boost ./boost/bjam -j8 toolset=${CC} variant=coverage
   - lcov --directory . --capture --output-file coverage.info # capture coverage info
@@ -118,7 +113,7 @@ after_success:
 
 after_failure:
   - bash -c "echo 'From .travis script: failed\!'"
-  
+
 notifications:
   email:
     on_success: change
