@@ -88,7 +88,6 @@ matrix:
       env:
         - MATRIX_EVAL="CC=clang-3.9 && CXX=clang++-3.9"
 
-    # works on Trusty
     - os: linux
       addons:
         apt:
@@ -100,7 +99,6 @@ matrix:
       env:
         - MATRIX_EVAL="CC=clang-4.0 && CXX=clang++-4.0"
 
-    # works on Trusty
     - os: linux
       addons:
         apt:
@@ -141,7 +139,8 @@ matrix:
         apt:
           sources:
             - ubuntu-toolchain-r-test
-            - llvm-toolchain-trusty-5.0
+            #- llvm-toolchain-trusty-5.0
+            - llvm-dev
           packages:
             - g++-7
             - clang-format #-5.0
