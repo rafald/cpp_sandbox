@@ -1,4 +1,5 @@
 # Build matrix / environment variable are explained on:
+# https://docs.travis-ci.com/user/languages/cpp/#C11-C%2B%2B11-(and-Beyond)-and-Toolchain-Versioning
 # http://about.travis-ci.org/docs/user/build-configuration/
 # This file can be validated on:
 # http://lint.travis-ci.org/
@@ -26,8 +27,8 @@ cache:
   - GSL
   - $HOME/.ccache
 
-# List of whitelisted in travis packages for ubuntu-precise can be found here:
-#   https://github.com/travis-ci/apt-package-whitelist/blob/master/ubuntu-precise
+# List of whitelisted in travis packages for ubuntu-trusty can be found here:
+#   https://github.com/travis-ci/apt-package-whitelist/blob/master/ubuntu-trusty
 # List of whitelisted in travis apt-sources:
 #   https://github.com/travis-ci/apt-source-whitelist/blob/master/ubuntu.json
 matrix:
@@ -51,9 +52,9 @@ matrix:
         apt:
           sources:
             - ubuntu-toolchain-r-test
-            - llvm-toolchain-precise-5.0
+            - llvm-toolchain-trusty-5.0
           packages:
-           - clang++-5.0
+           - clang-5.0
            - clang-format-5.0
            - clang-tidy-5.0
            - lcov
@@ -73,7 +74,7 @@ matrix:
         apt:
           sources:
             - ubuntu-toolchain-r-test
-            - llvm-toolchain-precise-5.0
+            - llvm-toolchain-trusty-5.0
           packages:
            - g++-7
            - clang-format-5.0
