@@ -50,8 +50,8 @@ matrix:
       addons: 
         apt: 
           packages: 
-           - clang++-3.8
-           - g++-6
+           - clang++-5.0
+           - g++-7
            - clang-format-3.8
            - clang-tidy-3.8
            - lcov
@@ -62,17 +62,17 @@ matrix:
            - gcovr
           sources: 
             - ubuntu-toolchain-r-test
-            - llvm-toolchain-precise-3.8
+            - llvm-toolchain-precise-5.0
       compiler: clang
       dist: trusty
-      env: CVER=3.8
+      env: CVER=5.0
       os: linux
       sudo: required
     - 
       addons: 
         apt: 
           packages: 
-           - g++-6
+           - g++-7
            - clang-format-3.8
            - clang-tidy-3.8
            - lcov
@@ -86,7 +86,7 @@ matrix:
             - llvm-toolchain-precise-3.8
       compiler: gcc
       dist: trusty
-      env: CVER=6
+      env: CVER=7
       os: linux
       sudo: required
       
