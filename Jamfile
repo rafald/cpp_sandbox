@@ -157,9 +157,14 @@ alias cpp17clang : : <toolset>msvc ;
 alias cpp17clang : : <toolset>gcc ; 
 alias cpp17clang : : <toolset>clang ; 
 
-#unit-test nested_ns : 17/nested_ns.cpp : ;
+# install install_main_$(project-name)i :
+explicit install_main_$(project-name) main_$(project-name) $(project-name).o ;
+
+compile 17/nested_ns.cpp ;
+explicit nested_ns ;
+
 unit-test cpp17tests : 
-  cpp17tests.cpp 17/lambda_utils.cpp 17/nested_ns.cpp
+  cpp17tests.cpp 17/lambda_utils.cpp #17/nested_ns.cpp
   #17/if_and_switch_Init.cpp 
   17/constexpr_if.cpp 
   # 17/clamp.cpp
