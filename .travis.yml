@@ -70,8 +70,8 @@ matrix:
             #- ubuntu-toolchain-r-test
           packages:
             - clang-3.8
-            - clang-format #-5.0
-            - clang-tidy #-5.0
+            - clang-format-5.0
+            - clang-tidy-5.0
             #- g++ #-7
       env:
         - MATRIX_EVAL="CC=clang-3.8 && CXX=clang++-3.8"
@@ -139,12 +139,12 @@ matrix:
         apt:
           sources:
             - ubuntu-toolchain-r-test
-            #- llvm-toolchain-trusty-5.0
-            - llvm-dev
+            - llvm-toolchain-trusty-5.0
           packages:
             - g++-7
-            - clang-format #-5.0
-            - clang-tidy #-5.0
+            #- clang-format #-5.0
+            #- clang-tidy #-5.0
+            - llvm-dev
       env:
         - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
 
