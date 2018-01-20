@@ -16,10 +16,11 @@ function full_clone() {
 #    git submodule update
     git submodule update --init --recursive
 }
+    
+UCFILE=./tools/build/src/user-config.jam
 
 # $1: version of compiler
 function create_user_config() {
-    UCFILE=./tools/build/src/user-config.jam
     # parse version and generic compiler name from gcc-6 /CC string/
     #string="abc@hotmail.com;xyz@gmail.com;uvw@yahoo.com"
     #str1=${string%%;*}
@@ -52,6 +53,8 @@ function partial_clone() {
     git clone --depth 1 --branch $1 https://github.com/boostorg/build.git tools/build
     git clone --depth 1 --branch $1 https://github.com/boostorg/inspect.git tools/inspect
 }
+ls -l /usr/bin/g++-*
+ls -l /usr/bin/clang++-*
 ls -l /usr/bin/${CC}*
 if [ ! -d ${3}/.git ] ; then
     git clone --depth 1 --branch $1 $2 $3
@@ -72,6 +75,7 @@ if [ ! -d ${3}/.git ] ; then
     popd
 else
     echo "$3 dir already present"
+    cat ${UCFILE}
 fi
 
 if [ ! -d EIGEN/.hg ] ; then

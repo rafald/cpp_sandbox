@@ -146,7 +146,7 @@ alias test_auto_cpp17     : : <toolset>clang ;
 #TODO run test_GSL.cpp test_GSL_bounds.cpp test_GSL_span.cpp ;
 unit-test test_GSL : test_GSL.cpp                     : <toolset>msvc ;
 unit-test test_GSL : test_GSL.cpp test_GSL_bounds.cpp : <toolset>gcc ;
-unit-test test_GSL : test_GSL.cpp test_GSL_bounds.cpp : <toolset>clang ;
+unit-test test_GSL : test_GSL.cpp test_GSL_bounds.cpp : <toolset>clang ; # TODO fails in clang-5 case
 
 # run accepts multiply modules, the first one is the name of the target
 run   ret_mult_values.cpp : : : <toolset>gcc-6 ;
@@ -156,6 +156,7 @@ alias ret_mult_values     : : <toolset>msvc ;
 
 #unit-test cpp17clang :  cpp17tests.cpp                            : <toolset>clang-3.8 ;
 alias     cpp17clang :                                            : <toolset>clang-3.8 ;
+alias     cpp17clang :                                            : <toolset>clang-3.9 ;
 unit-test cpp17clang :  cpp17tests.cpp 17/structured_bindings.cpp : <toolset>clang ;
 alias     cpp17clang :                                            : <toolset>msvc ;
 alias     cpp17clang :                                            : <toolset>gcc ;
