@@ -74,7 +74,7 @@ matrix:
             - cmake-data
             - libopenmpi-dev
             - gcovr
-            - g++-5 #-7 # ???
+            - g++-5
       env:
         - MATRIX_EVAL="CC=clang-3.8 && CXX=clang++-3.8"
 
@@ -95,7 +95,7 @@ matrix:
         apt:
           sources:
             - llvm-toolchain-trusty-4.0
-            #- ubuntu-toolchain-r-test
+            - ubuntu-toolchain-r-test
           packages: [ "clang-4.0",
                       "g++-5", "llvm-dev", "lcov", "valgrind", "cmake", "cmake-data", "libopenmpi-dev", "gcovr"]
       env:
@@ -106,7 +106,7 @@ matrix:
         apt:
           sources:
             - llvm-toolchain-trusty-5.0
-            #- ubuntu-toolchain-r-test
+            - ubuntu-toolchain-r-test
           packages: [ "clang-5.0",
                       "g++-5", "llvm-dev", "lcov", "valgrind", "cmake", "cmake-data", "libopenmpi-dev", "gcovr"]
       env:
