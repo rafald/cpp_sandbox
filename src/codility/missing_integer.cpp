@@ -1,8 +1,13 @@
 // https://app.codility.com/programmers/lessons/4-counting_elements/missing_integer/start/
-//
+// https://www.geeksforgeeks.org/find-the-smallest-positive-number-missing-from-an-unsorted-array/
 
 #include <vector>
 #include <algorithm> // partition iter_swap
+
+//std::abs
+#include <cstdlib>
+//(since C++17)
+#include <cmath>
 
 int solution(std::vector<int> &A) {
    // reject nonpositive values
@@ -17,7 +22,7 @@ int solution(std::vector<int> &A) {
    {
        // possible values start from 1, not 0 /range is shifted/
        // offset by -1 for all following calculations so mutation applies to the relevant index
-       auto const idx = abs(*b)-1;
+       auto const idx = std::abs(*b)-1;
        if(idx < size) {
           A[idx] = - abs(A[idx]);
        }
