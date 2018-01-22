@@ -68,8 +68,7 @@ matrix:
     - os: osx
       osx_image: xcode8 #xcode9.1
       env:
-        - MATRIX_EVAL="brew install gcc7 && CC=gcc-7 && CXX=g++-7"
-          #- MATRIX_EVAL="brew install gcc && CC=gcc-7 && CXX=g++-7"
+        - MATRIX_EVAL="brew install gcc && CC=gcc-7 && CXX=g++-7"
 
     - os: linux #compiler: clang
       addons:
