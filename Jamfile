@@ -151,6 +151,7 @@ unit-test test_GSL : test_GSL.cpp test_GSL_bounds.cpp : <toolset>clang ; # TODO 
 # run accepts multiply modules, the first one is the name of the target
 run   ret_mult_values.cpp : : : <toolset>gcc-6 ;
 run   ret_mult_values.cpp : : : <toolset>gcc-7 ;
+alias ret_mult_values     : : <toolset>gcc ;
 alias ret_mult_values     : : <toolset>clang ;
 alias ret_mult_values     : : <toolset>msvc ;
 
