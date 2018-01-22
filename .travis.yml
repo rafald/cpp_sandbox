@@ -56,17 +56,17 @@ matrix:
       #Target: x86_64-apple-darwin16.7.0
 
     - os: osx # compiler: gcc
-      osx_image: xcode8 #xcode9.1
+      osx_image: xcode8.3 #xcode9.1
       env:
         - MATRIX_EVAL="HOMEBREW_NO_AUTO_UPDATE=1 brew install gcc5 && CC=gcc-5 && CXX=g++-5"
 
     - os: osx
-      osx_image: xcode8 #xcode9.1
+      osx_image: xcode8.3 #xcode9.1
       env:
         - MATRIX_EVAL="brew update && brew install gcc6 && CC=gcc-6 && CXX=g++-6"
 
     - os: osx
-      osx_image: xcode8 #xcode9.1
+      osx_image: xcode8.3 #xcode9.1
       env:
         - MATRIX_EVAL="brew install gcc && CC=gcc-7 && CXX=g++-7"
 
